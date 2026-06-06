@@ -1,0 +1,309 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  background: #f8f6f3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  background: #f8f6f3;
+  color: #1a1a2e;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+main {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-heading {
+  font-family: Poppins, Inter, system-ui, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg,
+video,
+canvas,
+iframe {
+  max-width: 100%;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+button,
+a[href],
+summary,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  min-width: 44px;
+  min-height: 44px;
+  touch-action: manipulation;
+}
+
+a[href],
+summary {
+  align-items: center;
+}
+
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  padding: 12px 24px;
+}
+
+input,
+select,
+textarea {
+  min-height: 44px;
+  font-size: 16px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #e86c2f;
+  box-shadow: 0 0 0 3px rgb(232 108 47 / 0.18);
+}
+
+.fade-in {
+  animation: fadeIn 520ms ease both;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 640ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 640ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.motion-card {
+  transition:
+    transform 200ms ease-in-out,
+    box-shadow 200ms ease-in-out,
+    border-color 200ms ease-in-out,
+    background-color 200ms ease-in-out;
+}
+
+.dot-grid {
+  background-image: radial-gradient(rgba(26, 26, 46, 0.11) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.dark-pattern {
+  background-image:
+    radial-gradient(rgba(232, 108, 47, 0.16) 1px, transparent 1px),
+    linear-gradient(135deg, #1a1a2e 0%, #111124 100%);
+  background-size: 24px 24px, auto;
+}
+
+.gradient-pattern {
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.22) 1px, transparent 1px),
+    linear-gradient(90deg, #e86c2f 0%, #f59e0b 100%);
+  background-size: 20px 20px, auto;
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  position: absolute;
+  right: 0;
+  bottom: -8px;
+  left: 0;
+  height: 2px;
+  content: "";
+  background: #e86c2f;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms ease;
+}
+
+.nav-link:hover::after,
+.nav-link.is-active::after {
+  transform: scaleX(1);
+}
+
+.dashboard-panel {
+  transform-origin: center;
+}
+
+.dashboard-line {
+  stroke-dasharray: 420;
+  stroke-dashoffset: 420;
+  animation: drawDashboardLine 1100ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.dashboard-line-secondary {
+  animation-delay: 180ms;
+}
+
+.dashboard-panel .motion-card {
+  animation: dashboardStatIn 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(520ms + (var(--card-index, 0) * 90ms));
+}
+
+.full-bleed {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  width: 100%;
+  max-width: 100%;
+  margin-left: -50%;
+  margin-right: -50%;
+}
+
+.site-container {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .site-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (max-width: 639px) {
+  header a,
+  header button,
+  nav a,
+  nav button {
+    min-height: 48px;
+  }
+
+  footer a {
+    display: flex;
+    min-height: 44px;
+    align-items: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .reveal {
+    transform: translateY(30px);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .motion-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 60px rgb(26 26 46 / 0.14);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes drawDashboardLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes dashboardStatIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
