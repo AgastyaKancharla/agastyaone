@@ -2,9 +2,7 @@
 
 import { useState } from 'react';
 
-const businessTypes = ['Restaurant', 'Cloud Kitchen', 'Dental Clinic', 'Other'];
-const neighbourhoods = ['Koramangala', 'Indiranagar', 'Jayanagar', 'HSR Layout', 'Whitefield', 'Other'];
-const callTimes = ['Morning', 'Afternoon', 'Evening'];
+const businessTypes = ['Dental Clinic', 'Restaurant', 'Cloud Kitchen', 'Other'];
 
 export function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -37,27 +35,20 @@ export function ContactForm() {
 
   return (
     <form onSubmit={onSubmit} className="motion-card grid gap-4 rounded-brand bg-white p-6 shadow-card">
-      <Field label="Your Name" name="Name" required />
-      <Field label="Your Business Name" name="Business Name" required />
-      <Select label="Business Type" name="Business Type" options={businessTypes} />
-      <Select label="Your Neighbourhood in Bangalore" name="Neighbourhood" options={neighbourhoods} />
+      <Field
+        label="Your Name"
+        name="Name"
+        placeholder="e.g. Dr. Ramesh or Priya from Spice Garden"
+        required
+      />
       <Field
         label="Your WhatsApp Number"
         name="WhatsApp Number"
         type="tel"
-        placeholder="We will confirm your booking on WhatsApp within 2 hours"
+        placeholder="We will confirm your call on WhatsApp within 2 hours"
         required
       />
-      <label className="grid gap-2">
-        <span className="font-heading text-sm font-medium">What is your biggest challenge right now?</span>
-        <textarea
-          name="Challenge Description"
-          required
-          rows={4}
-          className="rounded-brand border border-black/10 bg-warm px-4 py-3 outline-none focus:border-saffron"
-        />
-      </label>
-      <Select label="Preferred call time" name="Preferred Call Time" options={callTimes} />
+      <Select label="Business Type" name="Business Type" options={businessTypes} />
       <button
         type="submit"
         disabled={status === 'loading'}
@@ -67,12 +58,12 @@ export function ContactForm() {
       </button>
       {status === 'success' && (
         <p className="rounded-brand bg-green-50 p-4 text-sm font-medium text-green-800">
-          Hi, thanks for booking a call with AgastyaOne. We will confirm your call time on WhatsApp within 2 hours.
+          Done! We will WhatsApp you within 2 hours to confirm your call time.
         </p>
       )}
       {status === 'error' && (
         <p className="rounded-brand bg-red-50 p-4 text-sm font-medium text-red-800">
-          Something went wrong. Please message hello@agastyaone.com and we will help you book the call.
+          Something went wrong. WhatsApp us directly at +91 83284 43057 and we will book your call.
         </p>
       )}
     </form>
