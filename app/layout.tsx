@@ -3,22 +3,40 @@ import './globals.css';
 import { Footer } from '@/components/Footer';
 import { GlobalActions } from '@/components/GlobalActions';
 import { Header } from '@/components/Header';
+import Script from 'next/script';
+
+const GA_ID = 'G-XXXXXXXXXX'; // Replace with your GA4 Measurement ID
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://agastyaone.com'),
   title: {
-    default: 'AgastyaOne | Restaurant and Dental Digital Solutions in Bangalore',
+    default: 'AgastyaOne | Dental & Restaurant Tech in Bengaluru',
     template: '%s'
   },
   description:
-    'Websites, CRM, SEO and automation for restaurants and dental clinics in Bangalore.',
+    'Websites, CRM, SEO and automation for dental clinics and restaurants in Bengaluru. Built by someone who has run real businesses. Book a free 30 min call.',
   openGraph: {
     type: 'website',
     siteName: 'AgastyaOne',
-    images: ['/og-image.png']
+    title: 'AgastyaOne | Dental & Restaurant Tech in Bengaluru',
+    description:
+      'Websites, CRM, SEO and automation for dental clinics and restaurants in Bengaluru. Built by someone who has run real businesses.',
+    url: 'https://agastyaone.com',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'AgastyaOne — Dental & Restaurant Tech in Bengaluru'
+      }
+    ]
   },
   twitter: {
-    card: 'summary_large_image'
+    card: 'summary_large_image',
+    title: 'AgastyaOne | Dental & Restaurant Tech in Bengaluru',
+    description:
+      'Websites, CRM, SEO and automation for dental clinics and restaurants in Bengaluru.',
+    images: ['/og-image.png']
   }
 };
 
@@ -26,7 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-      <meta name="google-site-verification" content="W05c83XlGJch8hKnLcEltxSbYEgYAcSBtuE29jGqjNs" />
+        <meta name="google-site-verification" content="W05c83XlGJch8hKnLcEltxSbYEgYAcSBtuE29jGqjNs" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
@@ -40,16 +58,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@context': 'https://schema.org',
               '@type': 'LocalBusiness',
               name: 'AgastyaOne',
-              description: 'Restaurant and dental digital solutions in Bengaluru — websites, CRM, SEO and automation',
+              description: 'Dental and restaurant digital solutions in Bengaluru — websites, CRM, SEO and automation',
               url: 'https://agastyaone.com',
               email: 'hello@agastyaone.com',
-              telephone: '+91-XXXXXXXXXX',
+              telephone: '+91-8328443057',
               address: {
                 '@type': 'PostalAddress',
-                streetAddress: 'Kumaraswamy Layout',
+                streetAddress: 'Nayak Layout, 8th Phase, J. P. Nagar',
                 addressLocality: 'Bengaluru',
                 addressRegion: 'Karnataka',
-                postalCode: '560078',
+                postalCode: '560076',
                 addressCountry: 'IN'
               },
               geo: {
@@ -63,6 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 'Jayanagar',
                 'HSR Layout',
                 'Whitefield',
+                'J. P. Nagar',
                 'Bengaluru'
               ],
               sameAs: ['https://agastyaone.com']
@@ -75,6 +94,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <Footer />
         <GlobalActions />
+
+        {/* Google Analytics GA4 */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ID}');
+          `}
+        </Script>
       </body>
     </html>
   );
