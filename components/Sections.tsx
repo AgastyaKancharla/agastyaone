@@ -238,7 +238,7 @@ export function CardGrid({ cards }: { cards: TextBlock[] }) {
                   </Link>
                 ))
               ) : (
-                <Link href="/contact" className="inline-flex items-center gap-2 text-sm font-semibold text-saffron">
+                <Link href="/contact" className="inline-flex items-center gap-2 text-sm font-semibold text-saffron" aria-label={card.title ? `Learn more about ${card.title}` : 'Learn more'}>
                   Learn More <ArrowRight size={16} />
                 </Link>
               )}
