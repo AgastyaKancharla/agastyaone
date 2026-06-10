@@ -5,7 +5,7 @@ import { GlobalActions } from '@/components/GlobalActions';
 import { Header } from '@/components/Header';
 import Script from 'next/script';
 
-const GA_ID = 'G-XXXXXXXXXX'; // Replace with your GA4 Measurement ID
+const GA_ID = 'G-541227762';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://agastyaone.com'),
