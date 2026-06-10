@@ -67,7 +67,7 @@ export function Footer() {
           />
         </Reveal>
       </div>
-      <div className="site-container border-t border-white/10 py-5 text-center text-sm text-white/40">
+      <div className="site-container border-t border-white/10 py-5 text-center text-sm text-white/70">
         © 2026 AgastyaOne | hello@agastyaone.com | {NAP_ADDRESS} | {NAP_PHONE}
       </div>
     </footer>
