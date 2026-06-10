@@ -295,33 +295,6 @@ export const homePage = page(
 
 export const pages: SitePage[] = [
   page(
-    'restaurant-solutions',
-    'Restaurant Digital Solutions Bangalore | AgastyaOne',
-    'Complete digital solutions for restaurants in Bangalore. Websites, CRM, SEO, WhatsApp marketing and loyalty programs built for Bengaluru food businesses.',
-    'Complete Digital Solutions for Restaurants and Food Businesses in Bengaluru',
-    'From your website to your CRM to your WhatsApp automation — we build everything your restaurant needs to get more customers and keep them coming back',
-    {
-      trust: ['Bengaluru Based', 'Built By Someone Who Has Run a Cloud Kitchen', 'Restaurant Technology Specialists', 'Real Results For Real Restaurants'],
-      intro: [
-        {
-          title: 'Running a Restaurant in Bengaluru Is Hard Enough',
-          body:
-            'You are managing staff, handling orders, dealing with food costs and trying to keep customers happy. Bengaluru’s food scene is fiercely competitive, and the restaurants winning right now are the ones with better websites, better customer retention and better visibility on Google.'
-        },
-        {
-          title: 'We Have Sat in Your Chair',
-          body:
-            'AgastyaOne was built by someone who has actually run a cloud kitchen in Bengaluru. Every restaurant solution we build is practical, affordable and built for how restaurants actually work.',
-          items: ['We understand restaurant operations', 'We know Bengaluru’s food market', 'We are with you after launch']
-        }
-      ],
-      offerTitle: 'Everything Your Restaurant Needs in One Place',
-      offers: offerCards(restaurantOffers),
-      steps: ['Book a Free Call — Tell us about your restaurant and your goals', 'We Build Your Plan — A clear roadmap of what we will build and when', 'We Launch Fast — Professional execution without the agency drama', 'Your Restaurant Grows — More customers, more orders, more repeat visits'],
-      internalLinks: [{ label: 'Restaurant Solutions Bangalore', href: '/restaurant-solutions-bangalore' }, ...restaurantLinks]
-    }
-  ),
-  page(
     'dental-solutions',
     'Dental Digital Solutions Bangalore | AgastyaOne',
     'Complete digital solutions for dental clinics in Bangalore. Websites, CRM, SEO and practice automation built for Bengaluru dental practices.',
@@ -594,4 +567,31 @@ export function getLocationContent(page: SitePage) {
       }
     ]
   };
-}
+}  page(
+    'restaurant-solutions',
+    'Restaurant Digital Solutions Bangalore | AgastyaOne',
+    'Complete digital solutions for restaurants in Bangalore. Websites, CRM, SEO, WhatsApp marketing and loyalty programs built for Bengaluru food businesses.',
+    'Complete Digital Solutions for Restaurants and Food Businesses in Bengaluru',
+    'From your website to your CRM to your WhatsApp automation — we build everything your restaurant needs to get more customers and keep them coming back',
+    {
+      trust: ['Bengaluru Based', 'Built By Someone Who Has Run a Cloud Kitchen', 'Restaurant Technology Specialists', 'Real Results For Real Restaurants'],
+      intro: [
+        {
+          title: 'Running a Restaurant in Bengaluru Is Hard Enough',
+          body:
+            'You are managing staff, handling orders, dealing with food costs and trying to keep customers happy. Bengaluru’s food scene is fiercely competitive, and the restaurants winning right now are the ones with better websites, better customer retention and better visibility on Google.'
+        },
+        {
+          title: 'We Have Sat in Your Chair',
+          body:
+            'AgastyaOne was built by someone who has actually run a cloud kitchen in Bengaluru. Every restaurant solution we build is practical, affordable and built for how restaurants actually work.',
+          items: ['We understand restaurant operations', 'We know Bengaluru’s food market', 'We are with you after launch']
+        }
+      ],
+      offerTitle: 'Everything Your Restaurant Needs in One Place',
+      offers: offerCards(restaurantOffers),
+      steps: ['Book a Free Call — Tell us about your restaurant and your goals', 'We Build Your Plan — A clear roadmap of what we will build and when', 'We Launch Fast — Professional execution without the agency drama', 'Your Restaurant Grows — More customers, more orders, more repeat visits'],
+      internalLinks: [{ label: 'Restaurant Solutions Bangalore', href: '/restaurant-solutions-bangalore' }, ...restaurantLinks]
+    }
+  ),
+
