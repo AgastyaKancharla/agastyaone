@@ -2,6 +2,15 @@ import Link from 'next/link';
 import { Facebook, Instagram, Linkedin } from 'lucide-react';
 import { Reveal } from './Reveal';
 
+const dentalLinks = [
+  ['Dental CRM', '/dental-crm-software'],
+  ['Dental Websites', '/dental-website-development'],
+  ['Dental SEO', '/dental-seo-services'],
+  ['Appointment Software', '/dentist-appointment-software'],
+  ['Dental Marketing', '/dental-marketing-services'],
+  ['Practice Automation', '/dental-practice-automation']
+];
+
 const restaurantLinks = [
   ['Restaurant CRM', '/restaurant-crm-software'],
   ['Restaurant Websites', '/restaurant-website-development'],
@@ -11,14 +20,9 @@ const restaurantLinks = [
   ['WhatsApp Marketing', '/restaurant-whatsapp-marketing']
 ];
 
-const dentalLinks = [
-  ['Dental CRM', '/dental-crm-software'],
-  ['Dental Websites', '/dental-website-development'],
-  ['Dental SEO', '/dental-seo-services'],
-  ['Appointment Software', '/dentist-appointment-software'],
-  ['Dental Marketing', '/dental-marketing-services'],
-  ['Practice Automation', '/dental-practice-automation']
-];
+const NAP_ADDRESS = 'Nayak Layout, 8th Phase, J. P. Nagar, Bengaluru, Karnataka 560076';
+const NAP_PHONE = '+91 83284 43057';
+const NAP_PHONE_HREF = 'tel:+918328443057';
 
 export function Footer() {
   return (
@@ -30,9 +34,14 @@ export function Footer() {
             Agastya<span className="text-saffron">One</span>
           </div>
           <p className="mt-4 text-sm leading-6 text-white/60">
-            Restaurant and dental digital solutions built in Bengaluru.
+            Dental and restaurant digital solutions built in Bengaluru.
           </p>
-          <p className="mt-4 text-sm text-white/60">Kumaraswamy Layout, Bengaluru 560078</p>
+          <address className="mt-4 not-italic text-sm leading-6 text-white/60">
+            {NAP_ADDRESS}
+          </address>
+          <a href={NAP_PHONE_HREF} className="mt-2 block text-sm text-white/60 hover:text-white transition">
+            {NAP_PHONE}
+          </a>
           <div className="mt-5 flex gap-3">
             {[Instagram, Linkedin, Facebook].map((Icon, index) => (
               <span key={index} className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/60">
@@ -42,10 +51,10 @@ export function Footer() {
           </div>
         </Reveal>
         <Reveal delay={80}>
-          <FooterColumn title="Restaurant Solutions" links={restaurantLinks} />
+          <FooterColumn title="Dental Solutions" links={dentalLinks} />
         </Reveal>
         <Reveal delay={160}>
-          <FooterColumn title="Dental Solutions" links={dentalLinks} />
+          <FooterColumn title="Restaurant Solutions" links={restaurantLinks} />
         </Reveal>
         <Reveal delay={240}>
           <FooterColumn
@@ -59,7 +68,7 @@ export function Footer() {
         </Reveal>
       </div>
       <div className="site-container border-t border-white/10 py-5 text-center text-sm text-white/40">
-        © 2026 AgastyaOne | hello@agastyaone.com | Kumaraswamy Layout, Bengaluru 560078
+        © 2026 AgastyaOne | hello@agastyaone.com | {NAP_ADDRESS} | {NAP_PHONE}
       </div>
     </footer>
   );
