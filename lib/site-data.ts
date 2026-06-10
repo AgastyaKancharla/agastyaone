@@ -248,9 +248,9 @@ function page(
 
 export const homePage = page(
   '',
-  'AgastyaOne | Restaurant and Dental Digital Solutions in Bangalore',
-  'Websites, CRM, SEO and automation for restaurants and dental clinics in Bangalore. Built by someone who has run real businesses. Book a free 30 min call.',
-  'We Help Restaurants and Dental Clinics in Bengaluru Grow With Technology That Actually Works',
+  'AgastyaOne | Dental and Restaurant Digital Solutions in Bangalore',
+  'Websites, CRM, SEO and automation for dental clinics and restaurants in Bangalore. Built by someone who has run real businesses. Book a free 30 min call.',
+  'We Help Dental Clinics and Restaurants in Bengaluru Grow With Technology That Actually Works',
   'Websites, CRM software, automation and SEO — built by someone who has run real businesses, not just read about them',
   {
     secondaryLabel: 'See Our Work',
@@ -258,16 +258,16 @@ export const homePage = page(
     ],
     intro: [
       {
-        title: 'Restaurants & Food Businesses',
-        body:
-          'From cloud kitchens to full service restaurants — we understand your operations, your customers and what it takes to grow in Bengaluru’s competitive food scene.',
-        links: [{ label: 'Explore Restaurant Solutions', href: '/restaurant-solutions' }]
-      },
-      {
         title: 'Dental Clinics',
         body:
           'From solo practitioners to multi-chair clinics — we help you get found online, fill appointments and keep patients coming back.',
         links: [{ label: 'Explore Dental Solutions', href: '/dental-solutions' }]
+      },
+      {
+        title: 'Restaurants & Food Businesses',
+        body:
+          'From cloud kitchens to full service restaurants — we understand your operations, your customers and what it takes to grow in Bengaluru’s competitive food scene.',
+        links: [{ label: 'Explore Restaurant Solutions', href: '/restaurant-solutions' }]
       }
     ],
     offerTitle: 'Everything Your Business Needs to Grow Online',
@@ -286,8 +286,8 @@ export const homePage = page(
       'You Grow — We track results and keep improving with you'
     ],
     internalLinks: [
-      { label: 'Restaurant Solutions', href: '/restaurant-solutions' },
-      { label: 'Dental Solutions', href: '/dental-solutions' }
+      { label: 'Dental Solutions', href: '/dental-solutions' },
+      { label: 'Restaurant Solutions', href: '/restaurant-solutions' }
     ],
     parent: ''
   }
@@ -509,14 +509,14 @@ export const pages: SitePage[] = [
     faq: [{ q: 'How long to build?', a: '7 to 14 days.' }, { q: 'My clinic is newly opened. Is it too early?', a: 'The opposite. A new clinic needs a strong website from day one.' }],
     internalLinks: [{ label: 'Dental Website Development', href: '/dental-website-development' }, { label: 'Dental Solutions Bangalore', href: '/dental-solutions-bangalore' }]
   }),
-  page('about', 'About AgastyaOne | Bengaluru Restaurant and Dental Digital Solutions', 'AgastyaOne is a Bengaluru based digital solutions company built by an entrepreneur who has run a cloud kitchen, built WeValue restaurant CRM and served businesses across Koramangala, Indiranagar and Jayanagar.', 'Built By an Entrepreneur. For Entrepreneurs.', 'AgastyaOne exists because I could not find a technology partner who actually understood what it means to run a business. So I became one.', {
+  page('about', 'About AgastyaOne | Bengaluru Dental and Restaurant Digital Solutions', 'AgastyaOne is a Bengaluru based digital solutions company built by an entrepreneur who has built a dental leads management system, run a cloud kitchen and served businesses across Koramangala, Indiranagar and Jayanagar.', 'Built By an Entrepreneur. For Entrepreneurs.', 'AgastyaOne exists because I could not find a technology partner who actually understood what it means to run a business. So I became one.', {
     intro: [
-      { title: 'The Person Behind AgastyaOne', body: 'My name is Agastya. I am based in Bengaluru and have spent the last several years doing something most digital agency founders have never done: actually running real businesses. I have run a cloud kitchen, built WeValue and built a dental leads management system for real operations.' },
+      { title: 'The Person Behind AgastyaOne', body: 'My name is Agastya. I am based in Bengaluru and have spent the last several years doing something most digital agency founders have never done: actually running real businesses. I have built a dental leads management system, run a cloud kitchen and built WeValue for real operations.' },
       { title: 'The Problem We Set Out to Solve', body: 'Most digital agencies build things that look good in a portfolio and disappear when the invoice is paid. AgastyaOne was built to be the opposite: a growth partner, not a vendor.' },
       { title: 'What We Believe', items: ['Real Experience Over Theory', 'Results Over Aesthetics', 'Simple Over Complicated', 'Transparency Over Promises', 'Long Term Over Transactional'] },
-      { title: 'The Numbers', items: ['2 Websites Built and Live For Bengaluru Businesses', '1 Restaurant CRM Built and Deployed — WeValue', '5 Bengaluru Neighbourhoods Served', '1 Cloud Kitchen Operated', '100% Bengaluru Focused'] }
+      { title: 'The Numbers', items: ['Dental Leads CRM Built and Live', '8+ Dental Clinic Demo Websites Built', '2 Websites Live For Bengaluru Businesses', '1 Restaurant CRM Built and Deployed — WeValue', '5 Bengaluru Neighbourhoods Served', '100% Bengaluru Focused'] }
     ],
-    internalLinks: [{ label: 'Restaurant Solutions', href: '/restaurant-solutions' }, { label: 'Dental Solutions', href: '/dental-solutions' }]
+    internalLinks: [{ label: 'Dental Solutions', href: '/dental-solutions' }, { label: 'Restaurant Solutions', href: '/restaurant-solutions' }]
   })
 ];
 
@@ -531,7 +531,7 @@ export function localBusinessSchema() {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: 'AgastyaOne',
-    description: 'Restaurant and dental digital solutions in Bengaluru - websites, CRM, SEO and automation',
+    description: 'Dental and restaurant digital solutions in Bengaluru - websites, CRM, SEO and automation',
     url: 'https://agastyaone.com',
     email: 'hello@agastyaone.com',
     address: {
