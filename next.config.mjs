@@ -8,3 +8,4 @@ export default withMDX({
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   trailingSlash: false
 });
+
