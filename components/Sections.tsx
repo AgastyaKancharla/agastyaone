@@ -86,7 +86,7 @@ export function Hero({
   ctas: LinkItem[];
   imageAlt: string;
 }) {
-  const highlightedTitle = title.split('Restaurants and Dental Clinics');
+  const highlightedTitle = title.split('Dental Clinics and Restaurants');
 
   return (
     <section className="full-bleed overflow-hidden bg-gradient-to-br from-[#F8F6F3] to-white">
@@ -101,7 +101,7 @@ export function Hero({
               <>
                 {highlightedTitle[0]}
                 <span className="bg-gradient-to-r from-[#E86C2F] to-[#f59e0b] bg-clip-text text-transparent">
-                  Restaurants and Dental Clinics
+                  Dental Clinics and Restaurants
                 </span>
                 {highlightedTitle[1]}
               </>
