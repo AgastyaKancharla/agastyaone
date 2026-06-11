@@ -6,8 +6,5 @@ const withMDX = createMDX({
 
 export default withMDX({
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
-  trailingSlash: false,
-  experimental: {
-    browsersListForSwc: true
-  }
+  trailingSlash: false
 });
