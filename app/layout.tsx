@@ -10,32 +10,32 @@ const GA_ID = 'G-541227762';
 export const metadata: Metadata = {
   metadataBase: new URL('https://agastyaone.com'),
   title: {
-    default: 'AgastyaOne | Dental & Restaurant Tech in Bengaluru',
+    default: 'AgastyaOne | Dental Digital Solutions in Bengaluru',
     template: '%s'
   },
   description:
-    'Websites, CRM, SEO and automation for dental clinics and restaurants in Bengaluru. Built by someone who has run real businesses. Book a free 30 min call.',
+    'Websites, CRM, SEO and automation for dental clinics in Bengaluru. Built by someone who has built real dental systems. Book a free 30 min call.',
   openGraph: {
     type: 'website',
     siteName: 'AgastyaOne',
-    title: 'AgastyaOne | Dental & Restaurant Tech in Bengaluru',
+    title: 'AgastyaOne | Dental Digital Solutions in Bengaluru',
     description:
-      'Websites, CRM, SEO and automation for dental clinics and restaurants in Bengaluru. Built by someone who has run real businesses.',
+      'Websites, CRM, SEO and automation for dental clinics in Bengaluru. Built by someone who has built real dental systems.',
     url: 'https://agastyaone.com',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'AgastyaOne — Dental & Restaurant Tech in Bengaluru'
+        alt: 'AgastyaOne — Dental Digital Solutions in Bengaluru'
       }
     ]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AgastyaOne | Dental & Restaurant Tech in Bengaluru',
+    title: 'AgastyaOne | Dental Digital Solutions in Bengaluru',
     description:
-      'Websites, CRM, SEO and automation for dental clinics and restaurants in Bengaluru.',
+      'Websites, CRM, SEO and automation for dental clinics in Bengaluru.',
     images: ['/og-image.png']
   }
 };
@@ -62,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@context': 'https://schema.org',
               '@type': 'LocalBusiness',
               name: 'AgastyaOne',
-              description: 'Dental and restaurant digital solutions in Bengaluru — websites, CRM, SEO and automation',
+              description: 'Dental digital solutions in Bengaluru — websites, CRM, SEO and automation for dental clinics',
               url: 'https://agastyaone.com',
               email: 'hello@agastyaone.com',
               telephone: '+91-8328443057',

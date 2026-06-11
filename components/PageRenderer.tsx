@@ -31,14 +31,14 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
       )}
       {page.slug === '' && (
         <>
-          <Section title="Why AgastyaOne" body="A practical growth partner for restaurants and clinics that need systems, not agency theatre." tint>
+          <Section title="Why AgastyaOne" body="A specialist growth partner for dental clinics that need real systems, not agency theatre." tint>
             <div className="grid items-center gap-10 lg:grid-cols-[1fr_.9fr]">
               <div>
                 <h3 className="font-heading text-3xl font-bold text-[#1A1A2E] md:text-5xl">
                   Built By an Entrepreneur. For Entrepreneurs.
                 </h3>
                 <p className="mt-5 text-base leading-7 text-gray-600">
-                  Most agencies have never run a business. AgastyaOne builds from lived operator experience: a cloud kitchen, WeValue restaurant CRM, and dental lead systems used in real sales pipelines.
+                  Most agencies have never sat with a clinic owner. AgastyaOne builds from lived dental industry experience: a dental leads CRM built from scratch and systems used in real clinic pipelines.
                 </p>
                 <CheckpointList
                   items={[

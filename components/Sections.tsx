@@ -31,7 +31,6 @@ const serviceIcons: Record<string, string> = {
 function pillForTitle(title?: string, eyebrow?: string) {
   if (eyebrow) return eyebrow;
   if (!title) return '✨ AgastyaOne';
-  if (title.includes('Restaurant')) return '🍽️ For Restaurants';
   if (title.includes('Dental') || title.includes('Clinic')) return '🦷 For Dental Clinics';
   if (title.includes('Offer') || title.includes('Need')) return '✨ Services';
   if (title.includes('Simple') || title.includes('Started')) return '⚡ How It Works';
@@ -86,7 +85,7 @@ export function Hero({
   ctas: LinkItem[];
   imageAlt: string;
 }) {
-  const highlightedTitle = title.split('Dental Clinics and Restaurants');
+  const highlightedTitle = title.split('Dental Clinics');
 
   return (
     <section className="full-bleed overflow-hidden bg-gradient-to-br from-[#F8F6F3] to-white">
@@ -101,7 +100,7 @@ export function Hero({
               <>
                 {highlightedTitle[0]}
                 <span className="bg-gradient-to-r from-[#E86C2F] to-[#f59e0b] bg-clip-text text-transparent">
-                  Dental Clinics and Restaurants
+                  Dental Clinics
                 </span>
                 {highlightedTitle[1]}
               </>
@@ -254,11 +253,11 @@ export function TextSections({ sections }: { sections: TextBlock[] }) {
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       {sections.map((section, index) => {
-        const isAudienceCard = section.title === 'Restaurants & Food Businesses' || section.title === 'Dental Clinics';
+        const isAudienceCard = section.title === 'Dental Clinics';
         return (
           <Reveal key={`${section.title}-${index}`} delay={index * 90}>
             <article className={`motion-card h-full rounded-2xl p-8 ${isAudienceCard ? 'border border-white/20 bg-white/10 text-white backdrop-blur' : 'border border-gray-100 bg-white shadow-card'}`}>
-              {isAudienceCard && <div className="mb-5 text-5xl">{section.title?.includes('Dental') ? '🦷' : '🍽️'}</div>}
+              {isAudienceCard && <div className="mb-5 text-5xl">🦷</div>}
               {section.title && <h2 className={`font-heading text-xl font-semibold ${isAudienceCard ? 'text-white' : 'text-[#1A1A2E]'}`}>{section.title}</h2>}
               {section.body && <p className={`mt-4 whitespace-pre-line text-base leading-7 ${isAudienceCard ? 'text-white/70' : 'text-gray-600'}`}>{section.body}</p>}
               {section.items && (
@@ -432,9 +431,9 @@ export function FounderCard() {
         <div>
           <div className="font-heading text-6xl font-black leading-none text-saffron">&quot;</div>
           <p className="whitespace-pre-line text-base leading-7 text-white/80">
-            I am Agastya. I have run a cloud kitchen, built WeValue - a restaurant CRM - and sold digital solutions to clinics and restaurants across Bengaluru.
+            I am Agastya. I have built a dental leads management system from scratch, worked with clinic owners across Bengaluru and sold digital solutions to dental practices across the city.
 
-            I started AgastyaOne because every agency I encountered either did not understand operations or did not care about results after the invoice was paid.
+            I started AgastyaOne because every agency I encountered either did not understand how a clinic operates or did not care about results after the invoice was paid.
 
             At AgastyaOne, we only build what we would stake our own business on.
           </p>

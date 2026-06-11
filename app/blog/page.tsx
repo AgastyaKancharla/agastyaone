@@ -6,18 +6,18 @@ import { Hero, Section } from '@/components/Sections';
 import { Reveal } from '@/components/Reveal';
 
 export const metadata: Metadata = {
-  title: 'Blog | AgastyaOne — Insights For Restaurants and Dental Clinics in Bangalore',
+  title: 'Blog | AgastyaOne — Insights For Dental Clinics in Bangalore',
   description:
-    'Practical guides and honest advice for restaurants and dental clinics in Bangalore. SEO, websites, CRM and automation insights from AgastyaOne.',
+    'Practical guides and honest advice for dental clinics in Bangalore. SEO, websites, CRM and automation insights from AgastyaOne.',
   alternates: {
     canonical: '/blog'
   },
   openGraph: {
     type: 'website',
     siteName: 'AgastyaOne',
-    title: 'Blog | AgastyaOne — Insights For Restaurants and Dental Clinics in Bangalore',
+    title: 'Blog | AgastyaOne — Insights For Dental Clinics in Bangalore',
     description:
-      'Practical guides and honest advice for restaurants and dental clinics in Bangalore. SEO, websites, CRM and automation insights from AgastyaOne.',
+      'Practical guides and honest advice for dental clinics in Bangalore. SEO, websites, CRM and automation insights from AgastyaOne.',
     url: '/blog',
     images: ['/og-image.png']
   },
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   }
 };
 
-const filters = ['All', 'Restaurants', 'Dental Clinics', 'SEO', 'Websites', 'CRM', 'Automation', 'WhatsApp', 'Bangalore'];
+const filters = ['All', 'Dental Clinics', 'SEO', 'Websites', 'CRM', 'Automation', 'WhatsApp', 'Bangalore'];
 
 export default function BlogPage() {
   const posts = getPosts();
@@ -36,7 +36,7 @@ export default function BlogPage() {
   return (
     <>
       <Hero
-        title="Insights For Restaurants and Dental Clinics in Bangalore That Want to Grow With Technology"
+        title="Insights For Dental Clinics in Bangalore That Want to Grow With Technology"
         subtitle="Practical guides, honest advice and real experience — no generic content, no fluff"
         ctas={[{ label: 'Book a Free Call', href: '/contact' }, { label: 'Browse Articles', href: '#articles' }]}
         imageAlt="AgastyaOne blog placeholder image"
@@ -83,7 +83,7 @@ export default function BlogPage() {
               <Reveal delay={120}>
                 <div className="motion-card rounded-brand bg-white p-6 shadow-card">
                 <h3 className="font-heading text-xl font-bold">Book a Free Call</h3>
-                <p className="mt-3 text-sm leading-6 text-charcoal/75">Get honest advice for your restaurant or clinic in Bangalore.</p>
+                <p className="mt-3 text-sm leading-6 text-charcoal/75">Get honest advice for your dental clinic in Bangalore.</p>
                 <Link href="/contact" className="mt-5 inline-flex rounded-brand bg-saffron px-6 py-3 text-sm font-semibold text-white">
                   Book Now
                 </Link>

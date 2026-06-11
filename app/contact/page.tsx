@@ -6,7 +6,7 @@ import { ContactForm } from './ContactForm';
 export const metadata: Metadata = {
   title: 'Contact AgastyaOne | Book a Free 30 Min Call — Bangalore',
   description:
-    'Book a free 30 minute call with AgastyaOne. Honest advice for restaurants and dental clinics in Bangalore on websites, CRM, SEO and digital growth. No pressure. No jargon.',
+    'Book a free 30 minute call with AgastyaOne. Honest advice for dental clinics in Bangalore on websites, CRM, SEO and digital growth. No pressure. No jargon.',
   alternates: {
     canonical: '/contact'
   },
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     siteName: 'AgastyaOne',
     title: 'Contact AgastyaOne | Book a Free 30 Min Call — Bangalore',
     description:
-      'Book a free 30 minute call with AgastyaOne. Honest advice for restaurants and dental clinics in Bangalore on websites, CRM, SEO and digital growth. No pressure. No jargon.',
+      'Book a free 30 minute call with AgastyaOne. Honest advice for dental clinics in Bangalore on websites, CRM, SEO and digital growth. No pressure. No jargon.',
     url: '/contact',
     images: ['/og-image.png']
   },

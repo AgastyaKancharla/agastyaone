@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-const businessTypes = ['Dental Clinic', 'Restaurant', 'Cloud Kitchen', 'Other'];
+const businessTypes = ['Dental Clinic', 'Other'];
 
 export function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -38,7 +38,7 @@ export function ContactForm() {
       <Field
         label="Your Name"
         name="Name"
-        placeholder="e.g. Dr. Ramesh or Priya from Spice Garden"
+        placeholder="e.g. Dr. Ramesh or Dr. Priya"
         required
       />
       <Field
