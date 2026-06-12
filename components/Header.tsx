@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Phone } from 'lucide-react';
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 const WA_NUMBER = '918328443057';
@@ -24,239 +24,86 @@ function WhatsAppIcon({ size = 18 }: { size?: number }) {
   );
 }
 
-// ── Pixel Monkey ───────────────────────────────────────────────────
-// 16×16 pixel grid — 1=black, 0=transparent
-const MONKEY_IDLE = [
-  [0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0],
-  [0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0],
-  [0,1,1,0,1,0,0,0,0,0,0,1,0,1,1,0],
-  [0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0],
-  [0,1,0,0,0,1,1,1,1,1,1,0,0,0,1,0],
-  [0,1,0,1,0,0,0,0,0,0,0,0,1,0,1,0],
-  [0,1,0,1,0,1,0,0,0,1,0,0,1,0,1,0],
-  [0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-  [0,1,0,0,0,1,1,0,0,1,1,0,0,0,1,0],
-  [0,0,1,0,0,0,1,1,1,1,0,0,0,1,0,0],
-  [0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0],
-  [0,0,1,0,0,1,1,1,1,1,1,0,0,1,0,0],
-  [0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0],
-  [1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1],
-  [1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-];
-
-// Peek-a-boo: hands over eyes
-const MONKEY_PEEK = [
-  [0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0],
-  [0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0],
-  [0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0],
-  [0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-  [1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1],
-  [1,0,0,0,0,1,1,0,0,1,1,0,0,0,0,1],
-  [1,0,0,0,0,1,1,0,0,1,1,0,0,0,0,1],
-  [1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1],
-  [0,1,0,0,0,1,1,1,1,1,1,0,0,0,1,0],
-  [0,0,1,0,0,0,1,1,1,1,0,0,0,1,0,0],
-  [0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0],
-  [0,0,1,0,0,1,1,1,1,1,1,0,0,1,0,0],
-  [0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0],
-  [1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1],
-  [1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-];
-
-const PIXEL_SIZE = 2.4; // px per pixel cell — keeps it 38x38px total
-
-function PixelGrid({ grid }: { grid: number[][] }) {
-  return (
-    <svg
-      width={16 * PIXEL_SIZE}
-      height={16 * PIXEL_SIZE}
-      viewBox={`0 0 ${16 * PIXEL_SIZE} ${16 * PIXEL_SIZE}`}
-      style={{ display: 'block', imageRendering: 'pixelated' }}
-    >
-      {grid.map((row, y) =>
-        row.map((cell, x) =>
-          cell ? (
-            <rect
-              key={`${x}-${y}`}
-              x={x * PIXEL_SIZE}
-              y={y * PIXEL_SIZE}
-              width={PIXEL_SIZE}
-              height={PIXEL_SIZE}
-              fill="#1a1a2e"
-            />
-          ) : null
-        )
-      )}
-    </svg>
-  );
-}
-
-const MOODS = ['jump', 'dance', 'run', 'spin', 'clap', 'wave', 'backflip'] as const;
-type Mood = typeof MOODS[number];
-
-function PixelMonkeyButton({
-  menuOpen,
-  tapCount,
-  showBanana,
+// ── Animated Hamburger → X ─────────────────────────────────────────
+function HamburgerButton({
+  open,
   onClick,
 }: {
-  menuOpen: boolean;
-  tapCount: number;
-  showBanana: boolean;
+  open: boolean;
   onClick: () => void;
 }) {
-  const [mood, setMood] = useState<Mood | 'idle'>('idle');
-  const moodTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const isHovering = useRef(false);
-
-  const pickMood = useCallback(() => {
-    const next = MOODS[Math.floor(Math.random() * MOODS.length)];
-    setMood(next);
-    // Return to idle after one cycle (duration per mood)
-    const durations: Record<Mood, number> = {
-      jump: 600, dance: 800, run: 700, spin: 600, clap: 500, wave: 800, backflip: 900,
-    };
-    moodTimer.current = setTimeout(() => {
-      if (isHovering.current) pickMood();
-      else setMood('idle');
-    }, durations[next]);
-  }, []);
-
-  const handleEnter = useCallback(() => {
-    isHovering.current = true;
-    if (mood === 'idle') pickMood();
-  }, [mood, pickMood]);
-
-  const handleLeave = useCallback(() => {
-    isHovering.current = false;
-    if (moodTimer.current) clearTimeout(moodTimer.current);
-    setMood('idle');
-  }, []);
-
-  useEffect(() => {
-    return () => { if (moodTimer.current) clearTimeout(moodTimer.current); };
-  }, []);
-
-  // When tapped — slam dunk
-  const handleClick = () => {
-    if (moodTimer.current) clearTimeout(moodTimer.current);
-    setMood('jump');
-    moodTimer.current = setTimeout(() => setMood('idle'), 400);
-    onClick();
-  };
-
-  const grid = menuOpen ? MONKEY_PEEK : MONKEY_IDLE;
-
   return (
     <button
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
-      onTouchStart={handleEnter}
-      onTouchEnd={handleLeave}
-      onClick={handleClick}
-      aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-      aria-expanded={menuOpen}
+      onClick={onClick}
+      aria-label={open ? 'Close menu' : 'Open menu'}
+      aria-expanded={open}
       aria-controls="mobile-menu"
       style={{
-        background: 'none',
-        border: 'none',
-        padding: '1px',
-        cursor: 'pointer',
-        position: 'relative',
         width: 40,
         height: 40,
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
+        background: 'none',
+        border: 'none',
+        cursor: 'pointer',
+        padding: 0,
         borderRadius: 8,
       }}
     >
-      {showBanana && (
-        <span style={{
-          position: 'absolute', top: -8, right: -8, fontSize: 14,
-          animation: 'bananaFly 0.6s ease forwards', pointerEvents: 'none', zIndex: 10,
-        }}>🍌</span>
-      )}
-
       <span
         style={{
-          display: 'block',
-          animation: menuOpen
-            ? 'monkeyPeek 1.2s ease infinite'
-            : mood === 'idle'   ? 'monkeyBob 2.4s ease-in-out infinite'
-            : mood === 'jump'   ? 'monkeyJump 0.4s ease-in-out'
-            : mood === 'dance'  ? 'monkeyDance 0.4s ease-in-out infinite'
-            : mood === 'run'    ? 'monkeyRun 0.35s linear infinite'
-            : mood === 'spin'   ? 'monkeySpin 0.6s linear'
-            : mood === 'clap'   ? 'monkeyClap 0.25s ease-in-out infinite'
-            : mood === 'wave'   ? 'monkeyWave 0.5s ease-in-out infinite'
-            : mood === 'backflip' ? 'monkeyBackflip 0.9s ease'
-            : 'monkeyBob 2.4s ease-in-out infinite',
-          willChange: mood !== 'idle' ? 'transform' : 'auto',
-          transformOrigin: 'center bottom',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: 22,
+          height: 22,
+          gap: 0,
+          position: 'relative',
         }}
       >
-        <PixelGrid grid={grid} />
+        {/* Top bar */}
+        <span style={{
+          display: 'block',
+          width: 22,
+          height: 2,
+          borderRadius: 2,
+          background: '#1a1a2e',
+          position: 'absolute',
+          top: open ? '50%' : '25%',
+          left: 0,
+          transform: open ? 'translateY(-50%) rotate(45deg)' : 'translateY(-50%) rotate(0deg)',
+          transition: 'top 0.25s ease, transform 0.25s ease',
+        }} />
+        {/* Middle bar */}
+        <span style={{
+          display: 'block',
+          width: 22,
+          height: 2,
+          borderRadius: 2,
+          background: '#1a1a2e',
+          position: 'absolute',
+          top: '50%',
+          left: 0,
+          transform: 'translateY(-50%)',
+          opacity: open ? 0 : 1,
+          transition: 'opacity 0.15s ease',
+        }} />
+        {/* Bottom bar */}
+        <span style={{
+          display: 'block',
+          width: 22,
+          height: 2,
+          borderRadius: 2,
+          background: '#1a1a2e',
+          position: 'absolute',
+          top: open ? '50%' : '75%',
+          left: 0,
+          transform: open ? 'translateY(-50%) rotate(-45deg)' : 'translateY(-50%) rotate(0deg)',
+          transition: 'top 0.25s ease, transform 0.25s ease',
+        }} />
       </span>
-
-      <style>{`
-        @keyframes monkeyBob {
-          0%,100% { transform: translateY(0); }
-          50%      { transform: translateY(-2px); }
-        }
-        @keyframes monkeyJump {
-          0%   { transform: translateY(0) scaleY(1); }
-          30%  { transform: translateY(-10px) scaleY(1.1); }
-          60%  { transform: translateY(-12px) scaleY(1); }
-          80%  { transform: translateY(-2px) scaleY(0.9); }
-          100% { transform: translateY(0) scaleY(1); }
-        }
-        @keyframes monkeyDance {
-          0%,100% { transform: translateX(0) rotate(0deg); }
-          25%     { transform: translateX(-3px) rotate(-6deg); }
-          75%     { transform: translateX(3px) rotate(6deg); }
-        }
-        @keyframes monkeyRun {
-          0%,100% { transform: translateX(0) skewX(0deg); }
-          25%     { transform: translateX(-2px) skewX(-4deg); }
-          75%     { transform: translateX(2px) skewX(4deg); }
-        }
-        @keyframes monkeySpin {
-          0%   { transform: rotate(0deg) scale(1); }
-          50%  { transform: rotate(180deg) scale(0.8); }
-          100% { transform: rotate(360deg) scale(1); }
-        }
-        @keyframes monkeyClap {
-          0%,100% { transform: scaleX(1); }
-          50%     { transform: scaleX(0.85); }
-        }
-        @keyframes monkeyWave {
-          0%,100% { transform: rotate(0deg); }
-          25%     { transform: rotate(-8deg) translateY(-2px); }
-          75%     { transform: rotate(8deg) translateY(-2px); }
-        }
-        @keyframes monkeyBackflip {
-          0%   { transform: translateY(0) rotate(0deg) scale(1); }
-          25%  { transform: translateY(-14px) rotate(90deg) scale(1.1); }
-          50%  { transform: translateY(-18px) rotate(180deg) scale(1); }
-          75%  { transform: translateY(-8px) rotate(270deg) scale(0.95); }
-          100% { transform: translateY(0) rotate(360deg) scale(1); }
-        }
-        @keyframes monkeyPeek {
-          0%,100% { transform: translateY(0); }
-          50%     { transform: translateY(-1px); }
-        }
-        @keyframes bananaFly {
-          0%   { transform: translate(0,0) scale(1); opacity: 1; }
-          60%  { transform: translate(-8px,-12px) scale(1.3) rotate(-20deg); opacity: 1; }
-          100% { transform: translate(-14px,4px) scale(0.4) rotate(10deg); opacity: 0; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          [style*="animation"] { animation: none !important; }
-        }
-      `}</style>
     </button>
   );
 }
@@ -266,8 +113,6 @@ export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [tapCount, setTapCount] = useState(0);
-  const [showBanana, setShowBanana] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 4);
@@ -283,18 +128,6 @@ export function Header() {
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
-  const handleMonkeyClick = () => {
-    const next = tapCount + 1;
-    setTapCount(next);
-    if (next % 5 === 0) {
-      setShowBanana(true);
-      setTimeout(() => setShowBanana(false), 700);
-      setTimeout(() => setMenuOpen(p => !p), 150);
-    } else {
-      setMenuOpen(p => !p);
-    }
-  };
-
   return (
     <>
       <header
@@ -308,7 +141,9 @@ export function Header() {
           background: scrolled ? 'rgba(255,255,255,0.97)' : 'rgba(255,255,255,0.75)',
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
-          borderBottom: scrolled ? '1.5px solid rgba(232,108,47,0.28)' : '1.5px solid transparent',
+          borderBottom: scrolled
+            ? '1.5px solid rgba(232,108,47,0.28)'
+            : '1.5px solid transparent',
           boxShadow: scrolled ? '0 2px 16px rgba(26,26,46,0.07)' : 'none',
         }}
       >
@@ -343,8 +178,8 @@ export function Header() {
             </Link>
           </div>
 
-          {/* Mobile: phone + pixel monkey */}
-          <div className="flex items-center gap-2 lg:hidden">
+          {/* Mobile: phone + hamburger */}
+          <div className="flex items-center gap-1 lg:hidden">
             <a
               href="tel:+918328443057"
               aria-label="Call AgastyaOne"
@@ -352,17 +187,12 @@ export function Header() {
             >
               <Phone size={17} />
             </a>
-            <PixelMonkeyButton
-              menuOpen={menuOpen}
-              tapCount={tapCount}
-              showBanana={showBanana}
-              onClick={handleMonkeyClick}
-            />
+            <HamburgerButton open={menuOpen} onClick={() => setMenuOpen(p => !p)} />
           </div>
         </div>
       </header>
 
-      {/* Fixed header offset so content isn't hidden behind it */}
+      {/* Spacer for fixed header */}
       <div style={{ height: 56 }} aria-hidden="true" />
 
       {/* Mobile menu overlay */}
@@ -391,7 +221,9 @@ export function Header() {
         <div className="mx-5 border-t border-gray-100" />
 
         <div className="px-5 py-5 flex flex-col gap-3">
-          <p className="text-xs font-semibold uppercase tracking-widest text-muted">Get in touch</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-muted">
+            Get in touch
+          </p>
           <a
             href="tel:+918328443057"
             className="flex items-center gap-3 rounded-xl border border-gray-200 px-4 py-3.5 text-sm font-medium text-charcoal transition hover:border-saffron hover:text-saffron"
@@ -405,7 +237,9 @@ export function Header() {
             rel="noopener noreferrer"
             className="flex items-center gap-3 rounded-xl border border-gray-200 px-4 py-3.5 text-sm font-medium text-charcoal transition hover:border-[#25D366] hover:text-[#25D366]"
           >
-            <span className="shrink-0 text-[#25D366]"><WhatsAppIcon size={17} /></span>
+            <span className="shrink-0 text-[#25D366]">
+              <WhatsAppIcon size={17} />
+            </span>
             WhatsApp us
           </a>
         </div>
@@ -418,7 +252,9 @@ export function Header() {
           >
             Book a Free Call
           </Link>
-          <p className="mt-3 text-center text-xs text-muted">Free 30-min strategy call · No commitment</p>
+          <p className="mt-3 text-center text-xs text-muted">
+            Free 30-min strategy call · No commitment
+          </p>
         </div>
       </div>
     </>
