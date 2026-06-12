@@ -20,7 +20,7 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
         subtitle={page.subtitle}
         ctas={ctas}
         imageAlt={`${page.h1} dashboard illustration`}
-        showCRM={page.slug === ''}
+        showCRM={page.slug === '' || page.slug === 'dental-solutions'}
       />
       {page.trust && page.trust.length > 0 && <TrustBar items={page.trust} />}
       {page.slug === '' ? (
@@ -63,3 +63,4 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
     </>
   );
 }
+
