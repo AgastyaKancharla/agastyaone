@@ -2,6 +2,7 @@ import { CardGrid, ContactStrip, FAQ, Hero, Section, Steps, TextSections, TrustB
 import { CRMDemo } from './CRMDemo';
 import { ServicesInteractive } from './ServicesInteractive';
 import { AgencyVsUs } from './AgencyVsUs';
+import { ProblemSolution } from './ProblemSolution';
 import { faqSchemaForPage, getLocationContent, type SitePage } from '@/lib/site-data';
 
 export function PageRenderer({ page, schema = false }: { page: SitePage; schema?: boolean }) {
@@ -25,6 +26,8 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
       {page.trust && page.trust.length > 0 && <TrustBar items={page.trust} />}
       {page.slug === '' ? (
         <CRMDemo />
+      ) : page.slug === 'dental-solutions' ? (
+        <ProblemSolution />
       ) : page.intro && (
         <Section tint>
           <TextSections sections={page.intro} />
