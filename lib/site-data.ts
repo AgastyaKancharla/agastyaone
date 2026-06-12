@@ -254,7 +254,7 @@ export const pages: SitePage[] = [
     offerTitle: 'What You Get',
     offers: featureCards(['Patient Database', 'Lead Management', 'Appointment Reminders', 'Treatment Follow-ups', 'Recall System', 'Review Requests', 'Clinic Dashboard']),
     faq: [{ q: 'Suitable for small single-dentist clinic?', a: 'Yes. Built for independent clinics first.' }, { q: 'Do patients need to download anything?', a: 'No. All communication happens through WhatsApp.' }],
-    internalLinks: [{ label: 'Dental Solutions', href: '/dental-solutions' }, { label: 'Dental CRM Bangalore', href: '/dental-crm-bangalore' }]
+    internalLinks: [{ label: 'Dental Solutions', href: '/dental-solutions' }, { label: 'Dental CRM Bangalore', href: '/dental-crm-bangalore' }, { label: 'Dental Solutions Bangalore', href: '/dental-solutions-bangalore' }]
   }),
   page('dental-website-development', 'Dental Website Development in Bangalore | AgastyaOne', 'Professional dental website development in Bengaluru. Fast, mobile first, SEO ready websites for dental clinics that convert visitors into booked patients.', 'Dental Website Development in Bengaluru That Turns Online Visitors Into Booked Patients', 'A professional dental clinic website that builds trust, ranks on Google and converts visitors into appointments — built specifically for dental clinics across Bengaluru', {
     primaryLabel: 'Book a Free Consultation',
@@ -263,7 +263,7 @@ export const pages: SitePage[] = [
     offerTitle: 'What We Build',
     offers: featureCards(['Professional Trust-Building Design', 'Mobile First', 'Fast Loading', 'Services Pages', 'Doctor Profile Page', 'WhatsApp Appointment Button', 'Google Reviews Integration', 'SEO Ready', 'Location and Maps Integration']),
     faq: [{ q: 'How long to build?', a: '7 to 14 days.' }, { q: 'Do you write the content?', a: 'Yes. All content included.' }],
-    internalLinks: [{ label: 'Dental Solutions', href: '/dental-solutions' }, { label: 'Dental Website Development Bangalore', href: '/dental-website-development-bangalore' }]
+    internalLinks: [{ label: 'Dental Solutions', href: '/dental-solutions' }, { label: 'Dental Website Bangalore', href: '/dental-website-development-bangalore' }, { label: 'Dental Solutions Bangalore', href: '/dental-solutions-bangalore' }]
   }),
   page('dental-seo-services', 'Dental SEO Services in Bangalore | AgastyaOne', 'Dental SEO services for clinics in Bengaluru. Get your dental clinic found on Google Maps and local search in Koramangala, Indiranagar, Jayanagar and HSR Layout.', 'Dental SEO Services in Bengaluru That Get Your Clinic Found by Patients Searching on Google Right Now', 'When patients in Koramangala, Indiranagar, Jayanagar, HSR Layout and Whitefield search for a dentist near them — we make sure they find your clinic first', {
     primaryLabel: 'Book a Free SEO Audit',
@@ -272,7 +272,7 @@ export const pages: SitePage[] = [
     offerTitle: 'What We Do',
     offers: featureCards(['Google Business Profile Optimisation', 'Local Keyword Research', 'Treatment Page Optimisation', 'Review Generation Strategy', 'Local Citations', 'Competitor Analysis', 'Monthly Reporting']),
     faq: [{ q: 'My clinic is already on Practo. Do I still need SEO?', a: 'Absolutely. Practo is rented visibility. Google ranking is an asset you own.' }, { q: 'Long term contract?', a: 'No. Monthly plans only.' }],
-    internalLinks: [{ label: 'Dental Solutions', href: '/dental-solutions' }, { label: 'Dental SEO Bangalore', href: '/dental-seo-bangalore' }]
+    internalLinks: [{ label: 'Dental Solutions', href: '/dental-solutions' }, { label: 'Dental SEO Bangalore', href: '/dental-seo-bangalore' }, { label: 'Dental Solutions Bangalore', href: '/dental-solutions-bangalore' }]
   }),
   page('dentist-appointment-software', 'Dentist Appointment Software in Bangalore | AgastyaOne', 'Dentist appointment software for Bengaluru clinics. Automate bookings, WhatsApp reminders and reduce no-shows. Built for Indian dental practices.', 'Dentist Appointment Software That Fills Your Schedule and Eliminates No-Shows in Bengaluru', 'Automate your appointment bookings, reminders and follow-ups so your reception team spends less time on the phone and more time with patients', {
     primaryLabel: 'Book a Free Demo',

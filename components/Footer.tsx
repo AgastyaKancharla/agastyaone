@@ -103,11 +103,15 @@ export function Footer() {
         </Reveal>
         <Reveal delay={240}>
           <FooterColumn
-            title="Company"
+            title="Bengaluru Areas"
             links={[
-              ['About', '/about'],
-              ['Blog', '/blog'],
-              ['Contact', '/contact'],
+              ['Dental Solutions Bangalore', '/dental-solutions-bangalore'],
+              ['Dental CRM Bangalore',       '/dental-crm-bangalore'],
+              ['Dental SEO Bangalore',       '/dental-seo-bangalore'],
+              ['Dental Website Bangalore',   '/dental-website-development-bangalore'],
+              ['About',                      '/about'],
+              ['Blog',                       '/blog'],
+              ['Contact',                    '/contact'],
             ]}
           />
         </Reveal>
