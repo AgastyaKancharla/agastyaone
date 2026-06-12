@@ -1,6 +1,7 @@
-import { CardGrid, CheckpointList, ContactStrip, FAQ, FounderCard, Hero, Section, Steps, TextSections, TrustBar, WhyVisualCard } from './Sections';
+import { CardGrid, ContactStrip, FAQ, Hero, Section, Steps, TextSections, TrustBar } from './Sections';
 import { CRMDemo } from './CRMDemo';
 import { ServicesInteractive } from './ServicesInteractive';
+import { AgencyVsUs } from './AgencyVsUs';
 import { faqSchemaForPage, getLocationContent, type SitePage } from '@/lib/site-data';
 
 export function PageRenderer({ page, schema = false }: { page: SitePage; schema?: boolean }) {
@@ -38,34 +39,7 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
           </Section>
         )
       )}
-      {page.slug === '' && (
-        <>
-          <Section title="Why AgastyaOne" body="A specialist growth partner for dental clinics that need real systems, not agency theatre." tint>
-            <div className="grid items-center gap-10 lg:grid-cols-[1fr_.9fr]">
-              <div>
-                <h3 className="font-heading text-3xl font-bold text-[#1A1A2E] md:text-5xl">
-                  Built By an Entrepreneur. For Entrepreneurs.
-                </h3>
-                <p className="mt-5 text-base leading-7 text-gray-600">
-                  Most agencies have never sat with a clinic owner. AgastyaOne builds from lived dental industry experience: a dental leads CRM built from scratch and systems used in real clinic pipelines.
-                </p>
-                <CheckpointList
-                  items={[
-                    'Operated across Koramangala, Indiranagar, Jayanagar, HSR Layout and Whitefield',
-                    'We built our own CRM before selling one',
-                    'We use every tool we sell in our own businesses',
-                    'We are a growth partner, not a vendor'
-                  ]}
-                />
-              </div>
-              <WhyVisualCard />
-            </div>
-          </Section>
-          <Section title="The Person Behind AgastyaOne" dark>
-            <FounderCard />
-          </Section>
-        </>
-      )}
+      {page.slug === '' && <AgencyVsUs />}
       {page.steps && (
         <Section title="Getting Started Is Simple" tint>
           <Steps steps={page.steps} />
