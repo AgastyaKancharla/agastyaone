@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { Menu, X, Phone } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { Phone } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 const WA_NUMBER = '918328443057';
@@ -24,37 +24,290 @@ function WhatsAppIcon({ size = 18 }: { size?: number }) {
   );
 }
 
+// ── Monkey SVG button ──────────────────────────────────────────────
+function MonkeyButton({
+  menuOpen,
+  tapCount,
+  surpriseLevel,
+  showBanana,
+  pupilOffset,
+  onClick,
+}: {
+  menuOpen: boolean;
+  tapCount: number;
+  surpriseLevel: number; // 0 | 1 | 2 | 3
+  showBanana: boolean;
+  pupilOffset: { x: number; y: number };
+  onClick: () => void;
+}) {
+  // Eye shape changes with surprise level
+  const eyeRy = menuOpen ? [3, 4, 5, 6][surpriseLevel] : 3;
+  const browY = menuOpen ? [7, 5.5, 4.5, 3.5][surpriseLevel] : 7;
+  // Mouth shape
+  const mouthD = menuOpen
+    ? surpriseLevel >= 2
+      ? 'M 10 17 Q 12 20 14 17' // big O surprised
+      : 'M 10 16.5 Q 12 19 14 16.5'
+    : 'M 10 16 Q 12 18 14 16'; // normal smile
+
+  return (
+    <button
+      onClick={onClick}
+      aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+      aria-expanded={menuOpen}
+      aria-controls="mobile-menu"
+      style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', position: 'relative', width: 40, height: 40 }}
+    >
+      {/* Banana easter egg */}
+      {showBanana && (
+        <span
+          style={{
+            position: 'absolute',
+            top: -8,
+            right: -8,
+            fontSize: 14,
+            animation: 'bananaFly 0.6s ease forwards',
+            pointerEvents: 'none',
+            zIndex: 10,
+          }}
+        >
+          🍌
+        </span>
+      )}
+
+      <svg
+        viewBox="0 0 24 24"
+        width="40"
+        height="40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ display: 'block', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.15))' }}
+      >
+        {/* Outer ear left */}
+        <ellipse cx="4.5" cy="12" rx="2.5" ry="3" fill="#c47c3e" />
+        {/* Outer ear right */}
+        <ellipse cx="19.5" cy="12" rx="2.5" ry="3" fill="#c47c3e" />
+        {/* Inner ear left */}
+        <ellipse cx="4.5" cy="12" rx="1.3" ry="1.8" fill="#e8a87c" />
+        {/* Inner ear right */}
+        <ellipse cx="19.5" cy="12" rx="1.3" ry="1.8" fill="#e8a87c" />
+
+        {/* Head */}
+        <ellipse cx="12" cy="12" rx="8" ry="8.5" fill="#c47c3e" />
+
+        {/* Face patch */}
+        <ellipse cx="12" cy="14" rx="5" ry="4.5" fill="#e8c49e" />
+
+        {/* Forehead highlight */}
+        <ellipse cx="10" cy="7.5" rx="1.5" ry="1" fill="#d4944e" opacity="0.4" />
+
+        {/* Left eyebrow */}
+        <line
+          x1="7.5" y1={browY}
+          x2="10" y2={browY - (menuOpen ? 0.8 : 0)}
+          stroke="#5a3010" strokeWidth="0.9" strokeLinecap="round"
+          style={{ transition: 'all 0.3s ease' }}
+        />
+        {/* Right eyebrow */}
+        <line
+          x1="14" y1={browY - (menuOpen ? 0.8 : 0)}
+          x2="16.5" y2={browY}
+          stroke="#5a3010" strokeWidth="0.9" strokeLinecap="round"
+          style={{ transition: 'all 0.3s ease' }}
+        />
+
+        {/* Left eye white */}
+        <ellipse cx="9" cy="10.5" rx="2" ry={eyeRy * 0.7} fill="white"
+          style={{ transition: 'all 0.3s ease' }} />
+        {/* Right eye white */}
+        <ellipse cx="15" cy="10.5" rx="2" ry={eyeRy * 0.7} fill="white"
+          style={{ transition: 'all 0.3s ease' }} />
+
+        {/* Left pupil — tracks cursor */}
+        <circle
+          cx={9 + pupilOffset.x}
+          cy={10.5 + pupilOffset.y}
+          r="1"
+          fill="#1a1a2e"
+          style={{ transition: 'cx 0.1s ease, cy 0.1s ease' }}
+        />
+        {/* Right pupil — tracks cursor */}
+        <circle
+          cx={15 + pupilOffset.x}
+          cy={10.5 + pupilOffset.y}
+          r="1"
+          fill="#1a1a2e"
+          style={{ transition: 'cx 0.1s ease, cy 0.1s ease' }}
+        />
+
+        {/* Left eye shine */}
+        <circle cx={9.6 + pupilOffset.x * 0.5} cy={10 + pupilOffset.y * 0.5} r="0.35" fill="white" />
+        {/* Right eye shine */}
+        <circle cx={15.6 + pupilOffset.x * 0.5} cy={10 + pupilOffset.y * 0.5} r="0.35" fill="white" />
+
+        {/* Nose */}
+        <ellipse cx="12" cy="13.5" rx="1.2" ry="0.7" fill="#a06030" />
+        <circle cx="11.4" cy="13.3" r="0.25" fill="#c47c3e" opacity="0.6" />
+        <circle cx="12.6" cy="13.3" r="0.25" fill="#c47c3e" opacity="0.6" />
+
+        {/* Mouth */}
+        <path
+          d={mouthD}
+          stroke="#a06030"
+          strokeWidth="0.9"
+          strokeLinecap="round"
+          fill="none"
+          style={{ transition: 'd 0.3s ease' }}
+        />
+
+        {/* Surprised open mouth fill */}
+        {menuOpen && surpriseLevel >= 2 && (
+          <ellipse cx="12" cy="18" rx="1.5" ry="1" fill="#7a3010" opacity="0.5" />
+        )}
+
+        {/* Cheek blush left */}
+        <ellipse cx="7.5" cy="13" rx="1.5" ry="0.8" fill="#e86c2f" opacity="0.2" />
+        {/* Cheek blush right */}
+        <ellipse cx="16.5" cy="13" rx="1.5" ry="0.8" fill="#e86c2f" opacity="0.2" />
+
+        {/* Sweat drop when very surprised */}
+        {menuOpen && surpriseLevel >= 3 && (
+          <ellipse cx="17.5" cy="8" rx="0.6" ry="1" fill="#60a5fa" opacity="0.7" />
+        )}
+      </svg>
+
+      <style>{`
+        @keyframes bananaFly {
+          0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+          60%  { transform: translate(-8px, -12px) scale(1.3) rotate(-20deg); opacity: 1; }
+          100% { transform: translate(-14px, 4px) scale(0.4) rotate(10deg); opacity: 0; }
+        }
+      `}</style>
+    </button>
+  );
+}
+
+// ── Main Header ────────────────────────────────────────────────────
 export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [tapCount, setTapCount] = useState(0);
+  const [surpriseLevel, setSurpriseLevel] = useState(0);
+  const [showBanana, setShowBanana] = useState(false);
+  const [pupilOffset, setPupilOffset] = useState({ x: 0, y: 0 });
+  const btnRef = useRef<HTMLDivElement>(null);
+  const surpriseTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
+  // Floating header on scroll
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 60);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Close menu on route change
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);
 
+  // Body scroll lock
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
-    return () => {
-      document.body.style.overflow = '';
-    };
+    return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
+
+  // Surprise escalation timers when menu opens
+  useEffect(() => {
+    surpriseTimers.current.forEach(clearTimeout);
+    surpriseTimers.current = [];
+    if (menuOpen) {
+      setSurpriseLevel(0);
+      surpriseTimers.current.push(setTimeout(() => setSurpriseLevel(1), 3000));
+      surpriseTimers.current.push(setTimeout(() => setSurpriseLevel(2), 6000));
+      surpriseTimers.current.push(setTimeout(() => setSurpriseLevel(3), 9000));
+    } else {
+      setSurpriseLevel(0);
+    }
+    return () => surpriseTimers.current.forEach(clearTimeout);
+  }, [menuOpen]);
+
+  // Pupil tracking — passive listener, pure math
+  useEffect(() => {
+    const btn = btnRef.current;
+    if (!btn) return;
+    const rect = () => btn.getBoundingClientRect();
+    const calc = (cx: number, cy: number) => {
+      const r = rect();
+      const bx = r.left + r.width / 2;
+      const by = r.top + r.height / 2;
+      const dx = cx - bx;
+      const dy = cy - by;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      const maxShift = 1.8;
+      return {
+        x: parseFloat(((dx / dist) * Math.min(dist / 60, 1) * maxShift).toFixed(2)),
+        y: parseFloat(((dy / dist) * Math.min(dist / 60, 1) * maxShift).toFixed(2)),
+      };
+    };
+    const onMouseMove = (e: MouseEvent) => setPupilOffset(calc(e.clientX, e.clientY));
+    const onTouchMove = (e: TouchEvent) => {
+      const t = e.touches[0];
+      setPupilOffset(calc(t.clientX, t.clientY));
+    };
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('touchmove', onTouchMove);
+    };
+  }, []);
+
+  const handleMonkeyClick = () => {
+    const next = tapCount + 1;
+    setTapCount(next);
+    // Every 5th tap — banana easter egg
+    if (next % 5 === 0) {
+      setShowBanana(true);
+      setTimeout(() => setShowBanana(false), 700);
+      // Slight delay before opening menu so banana is visible
+      setTimeout(() => setMenuOpen((prev) => !prev), 150);
+    } else {
+      setMenuOpen((prev) => !prev);
+    }
+  };
 
   return (
     <>
+      {/* Header — floats when scrolled past 60px */}
       <header
-        className={`full-bleed sticky top-0 z-50 transition-all duration-200 ${
+        className={`full-bleed z-50 transition-all duration-300 ${
           scrolled
-            ? 'border-b border-gray-100 bg-white/90 shadow-sm backdrop-blur-md'
-            : 'border-b border-transparent bg-white/80 backdrop-blur-sm'
+            ? 'fixed top-3 left-0 right-0 mx-auto'
+            : 'sticky top-0'
         }`}
+        style={
+          scrolled
+            ? {
+                width: 'calc(100% - 2rem)',
+                maxWidth: '1200px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                borderRadius: '16px',
+                background: 'rgba(255,255,255,0.92)',
+                boxShadow: '0 8px 32px rgba(26,26,46,0.13)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                border: '1px solid rgba(255,255,255,0.6)',
+              }
+            : {
+                background: 'rgba(255,255,255,0.80)',
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)',
+                borderBottom: '1px solid transparent',
+              }
+        }
       >
         <div className="site-container flex items-center justify-between gap-4 py-3">
           {/* Logo */}
@@ -62,7 +315,7 @@ export function Header() {
             Agastya<span className="text-saffron">One</span>
           </Link>
 
-          {/* Desktop nav — visible at lg+ */}
+          {/* Desktop nav */}
           <nav className="hidden items-center gap-7 text-sm font-medium text-charcoal lg:flex">
             {links.map((link) => (
               <Link
@@ -77,7 +330,7 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Desktop CTA — visible at lg+ */}
+          {/* Desktop CTA */}
           <div className="hidden lg:block shrink-0">
             <Link
               href="/contact"
@@ -87,8 +340,8 @@ export function Header() {
             </Link>
           </div>
 
-          {/* Mobile right side: phone shortcut + hamburger */}
-          <div className="flex items-center gap-2 lg:hidden">
+          {/* Mobile: phone + monkey */}
+          <div ref={btnRef} className="flex items-center gap-2 lg:hidden">
             <a
               href="tel:+918328443057"
               aria-label="Call AgastyaOne"
@@ -96,18 +349,20 @@ export function Header() {
             >
               <Phone size={17} />
             </a>
-            <button
-              onClick={() => setMenuOpen((prev) => !prev)}
-              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={menuOpen}
-              aria-controls="mobile-menu"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-saffron text-white transition hover:bg-orange-600"
-            >
-              {menuOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
+            <MonkeyButton
+              menuOpen={menuOpen}
+              tapCount={tapCount}
+              surpriseLevel={surpriseLevel}
+              showBanana={showBanana}
+              pupilOffset={pupilOffset}
+              onClick={handleMonkeyClick}
+            />
           </div>
         </div>
       </header>
+
+      {/* Spacer so content doesn't jump when header becomes fixed */}
+      {scrolled && <div style={{ height: '64px' }} />}
 
       {/* Mobile menu overlay */}
       <div
@@ -117,7 +372,6 @@ export function Header() {
         }`}
         style={{ paddingTop: '64px' }}
       >
-        {/* Nav links */}
         <nav className="flex flex-col gap-1 px-5 py-5">
           {links.map((link) => (
             <Link
@@ -125,9 +379,7 @@ export function Header() {
               href={link.href}
               onClick={() => setMenuOpen(false)}
               className={`flex items-center rounded-xl px-4 py-3.5 text-base font-medium transition hover:bg-orange-50 hover:text-saffron ${
-                pathname === link.href
-                  ? 'bg-orange-50 text-saffron'
-                  : 'text-charcoal'
+                pathname === link.href ? 'bg-orange-50 text-saffron' : 'text-charcoal'
               }`}
             >
               {link.label}
@@ -135,14 +387,10 @@ export function Header() {
           ))}
         </nav>
 
-        {/* Divider */}
         <div className="mx-5 border-t border-gray-100" />
 
-        {/* Contact shortcuts */}
         <div className="px-5 py-5 flex flex-col gap-3">
-          <p className="text-xs font-semibold uppercase tracking-widest text-muted">
-            Get in touch
-          </p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-muted">Get in touch</p>
           <a
             href="tel:+918328443057"
             className="flex items-center gap-3 rounded-xl border border-gray-200 px-4 py-3.5 text-sm font-medium text-charcoal transition hover:border-saffron hover:text-saffron"
@@ -156,14 +404,11 @@ export function Header() {
             rel="noopener noreferrer"
             className="flex items-center gap-3 rounded-xl border border-gray-200 px-4 py-3.5 text-sm font-medium text-charcoal transition hover:border-[#25D366] hover:text-[#25D366]"
           >
-            <span className="shrink-0 text-[#25D366]">
-              <WhatsAppIcon size={17} />
-            </span>
+            <span className="shrink-0 text-[#25D366]"><WhatsAppIcon size={17} /></span>
             WhatsApp us
           </a>
         </div>
 
-        {/* Primary CTA */}
         <div className="mt-auto px-5 pb-10 pt-2">
           <Link
             href="/contact"
@@ -172,9 +417,7 @@ export function Header() {
           >
             Book a Free Call
           </Link>
-          <p className="mt-3 text-center text-xs text-muted">
-            Free 30-min strategy call · No commitment
-          </p>
+          <p className="mt-3 text-center text-xs text-muted">Free 30-min strategy call · No commitment</p>
         </div>
       </div>
     </>
