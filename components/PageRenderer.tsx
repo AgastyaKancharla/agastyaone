@@ -1,4 +1,5 @@
 import { CardGrid, CheckpointList, ContactStrip, FAQ, FounderCard, Hero, Section, Steps, TextSections, TrustBar, WhyVisualCard } from './Sections';
+import { CRMDemo } from './CRMDemo';
 import { faqSchemaForPage, getLocationContent, type SitePage } from '@/lib/site-data';
 
 export function PageRenderer({ page, schema = false }: { page: SitePage; schema?: boolean }) {
@@ -19,8 +20,10 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
         imageAlt={`${page.h1} dashboard illustration`}
       />
       {page.trust && page.trust.length > 0 && <TrustBar items={page.trust} />}
-      {page.intro && (
-        <Section title={page.slug === '' ? 'We Speak Your Industry' : undefined} tint={page.slug !== ''} dark={page.slug === ''}>
+      {page.slug === '' ? (
+        <CRMDemo />
+      ) : page.intro && (
+        <Section tint>
           <TextSections sections={page.intro} />
         </Section>
       )}
