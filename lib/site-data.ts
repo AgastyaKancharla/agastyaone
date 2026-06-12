@@ -224,8 +224,8 @@ export const pages: SitePage[] = [
     'dental-solutions',
     'Dental Digital Solutions Bangalore | AgastyaOne',
     'Complete digital solutions for dental clinics in Bangalore. Websites, CRM, SEO and practice automation built for Bengaluru dental practices.',
-    'Complete Digital Solutions for Dental Clinics in Bengaluru',
-    'From your website to your CRM to your appointment automation — we help dental clinics across Koramangala, Indiranagar, Jayanagar, HSR Layout and Whitefield get found online, fill appointments and keep patients coming back',
+    'Your Bengaluru Dental Clinic\'s Entire Digital Presence. One System. One Team.',
+    'Website. CRM. SEO. WhatsApp automation. Appointment system. Built together so every part compounds — and your clinic keeps growing without you chasing leads manually.',
     {
       trust: ['Dental Websites Built and Live in Bengaluru', 'Built Our Own Dental Leads Management System', 'Active Across 5 Bengaluru Neighbourhoods', 'Specialists in Dental Digital Growth'],
       intro: [
@@ -243,7 +243,7 @@ export const pages: SitePage[] = [
       ],
       offerTitle: 'Everything Your Dental Clinic Needs to Grow Online',
       offers: offerCards(dentalOffers),
-      steps: ['Book a Free Call — Tell us about your clinic and your biggest challenge', 'We Build Your Plan — A clear roadmap tailored to your clinic', 'We Launch Fast — Professional execution without endless back and forth', 'Your Clinic Grows — More visibility, more appointments, more returning patients'],
+      steps: ['Book a Free 30 Min Call — Tell us your clinic size, area and the one thing blocking your growth right now', 'We Audit Before We Advise — We review your Google visibility, reviews, website and patient pipeline before the call', 'We Go Live in 7–14 Days — Website, CRM and automations built and launched fast with zero back and forth', 'Your Appointments Fill — Rankings, bookings and reviews tracked every month and compounded over time'],
       internalLinks: [{ label: 'Dental Solutions Bangalore', href: '/dental-solutions-bangalore' }, ...dentalLinks]
     }
   ),
@@ -415,5 +415,6 @@ export function getLocationContent(page: SitePage) {
     ]
   };
 }
+
 
 
