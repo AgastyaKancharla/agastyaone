@@ -1,5 +1,11 @@
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import type { CSSProperties } from 'react';
+
+const HeroCRMPanelClient = dynamic(
+  () => import('./HeroCRMPanel').then(m => m.HeroCRMPanel),
+  { ssr: false }
+);
 import {
   ArrowRight,
   BarChart3,
@@ -78,19 +84,21 @@ export function Hero({
   title,
   subtitle,
   ctas,
-  imageAlt
+  imageAlt,
+  showCRM = false,
 }: {
   title: string;
   subtitle: string;
   ctas: LinkItem[];
   imageAlt: string;
+  showCRM?: boolean;
 }) {
   const highlightedTitle = title.split('Dental Clinics');
 
   return (
     <section className="full-bleed overflow-hidden bg-gradient-to-br from-[#F8F6F3] to-white">
       <div className="dot-grid absolute inset-0 opacity-70" aria-hidden="true" />
-      <div className="site-container relative grid items-center gap-10 py-20 md:py-24 lg:grid-cols-[1.05fr_.95fr] lg:py-28">
+      <div className={"site-container relative grid items-center gap-10 py-14 md:py-20 lg:py-24 " + (showCRM ? "lg:grid-cols-[1fr_.95fr]" : "lg:grid-cols-[1.05fr_.95fr]")}>
         <Reveal>
           <p className="mb-4 inline-flex items-center rounded-full bg-orange-100 px-4 py-1 text-sm font-medium text-orange-700">
             ✨ Bengaluru growth systems
@@ -109,6 +117,13 @@ export function Hero({
             )}
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-7 text-gray-600 md:text-lg md:leading-8">{subtitle}</p>
+
+          {showCRM && (
+            <div className="my-8 lg:hidden">
+              <HeroCRMPanelClient />
+            </div>
+          )}
+
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             {ctas.map((cta, index) => (
               <Button key={cta.href + cta.label} href={cta.href} variant={index === 0 ? 'primary' : 'secondary'}>
@@ -117,9 +132,18 @@ export function Hero({
             ))}
           </div>
         </Reveal>
-        <Reveal delay={160}>
-          <DashboardHeroPanel alt={imageAlt} />
-        </Reveal>
+
+        {showCRM && (
+          <Reveal delay={160} className="hidden lg:block">
+            <HeroCRMPanelClient />
+          </Reveal>
+        )}
+
+        {!showCRM && (
+          <Reveal delay={160}>
+            <DashboardHeroPanel alt={imageAlt} />
+          </Reveal>
+        )}
       </div>
     </section>
   );
