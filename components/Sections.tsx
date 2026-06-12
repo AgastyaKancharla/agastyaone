@@ -132,12 +132,18 @@ export function Hero({
             </div>
           )}
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            {ctas.map((cta, index) => (
-              <Button key={cta.href + cta.label} href={cta.href} variant={index === 0 ? 'primary' : 'secondary'}>
-                {cta.label}
-              </Button>
-            ))}
+          <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+            <Button href={ctas[0].href} variant="primary">
+              {ctas[0].label}
+            </Button>
+            {ctas[1] && (
+              <a
+                href={ctas[1].href}
+                className="text-sm font-semibold text-gray-500 underline-offset-4 transition hover:text-[#E86C2F] hover:underline"
+              >
+                {ctas[1].label} →
+              </a>
+            )}
           </div>
         </Reveal>
 
@@ -745,6 +751,7 @@ export function FounderCard() {
     </div>
   );
 }
+
 
 
 
