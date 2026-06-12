@@ -1,5 +1,6 @@
 import { CardGrid, CheckpointList, ContactStrip, FAQ, FounderCard, Hero, Section, Steps, TextSections, TrustBar, WhyVisualCard } from './Sections';
 import { CRMDemo } from './CRMDemo';
+import { ServicesInteractive } from './ServicesInteractive';
 import { faqSchemaForPage, getLocationContent, type SitePage } from '@/lib/site-data';
 
 export function PageRenderer({ page, schema = false }: { page: SitePage; schema?: boolean }) {
@@ -29,9 +30,13 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
         </Section>
       )}
       {page.offers && (
-        <Section title={page.offerTitle ?? 'What We Offer'}>
-          <CardGrid cards={page.offers} />
-        </Section>
+        page.slug === '' ? (
+          <ServicesInteractive />
+        ) : (
+          <Section title={page.offerTitle ?? 'What We Offer'}>
+            <CardGrid cards={page.offers} />
+          </Section>
+        )
       )}
       {page.slug === '' && (
         <>
