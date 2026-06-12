@@ -1,6 +1,7 @@
 import { CardGrid, ContactStrip, FAQ, Hero, Section, Steps, TextSections, TrustBar } from './Sections';
 import { CRMDemo } from './CRMDemo';
 import { ServicesInteractive } from './ServicesInteractive';
+import { ServicesInteractiveDental } from './ServicesInteractiveDental';
 import { AgencyVsUs } from './AgencyVsUs';
 import { ProblemSolution } from './ProblemSolution';
 import { faqSchemaForPage, getLocationContent, type SitePage } from '@/lib/site-data';
@@ -36,6 +37,8 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
       {page.offers && (
         page.slug === '' ? (
           <ServicesInteractive />
+        ) : page.slug === 'dental-solutions' ? (
+          <ServicesInteractiveDental />
         ) : (
           <Section title={page.offerTitle ?? 'What We Offer'}>
             <CardGrid cards={page.offers} />
