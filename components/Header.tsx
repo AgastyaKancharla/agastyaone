@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Phone } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 
 const WA_NUMBER = '918328443057';
@@ -24,163 +24,237 @@ function WhatsAppIcon({ size = 18 }: { size?: number }) {
   );
 }
 
-// ── Monkey SVG button ──────────────────────────────────────────────
-function MonkeyButton({
+// ── Pixel Monkey ───────────────────────────────────────────────────
+// 16×16 pixel grid — 1=black, 0=transparent
+const MONKEY_IDLE = [
+  [0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0],
+  [0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0],
+  [0,1,1,0,1,0,0,0,0,0,0,1,0,1,1,0],
+  [0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0],
+  [0,1,0,0,0,1,1,1,1,1,1,0,0,0,1,0],
+  [0,1,0,1,0,0,0,0,0,0,0,0,1,0,1,0],
+  [0,1,0,1,0,1,0,0,0,1,0,0,1,0,1,0],
+  [0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
+  [0,1,0,0,0,1,1,0,0,1,1,0,0,0,1,0],
+  [0,0,1,0,0,0,1,1,1,1,0,0,0,1,0,0],
+  [0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0],
+  [0,0,1,0,0,1,1,1,1,1,1,0,0,1,0,0],
+  [0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0],
+  [1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1],
+  [1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+];
+
+// Peek-a-boo: hands over eyes
+const MONKEY_PEEK = [
+  [0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0],
+  [0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0],
+  [0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0],
+  [0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
+  [1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1],
+  [1,0,0,0,0,1,1,0,0,1,1,0,0,0,0,1],
+  [1,0,0,0,0,1,1,0,0,1,1,0,0,0,0,1],
+  [1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1],
+  [0,1,0,0,0,1,1,1,1,1,1,0,0,0,1,0],
+  [0,0,1,0,0,0,1,1,1,1,0,0,0,1,0,0],
+  [0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0],
+  [0,0,1,0,0,1,1,1,1,1,1,0,0,1,0,0],
+  [0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0],
+  [1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1],
+  [1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+];
+
+const PIXEL_SIZE = 2.4; // px per pixel cell — keeps it 38x38px total
+
+function PixelGrid({ grid }: { grid: number[][] }) {
+  return (
+    <svg
+      width={16 * PIXEL_SIZE}
+      height={16 * PIXEL_SIZE}
+      viewBox={`0 0 ${16 * PIXEL_SIZE} ${16 * PIXEL_SIZE}`}
+      style={{ display: 'block', imageRendering: 'pixelated' }}
+    >
+      {grid.map((row, y) =>
+        row.map((cell, x) =>
+          cell ? (
+            <rect
+              key={`${x}-${y}`}
+              x={x * PIXEL_SIZE}
+              y={y * PIXEL_SIZE}
+              width={PIXEL_SIZE}
+              height={PIXEL_SIZE}
+              fill="#1a1a2e"
+            />
+          ) : null
+        )
+      )}
+    </svg>
+  );
+}
+
+const MOODS = ['jump', 'dance', 'run', 'spin', 'clap', 'wave', 'backflip'] as const;
+type Mood = typeof MOODS[number];
+
+function PixelMonkeyButton({
   menuOpen,
   tapCount,
-  surpriseLevel,
   showBanana,
-  pupilOffset,
   onClick,
 }: {
   menuOpen: boolean;
   tapCount: number;
-  surpriseLevel: number; // 0 | 1 | 2 | 3
   showBanana: boolean;
-  pupilOffset: { x: number; y: number };
   onClick: () => void;
 }) {
-  // Eye shape changes with surprise level
-  const eyeRy = menuOpen ? [3, 4, 5, 6][surpriseLevel] : 3;
-  const browY = menuOpen ? [7, 5.5, 4.5, 3.5][surpriseLevel] : 7;
-  // Mouth shape
-  const mouthD = menuOpen
-    ? surpriseLevel >= 2
-      ? 'M 10 17 Q 12 20 14 17' // big O surprised
-      : 'M 10 16.5 Q 12 19 14 16.5'
-    : 'M 10 16 Q 12 18 14 16'; // normal smile
+  const [mood, setMood] = useState<Mood | 'idle'>('idle');
+  const moodTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isHovering = useRef(false);
+
+  const pickMood = useCallback(() => {
+    const next = MOODS[Math.floor(Math.random() * MOODS.length)];
+    setMood(next);
+    // Return to idle after one cycle (duration per mood)
+    const durations: Record<Mood, number> = {
+      jump: 600, dance: 800, run: 700, spin: 600, clap: 500, wave: 800, backflip: 900,
+    };
+    moodTimer.current = setTimeout(() => {
+      if (isHovering.current) pickMood();
+      else setMood('idle');
+    }, durations[next]);
+  }, []);
+
+  const handleEnter = useCallback(() => {
+    isHovering.current = true;
+    if (mood === 'idle') pickMood();
+  }, [mood, pickMood]);
+
+  const handleLeave = useCallback(() => {
+    isHovering.current = false;
+    if (moodTimer.current) clearTimeout(moodTimer.current);
+    setMood('idle');
+  }, []);
+
+  useEffect(() => {
+    return () => { if (moodTimer.current) clearTimeout(moodTimer.current); };
+  }, []);
+
+  // When tapped — slam dunk
+  const handleClick = () => {
+    if (moodTimer.current) clearTimeout(moodTimer.current);
+    setMood('jump');
+    moodTimer.current = setTimeout(() => setMood('idle'), 400);
+    onClick();
+  };
+
+  const grid = menuOpen ? MONKEY_PEEK : MONKEY_IDLE;
 
   return (
     <button
-      onClick={onClick}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+      onTouchStart={handleEnter}
+      onTouchEnd={handleLeave}
+      onClick={handleClick}
       aria-label={menuOpen ? 'Close menu' : 'Open menu'}
       aria-expanded={menuOpen}
       aria-controls="mobile-menu"
-      style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', position: 'relative', width: 40, height: 40 }}
+      style={{
+        background: 'none',
+        border: 'none',
+        padding: '1px',
+        cursor: 'pointer',
+        position: 'relative',
+        width: 40,
+        height: 40,
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 8,
+      }}
     >
-      {/* Banana easter egg */}
       {showBanana && (
-        <span
-          style={{
-            position: 'absolute',
-            top: -8,
-            right: -8,
-            fontSize: 14,
-            animation: 'bananaFly 0.6s ease forwards',
-            pointerEvents: 'none',
-            zIndex: 10,
-          }}
-        >
-          🍌
-        </span>
+        <span style={{
+          position: 'absolute', top: -8, right: -8, fontSize: 14,
+          animation: 'bananaFly 0.6s ease forwards', pointerEvents: 'none', zIndex: 10,
+        }}>🍌</span>
       )}
 
-      <svg
-        viewBox="0 0 24 24"
-        width="40"
-        height="40"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style={{ display: 'block', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.15))' }}
+      <span
+        style={{
+          display: 'block',
+          animation: menuOpen
+            ? 'monkeyPeek 1.2s ease infinite'
+            : mood === 'idle'   ? 'monkeyBob 2.4s ease-in-out infinite'
+            : mood === 'jump'   ? 'monkeyJump 0.4s ease-in-out'
+            : mood === 'dance'  ? 'monkeyDance 0.4s ease-in-out infinite'
+            : mood === 'run'    ? 'monkeyRun 0.35s linear infinite'
+            : mood === 'spin'   ? 'monkeySpin 0.6s linear'
+            : mood === 'clap'   ? 'monkeyClap 0.25s ease-in-out infinite'
+            : mood === 'wave'   ? 'monkeyWave 0.5s ease-in-out infinite'
+            : mood === 'backflip' ? 'monkeyBackflip 0.9s ease'
+            : 'monkeyBob 2.4s ease-in-out infinite',
+          willChange: mood !== 'idle' ? 'transform' : 'auto',
+          transformOrigin: 'center bottom',
+        }}
       >
-        {/* Outer ear left */}
-        <ellipse cx="4.5" cy="12" rx="2.5" ry="3" fill="#c47c3e" />
-        {/* Outer ear right */}
-        <ellipse cx="19.5" cy="12" rx="2.5" ry="3" fill="#c47c3e" />
-        {/* Inner ear left */}
-        <ellipse cx="4.5" cy="12" rx="1.3" ry="1.8" fill="#e8a87c" />
-        {/* Inner ear right */}
-        <ellipse cx="19.5" cy="12" rx="1.3" ry="1.8" fill="#e8a87c" />
-
-        {/* Head */}
-        <ellipse cx="12" cy="12" rx="8" ry="8.5" fill="#c47c3e" />
-
-        {/* Face patch */}
-        <ellipse cx="12" cy="14" rx="5" ry="4.5" fill="#e8c49e" />
-
-        {/* Forehead highlight */}
-        <ellipse cx="10" cy="7.5" rx="1.5" ry="1" fill="#d4944e" opacity="0.4" />
-
-        {/* Left eyebrow */}
-        <line
-          x1="7.5" y1={browY}
-          x2="10" y2={browY - (menuOpen ? 0.8 : 0)}
-          stroke="#5a3010" strokeWidth="0.9" strokeLinecap="round"
-          style={{ transition: 'all 0.3s ease' }}
-        />
-        {/* Right eyebrow */}
-        <line
-          x1="14" y1={browY - (menuOpen ? 0.8 : 0)}
-          x2="16.5" y2={browY}
-          stroke="#5a3010" strokeWidth="0.9" strokeLinecap="round"
-          style={{ transition: 'all 0.3s ease' }}
-        />
-
-        {/* Left eye white */}
-        <ellipse cx="9" cy="10.5" rx="2" ry={eyeRy * 0.7} fill="white"
-          style={{ transition: 'all 0.3s ease' }} />
-        {/* Right eye white */}
-        <ellipse cx="15" cy="10.5" rx="2" ry={eyeRy * 0.7} fill="white"
-          style={{ transition: 'all 0.3s ease' }} />
-
-        {/* Left pupil — tracks cursor */}
-        <circle
-          cx={9 + pupilOffset.x}
-          cy={10.5 + pupilOffset.y}
-          r="1"
-          fill="#1a1a2e"
-          style={{ transition: 'cx 0.1s ease, cy 0.1s ease' }}
-        />
-        {/* Right pupil — tracks cursor */}
-        <circle
-          cx={15 + pupilOffset.x}
-          cy={10.5 + pupilOffset.y}
-          r="1"
-          fill="#1a1a2e"
-          style={{ transition: 'cx 0.1s ease, cy 0.1s ease' }}
-        />
-
-        {/* Left eye shine */}
-        <circle cx={9.6 + pupilOffset.x * 0.5} cy={10 + pupilOffset.y * 0.5} r="0.35" fill="white" />
-        {/* Right eye shine */}
-        <circle cx={15.6 + pupilOffset.x * 0.5} cy={10 + pupilOffset.y * 0.5} r="0.35" fill="white" />
-
-        {/* Nose */}
-        <ellipse cx="12" cy="13.5" rx="1.2" ry="0.7" fill="#a06030" />
-        <circle cx="11.4" cy="13.3" r="0.25" fill="#c47c3e" opacity="0.6" />
-        <circle cx="12.6" cy="13.3" r="0.25" fill="#c47c3e" opacity="0.6" />
-
-        {/* Mouth */}
-        <path
-          d={mouthD}
-          stroke="#a06030"
-          strokeWidth="0.9"
-          strokeLinecap="round"
-          fill="none"
-          style={{ transition: 'd 0.3s ease' }}
-        />
-
-        {/* Surprised open mouth fill */}
-        {menuOpen && surpriseLevel >= 2 && (
-          <ellipse cx="12" cy="18" rx="1.5" ry="1" fill="#7a3010" opacity="0.5" />
-        )}
-
-        {/* Cheek blush left */}
-        <ellipse cx="7.5" cy="13" rx="1.5" ry="0.8" fill="#e86c2f" opacity="0.2" />
-        {/* Cheek blush right */}
-        <ellipse cx="16.5" cy="13" rx="1.5" ry="0.8" fill="#e86c2f" opacity="0.2" />
-
-        {/* Sweat drop when very surprised */}
-        {menuOpen && surpriseLevel >= 3 && (
-          <ellipse cx="17.5" cy="8" rx="0.6" ry="1" fill="#60a5fa" opacity="0.7" />
-        )}
-      </svg>
+        <PixelGrid grid={grid} />
+      </span>
 
       <style>{`
+        @keyframes monkeyBob {
+          0%,100% { transform: translateY(0); }
+          50%      { transform: translateY(-2px); }
+        }
+        @keyframes monkeyJump {
+          0%   { transform: translateY(0) scaleY(1); }
+          30%  { transform: translateY(-10px) scaleY(1.1); }
+          60%  { transform: translateY(-12px) scaleY(1); }
+          80%  { transform: translateY(-2px) scaleY(0.9); }
+          100% { transform: translateY(0) scaleY(1); }
+        }
+        @keyframes monkeyDance {
+          0%,100% { transform: translateX(0) rotate(0deg); }
+          25%     { transform: translateX(-3px) rotate(-6deg); }
+          75%     { transform: translateX(3px) rotate(6deg); }
+        }
+        @keyframes monkeyRun {
+          0%,100% { transform: translateX(0) skewX(0deg); }
+          25%     { transform: translateX(-2px) skewX(-4deg); }
+          75%     { transform: translateX(2px) skewX(4deg); }
+        }
+        @keyframes monkeySpin {
+          0%   { transform: rotate(0deg) scale(1); }
+          50%  { transform: rotate(180deg) scale(0.8); }
+          100% { transform: rotate(360deg) scale(1); }
+        }
+        @keyframes monkeyClap {
+          0%,100% { transform: scaleX(1); }
+          50%     { transform: scaleX(0.85); }
+        }
+        @keyframes monkeyWave {
+          0%,100% { transform: rotate(0deg); }
+          25%     { transform: rotate(-8deg) translateY(-2px); }
+          75%     { transform: rotate(8deg) translateY(-2px); }
+        }
+        @keyframes monkeyBackflip {
+          0%   { transform: translateY(0) rotate(0deg) scale(1); }
+          25%  { transform: translateY(-14px) rotate(90deg) scale(1.1); }
+          50%  { transform: translateY(-18px) rotate(180deg) scale(1); }
+          75%  { transform: translateY(-8px) rotate(270deg) scale(0.95); }
+          100% { transform: translateY(0) rotate(360deg) scale(1); }
+        }
+        @keyframes monkeyPeek {
+          0%,100% { transform: translateY(0); }
+          50%     { transform: translateY(-1px); }
+        }
         @keyframes bananaFly {
-          0%   { transform: translate(0, 0) scale(1); opacity: 1; }
-          60%  { transform: translate(-8px, -12px) scale(1.3) rotate(-20deg); opacity: 1; }
-          100% { transform: translate(-14px, 4px) scale(0.4) rotate(10deg); opacity: 0; }
+          0%   { transform: translate(0,0) scale(1); opacity: 1; }
+          60%  { transform: translate(-8px,-12px) scale(1.3) rotate(-20deg); opacity: 1; }
+          100% { transform: translate(-14px,4px) scale(0.4) rotate(10deg); opacity: 0; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [style*="animation"] { animation: none !important; }
         }
       `}</style>
     </button>
@@ -193,121 +267,50 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [tapCount, setTapCount] = useState(0);
-  const [surpriseLevel, setSurpriseLevel] = useState(0);
   const [showBanana, setShowBanana] = useState(false);
-  const [pupilOffset, setPupilOffset] = useState({ x: 0, y: 0 });
-  const btnRef = useRef<HTMLDivElement>(null);
-  const surpriseTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
-  // Floating header on scroll
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => setScrolled(window.scrollY > 4);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Close menu on route change
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
+  useEffect(() => { setMenuOpen(false); }, [pathname]);
 
-  // Body scroll lock
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
-  // Surprise escalation timers when menu opens
-  useEffect(() => {
-    surpriseTimers.current.forEach(clearTimeout);
-    surpriseTimers.current = [];
-    if (menuOpen) {
-      setSurpriseLevel(0);
-      surpriseTimers.current.push(setTimeout(() => setSurpriseLevel(1), 3000));
-      surpriseTimers.current.push(setTimeout(() => setSurpriseLevel(2), 6000));
-      surpriseTimers.current.push(setTimeout(() => setSurpriseLevel(3), 9000));
-    } else {
-      setSurpriseLevel(0);
-    }
-    return () => surpriseTimers.current.forEach(clearTimeout);
-  }, [menuOpen]);
-
-  // Pupil tracking — passive listener, pure math
-  useEffect(() => {
-    const btn = btnRef.current;
-    if (!btn) return;
-    const rect = () => btn.getBoundingClientRect();
-    const calc = (cx: number, cy: number) => {
-      const r = rect();
-      const bx = r.left + r.width / 2;
-      const by = r.top + r.height / 2;
-      const dx = cx - bx;
-      const dy = cy - by;
-      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-      const maxShift = 1.8;
-      return {
-        x: parseFloat(((dx / dist) * Math.min(dist / 60, 1) * maxShift).toFixed(2)),
-        y: parseFloat(((dy / dist) * Math.min(dist / 60, 1) * maxShift).toFixed(2)),
-      };
-    };
-    const onMouseMove = (e: MouseEvent) => setPupilOffset(calc(e.clientX, e.clientY));
-    const onTouchMove = (e: TouchEvent) => {
-      const t = e.touches[0];
-      setPupilOffset(calc(t.clientX, t.clientY));
-    };
-    window.addEventListener('mousemove', onMouseMove, { passive: true });
-    window.addEventListener('touchmove', onTouchMove, { passive: true });
-    return () => {
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('touchmove', onTouchMove);
-    };
-  }, []);
-
   const handleMonkeyClick = () => {
     const next = tapCount + 1;
     setTapCount(next);
-    // Every 5th tap — banana easter egg
     if (next % 5 === 0) {
       setShowBanana(true);
       setTimeout(() => setShowBanana(false), 700);
-      // Slight delay before opening menu so banana is visible
-      setTimeout(() => setMenuOpen((prev) => !prev), 150);
+      setTimeout(() => setMenuOpen(p => !p), 150);
     } else {
-      setMenuOpen((prev) => !prev);
+      setMenuOpen(p => !p);
     }
   };
 
   return (
     <>
-      {/* Header — floats when scrolled past 60px */}
       <header
-        className={`full-bleed z-50 transition-all duration-300 ${
-          scrolled
-            ? 'fixed top-3 left-0 right-0 mx-auto'
-            : 'sticky top-0'
-        }`}
-        style={
-          scrolled
-            ? {
-                width: 'calc(100% - 2rem)',
-                maxWidth: '1200px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                borderRadius: '16px',
-                background: 'rgba(255,255,255,0.92)',
-                boxShadow: '0 8px 32px rgba(26,26,46,0.13)',
-                backdropFilter: 'blur(16px)',
-                WebkitBackdropFilter: 'blur(16px)',
-                border: '1px solid rgba(255,255,255,0.6)',
-              }
-            : {
-                background: 'rgba(255,255,255,0.80)',
-                backdropFilter: 'blur(8px)',
-                WebkitBackdropFilter: 'blur(8px)',
-                borderBottom: '1px solid transparent',
-              }
-        }
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          transition: 'background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease',
+          background: scrolled ? 'rgba(255,255,255,0.97)' : 'rgba(255,255,255,0.75)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          borderBottom: scrolled ? '1.5px solid rgba(232,108,47,0.28)' : '1.5px solid transparent',
+          boxShadow: scrolled ? '0 2px 16px rgba(26,26,46,0.07)' : 'none',
+        }}
       >
         <div className="site-container flex items-center justify-between gap-4 py-3">
           {/* Logo */}
@@ -340,8 +343,8 @@ export function Header() {
             </Link>
           </div>
 
-          {/* Mobile: phone + monkey */}
-          <div ref={btnRef} className="flex items-center gap-2 lg:hidden">
+          {/* Mobile: phone + pixel monkey */}
+          <div className="flex items-center gap-2 lg:hidden">
             <a
               href="tel:+918328443057"
               aria-label="Call AgastyaOne"
@@ -349,20 +352,18 @@ export function Header() {
             >
               <Phone size={17} />
             </a>
-            <MonkeyButton
+            <PixelMonkeyButton
               menuOpen={menuOpen}
               tapCount={tapCount}
-              surpriseLevel={surpriseLevel}
               showBanana={showBanana}
-              pupilOffset={pupilOffset}
               onClick={handleMonkeyClick}
             />
           </div>
         </div>
       </header>
 
-      {/* Spacer so content doesn't jump when header becomes fixed */}
-      {scrolled && <div style={{ height: '64px' }} />}
+      {/* Fixed header offset so content isn't hidden behind it */}
+      <div style={{ height: 56 }} aria-hidden="true" />
 
       {/* Mobile menu overlay */}
       <div
@@ -370,7 +371,7 @@ export function Header() {
         className={`fixed inset-0 z-40 flex flex-col bg-white lg:hidden transition-all duration-300 ${
           menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
-        style={{ paddingTop: '64px' }}
+        style={{ paddingTop: '56px' }}
       >
         <nav className="flex flex-col gap-1 px-5 py-5">
           {links.map((link) => (
