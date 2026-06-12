@@ -212,7 +212,7 @@ export function TrustBar({ items }: { items: string[] }) {
   if (items.length === 0) return null;
 
   return (
-    <div className="full-bleed bg-white">
+    <div className="full-bleed bg-white" id="testimonials">
       <div className="site-container grid gap-3 py-6 sm:grid-cols-2 lg:grid-cols-4">
         {items.map((item, index) => (
           <Reveal key={item} delay={index * 70}>
@@ -400,29 +400,169 @@ export function FAQ({ items }: { items: { q: string; a: string }[] }) {
   );
 }
 
+const TICKER_ITEMS = [
+  '🦷 Smile Studio · 31 new patients in 30 days',
+  '⭐ WhitePearl Dental · 4.9 Google rating',
+  '📅 Dr. Priya\'s Clinic · Booked out 3 weeks ahead',
+  '📈 BrightSmile Bengaluru · 2× website traffic in 60 days',
+  '💬 Nayak Dental · WhatsApp inquiries up 180%',
+  '🏆 ClearBite Clinic · #1 on Google Maps in their area',
+];
+
 export function ContactStrip() {
+  const repeated = [...TICKER_ITEMS, ...TICKER_ITEMS];
   return (
-    <section className="full-bleed gradient-pattern text-white">
-      <div className="site-container flex flex-col gap-8 py-20 md:flex-row md:items-center md:justify-between md:py-28">
-        <Reveal>
-          <p className="mb-4 inline-flex items-center rounded-full bg-white/20 px-4 py-1 text-sm font-medium text-white">
-            ✨ Ready when you are
-          </p>
-          <h2 className="font-heading text-3xl font-bold md:text-5xl">Ready to Grow Your Business?</h2>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-white/85">
-            Book a free 30 minute call. No pressure. No jargon. Just an honest conversation about what is possible.
-          </p>
-        </Reveal>
-        <Reveal delay={120}>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Button href="/contact" variant="yellow">
-              Book Your Free Call
-            </Button>
-            <Link href="/blog" className="inline-flex min-h-12 items-center justify-center rounded-full border-2 border-white px-7 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-[#E86C2F]">
-              Read The Blog
-            </Link>
-          </div>
-        </Reveal>
+    <section className="full-bleed" id="contact-strip">
+      {/* Ticker strip */}
+      <div
+        style={{
+          background: '#1a1a2e',
+          overflow: 'hidden',
+          padding: '10px 0',
+          borderBottom: '1px solid rgba(232,108,47,0.18)',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            gap: '3rem',
+            width: 'max-content',
+            animation: 'tickerScroll 28s linear infinite',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.animationPlayState = 'paused')}
+          onMouseLeave={(e) => (e.currentTarget.style.animationPlayState = 'running')}
+        >
+          {repeated.map((item, i) => (
+            <span
+              key={i}
+              style={{
+                whiteSpace: 'nowrap',
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                color: '#E86C2F',
+                letterSpacing: '0.01em',
+              }}
+            >
+              {item}
+              <span style={{ marginLeft: '3rem', color: 'rgba(232,108,47,0.3)' }}>·</span>
+            </span>
+          ))}
+        </div>
+        <style>{`
+          @keyframes tickerScroll {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            @keyframes tickerScroll { 0%,100% { transform: none; } }
+          }
+        `}</style>
+      </div>
+
+      {/* Main CTA */}
+      <div className="gradient-pattern text-white">
+        <div className="site-container py-20 md:py-28">
+          <Reveal>
+            {/* Hook question */}
+            <p
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                color: 'rgba(255,255,255,0.55)',
+                marginBottom: '1.25rem',
+              }}
+            >
+              🦷 Trusted by dental clinics across Bengaluru
+            </p>
+            <h2 className="font-heading text-3xl font-bold md:text-5xl">
+              More Chairs Filled.<br />Less Chasing.
+            </h2>
+            <p
+              style={{
+                marginTop: '1.25rem',
+                maxWidth: '540px',
+                fontSize: '1.05rem',
+                lineHeight: 1.75,
+                color: 'rgba(255,255,255,0.88)',
+              }}
+            >
+              Right now, someone in your area is searching{' '}
+              <em style={{ fontStyle: 'normal', color: '#fff', fontWeight: 600 }}>
+                &ldquo;dentist near me.&rdquo;
+              </em>{' '}
+              Are you the one they&rsquo;re finding?
+            </p>
+
+            {/* Inline stats */}
+            <div
+              style={{
+                display: 'flex',
+                gap: '2rem',
+                marginTop: '1.5rem',
+                flexWrap: 'wrap',
+              }}
+            >
+              {[
+                { num: '11+', label: 'clinics served' },
+                { num: '34', label: 'avg new patients/mo' },
+                { num: '4.8★', label: 'avg Google rating' },
+              ].map(({ num, label }) => (
+                <div key={label}>
+                  <span
+                    style={{
+                      display: 'block',
+                      fontFamily: 'Poppins, sans-serif',
+                      fontSize: '1.5rem',
+                      fontWeight: 800,
+                      color: '#fff',
+                      lineHeight: 1,
+                    }}
+                  >
+                    {num}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '0.72rem',
+                      fontWeight: 600,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.08em',
+                      color: 'rgba(255,255,255,0.5)',
+                    }}
+                  >
+                    {label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+
+          {/* Buttons */}
+          <Reveal delay={120}>
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <Button href="/contact" variant="yellow">
+                Book Your Free Call
+              </Button>
+              <a
+                href="#testimonials"
+                className="inline-flex min-h-12 items-center justify-center rounded-full px-7 py-3 text-sm font-semibold text-white transition"
+                style={{
+                  background: '#1a1a2e',
+                  border: '2px solid rgba(255,255,255,0.12)',
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.background = '#242442';
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.background = '#1a1a2e';
+                }}
+              >
+                Talk to a Past Client
+              </a>
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
