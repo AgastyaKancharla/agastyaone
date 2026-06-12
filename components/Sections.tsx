@@ -1,6 +1,10 @@
+'use client';
+
+import React from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import type { CSSProperties } from 'react';
+import { PANEL_SUBTITLES } from './HeroCRMPanel';
 
 const HeroCRMPanelClient = dynamic(
   () => import('./HeroCRMPanel').then(m => m.HeroCRMPanel),
@@ -94,6 +98,8 @@ export function Hero({
   showCRM?: boolean;
 }) {
   const highlightedTitle = title.split('Dental Clinics');
+  const [panelIdx, setPanelIdx] = React.useState(0);
+  const displaySubtitle = showCRM ? PANEL_SUBTITLES[panelIdx] : subtitle;
 
   return (
     <section className="full-bleed overflow-hidden bg-gradient-to-br from-[#F8F6F3] to-white">
@@ -116,11 +122,13 @@ export function Hero({
               title
             )}
           </h1>
-          <p className="mt-6 max-w-2xl text-base leading-7 text-gray-600 md:text-lg md:leading-8">{subtitle}</p>
+          <p key={panelIdx} className="mt-6 max-w-2xl text-base leading-7 text-gray-600 md:text-lg md:leading-8" style={{ animation: showCRM ? 'subtitleFade 0.4s ease' : undefined }}>
+            {displaySubtitle}
+          </p>
 
           {showCRM && (
             <div className="my-8 lg:hidden">
-              <HeroCRMPanelClient />
+              <HeroCRMPanelClient onPanelChange={setPanelIdx} />
             </div>
           )}
 
@@ -135,7 +143,7 @@ export function Hero({
 
         {showCRM && (
           <Reveal delay={160} className="hidden lg:block">
-            <HeroCRMPanelClient />
+            <HeroCRMPanelClient onPanelChange={setPanelIdx} />
           </Reveal>
         )}
 
@@ -145,6 +153,7 @@ export function Hero({
           </Reveal>
         )}
       </div>
+      <style dangerouslySetInnerHTML={{ __html: '@keyframes subtitleFade { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:none; } }' }} />
     </section>
   );
 }
