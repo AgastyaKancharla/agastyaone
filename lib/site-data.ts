@@ -207,10 +207,10 @@ export const homePage = page(
       { title: 'Practice Automation', body: 'Remove the manual work so you can focus on patient care' }
     ],
     steps: [
-      'Book a Free 30 Min Call — Tell us your clinic size, neighbourhood and the one thing you most want to fix',
-      'We Audit Your Online Presence — We check your Google visibility, reviews, website and patient pipeline before the call',
-      'We Build and Go Live in 7–14 Days — Website, CRM, automations launched fast with zero back and forth',
-      'Your Appointments Fill — We track rankings, bookings and reviews monthly and keep compounding results'
+      'Book a Free Call — Tell us about your clinic and your biggest challenge',
+      'We Listen and Plan — We understand your goals and build a clear plan',
+      'We Build and Launch — Fast, professional execution with zero confusion',
+      'Your Clinic Grows — We track results and keep improving with you'
     ],
     internalLinks: [
       { label: 'Dental Solutions', href: '/dental-solutions' }
