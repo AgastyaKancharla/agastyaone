@@ -282,27 +282,20 @@ export const pages: SitePage[] = [
         body: 'When a patient searches for a dentist in Koramangala or Indiranagar, they open the top 3 results, spend 15 seconds on each website and book with the one that feels most trustworthy. A slow, outdated or generic website loses that patient to your competitor every single time.'
       },
       {
-        title: 'What a Dental Website From AgastyaOne Includes',
-        items: [
-          'Homepage built around trust — credentials, treatments, reviews and a clear call to action',
-          'Individual service pages for common treatments: cleaning, RCT, implants, braces, whitening',
-          'Doctor profile page with qualifications, experience and a warm personal introduction',
-          'WhatsApp appointment button on every page so patients can contact you instantly',
-          'Google Reviews section pulling in your real reviews as social proof',
-          'Location page with embedded map, neighbourhood name and directions',
-          'Mobile-first layout that loads fast on every phone and network',
-          'SEO structure built in from day one — titles, headings, local keywords, schema markup',
-          'Before and after gallery to show treatment outcomes',
-          'Contact page with form, WhatsApp, phone and location in one place'
-        ]
-      },
-      {
-        title: 'What Makes It Different From a Generic Website',
+        title: 'DARK:What Makes It Different From a Generic Website',
         body: 'Most web agencies build the same template with your logo swapped in. We build around how Bengaluru dental patients actually search, compare and decide. Every section, every word and every button is written for a dental patient who is hesitant, comparing options and needs a reason to trust your clinic over the one three streets away.'
       },
       {
-        title: 'Investment',
-        body: 'Dental clinic websites start from Rs 18,000. Final pricing depends on number of treatment pages, whether you have an existing website to migrate from and any custom features. All content writing is included — you do not need to write a single word.'
+        title: 'PRICING:Investment',
+        body: 'Rs 18,000',
+        items: [
+          'All content written for you — not a single word to write',
+          '10 pages including homepage, treatments, doctor profile and contact',
+          'Mobile first design tested on real devices',
+          'SEO ready from day one — local keywords and schema markup',
+          'WhatsApp button and Google Reviews integration included',
+          'Go live in 7 to 14 days'
+        ]
       }
     ],
     offerTitle: 'Every Page We Build Includes',
@@ -475,6 +468,7 @@ export function getLocationContent(page: SitePage) {
     ]
   };
 }
+
 
 
 
