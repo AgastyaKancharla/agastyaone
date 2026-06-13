@@ -187,7 +187,13 @@ export function Hero({
           </Reveal>
         )}
 
-        {!showCRM && !showWebsitePanel && slug !== 'dental-seo-services' && (
+        {!showCRM && !showWebsitePanel && slug === 'dentist-appointment-software' && (
+          <Reveal delay={160}>
+            <WhatsAppBookingPanel />
+          </Reveal>
+        )}
+
+        {!showCRM && !showWebsitePanel && slug !== 'dental-seo-services' && slug !== 'dentist-appointment-software' && (
           <Reveal delay={160}>
             <DashboardHeroPanel alt={imageAlt} />
           </Reveal>
@@ -404,6 +410,176 @@ function DashboardHeroPanel({ alt }: { alt: string }) {
           ))}
         </div>
       </div>
+    </div>
+  );
+}
+
+function WhatsAppBookingPanel() {
+  const [visibleCount, setVisibleCount] = React.useState(0);
+
+  React.useEffect(() => {
+    setVisibleCount(0);
+    const timers = [
+      setTimeout(() => setVisibleCount(1), 600),
+      setTimeout(() => setVisibleCount(2), 1600),
+      setTimeout(() => setVisibleCount(3), 2800),
+      setTimeout(() => setVisibleCount(4), 4200),
+    ];
+    // Loop: restart after full sequence
+    const loop = setTimeout(() => setVisibleCount(0), 7000);
+    return () => { timers.forEach(clearTimeout); clearTimeout(loop); };
+  }, []);
+
+  // Restart loop when reset
+  React.useEffect(() => {
+    if (visibleCount === 0) {
+      const timers = [
+        setTimeout(() => setVisibleCount(1), 600),
+        setTimeout(() => setVisibleCount(2), 1600),
+        setTimeout(() => setVisibleCount(3), 2800),
+        setTimeout(() => setVisibleCount(4), 4200),
+      ];
+      const loop = setTimeout(() => setVisibleCount(0), 7000);
+      return () => { timers.forEach(clearTimeout); clearTimeout(loop); };
+    }
+  }, [visibleCount]);
+
+  const messages = [
+    {
+      from: 'clinic',
+      text: 'Hi Priya! ✅ Your appointment is confirmed.',
+      time: '9:01 AM',
+    },
+    {
+      from: 'clinic',
+      card: true,
+      lines: [
+        { icon: '📅', text: 'Tuesday, Jun 17' },
+        { icon: '⏰', text: '9:00 AM' },
+        { icon: '🦷', text: 'Root Canal' },
+        { icon: '📍', text: 'BrightSmile Clinic, Bengaluru' },
+      ],
+      time: '9:01 AM',
+    },
+    {
+      from: 'patient',
+      text: 'Thank you! See you then 😊',
+      time: '9:03 AM',
+    },
+  ];
+
+  return (
+    <div className="rounded-2xl border border-white/20 bg-white/70 p-4 shadow-2xl backdrop-blur-sm">
+      <div className="rounded-2xl bg-[linear-gradient(135deg,#1A1A2E_0%,#242442_58%,#11111f_100%)] overflow-hidden">
+
+        {/* WhatsApp header */}
+        <div style={{ background: '#075E54', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#128C7E', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, flexShrink: 0 }}>
+            🦷
+          </div>
+          <div style={{ flex: 1 }}>
+            <p style={{ color: '#fff', fontSize: '0.82rem', fontWeight: 700, margin: 0, lineHeight: 1.2 }}>BrightSmile Clinic</p>
+            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.7rem', margin: 0 }}>
+              <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: '#25D366', marginRight: 4, verticalAlign: 'middle' }} />
+              Online
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: 14, color: 'rgba(255,255,255,0.7)', fontSize: 14 }}>
+            📞 ⋮
+          </div>
+        </div>
+
+        {/* Chat area */}
+        <div style={{ background: '#ECE5DD', padding: '12px 10px', minHeight: 280, position: 'relative' }}>
+          {/* Wallpaper pattern */}
+          <div style={{ position: 'absolute', inset: 0, opacity: 0.06, backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23000\' fill-opacity=\'1\'%3E%3Ccircle cx=\'1\' cy=\'1\' r=\'1\'/%3E%3C/g%3E%3C/svg%3E")', pointerEvents: 'none' }} />
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6, position: 'relative' }}>
+            {/* Date chip */}
+            {visibleCount >= 1 && (
+              <div style={{ textAlign: 'center', marginBottom: 4, animation: 'waFadeUp 0.3s ease' }}>
+                <span style={{ background: 'rgba(255,255,255,0.85)', borderRadius: 8, padding: '3px 10px', fontSize: '0.68rem', color: '#667781', fontWeight: 600 }}>
+                  Today
+                </span>
+              </div>
+            )}
+
+            {messages.map((msg, i) => {
+              if (visibleCount < i + 1) return null;
+              const isClinic = msg.from === 'clinic';
+              return (
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    justifyContent: isClinic ? 'flex-start' : 'flex-end',
+                    animation: 'waFadeUp 0.35s ease',
+                  }}
+                >
+                  <div style={{
+                    background: isClinic ? '#fff' : '#DCF8C6',
+                    borderRadius: isClinic ? '0 12px 12px 12px' : '12px 0 12px 12px',
+                    padding: msg.card ? '10px 12px' : '8px 10px',
+                    maxWidth: '82%',
+                    boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
+                  }}>
+                    {msg.card ? (
+                      <div>
+                        {msg.lines!.map(({ icon, text }) => (
+                          <div key={text} style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '3px 0', borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
+                            <span style={{ fontSize: '0.85rem', flexShrink: 0 }}>{icon}</span>
+                            <span style={{ fontSize: '0.78rem', color: '#1a1a2e', fontWeight: 600 }}>{text}</span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p style={{ fontSize: '0.82rem', color: '#1a1a2e', margin: 0, lineHeight: 1.45 }}>{msg.text}</p>
+                    )}
+                    <p style={{ fontSize: '0.62rem', color: '#667781', margin: '4px 0 0', textAlign: 'right' }}>
+                      {msg.time} {isClinic ? '✓✓' : ''}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Typing indicator */}
+            {visibleCount >= 1 && visibleCount < 4 && (
+              <div style={{ display: 'flex', justifyContent: 'flex-start', animation: 'waFadeUp 0.3s ease' }}>
+                <div style={{ background: '#fff', borderRadius: '0 12px 12px 12px', padding: '10px 14px', display: 'flex', gap: 4, alignItems: 'center' }}>
+                  {[0, 1, 2].map(i => (
+                    <span key={i} style={{ width: 6, height: 6, borderRadius: '50%', background: '#667781', display: 'block', animation: `waDot 1.2s ease-in-out ${i * 0.2}s infinite` }} />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Stat strip */}
+        <div style={{ display: 'flex', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+          {[
+            { num: '24/7', label: 'Auto-sent' },
+            { num: '0', label: 'Manual calls' },
+            { num: '↓68%', label: 'No-shows' },
+          ].map(({ num, label }) => (
+            <div key={label} style={{ flex: 1, textAlign: 'center', padding: '10px 4px', borderRight: '1px solid rgba(255,255,255,0.07)' }}>
+              <p style={{ color: '#E86C2F', fontSize: '0.88rem', fontWeight: 800, margin: 0 }}>{num}</p>
+              <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.62rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', margin: '2px 0 0' }}>{label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        @keyframes waFadeUp {
+          from { opacity: 0; transform: translateY(6px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes waDot {
+          0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+          30%            { transform: translateY(-4px); opacity: 1; }
+        }
+      `}</style>
     </div>
   );
 }
