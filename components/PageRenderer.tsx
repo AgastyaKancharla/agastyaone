@@ -5,9 +5,7 @@ import { ServicesInteractive } from './ServicesInteractive';
 import { AgencyVsUs } from './AgencyVsUs';
 import { BookingWidget } from './BookingWidget';
 import { AppointmentFeatureTabs } from './AppointmentFeatureTabs';
-import { InvisibilityCalculator } from './InvisibilityCalculator';
-import { SEOProofStrip, TwoTrackSection, TimelineSection, SEOFaq } from './SEOPageContent';
-import { SEOFeatureTabs } from './SEOFeatureTabs';
+import { MarketingFeatureTabs } from './MarketingFeatureTabs';
 import { faqSchemaForPage, getLocationContent, type SitePage } from '@/lib/site-data';
 
 export function PageRenderer({ page, schema = false }: { page: SitePage; schema?: boolean }) {
@@ -27,19 +25,14 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
         subtitle={page.subtitle}
         ctas={ctas}
         imageAlt={`${page.h1} dashboard illustration`}
-        showCRM={page.slug === '' || page.slug === 'dental-solutions' || page.slug === 'dental-crm-software'}
+        showCRM={page.slug === '' || page.slug === 'dental-solutions'}
+        lightPanel={page.slug === 'dental-solutions'}
+        showWebsitePanel={page.slug === 'dental-website-development'}
         slug={page.slug}
       />
       {page.trust && page.trust.length > 0 && <TrustBar items={page.trust} />}
       {page.slug === '' ? (
         <CRMDemo />
-      ) : page.slug === 'dental-seo-services' ? (
-        <>
-          <SEOProofStrip />
-          <InvisibilityCalculator />
-          <TwoTrackSection />
-          <TimelineSection />
-        </>
       ) : page.intro && (
         <Section tint>
           <TextSections sections={page.intro} />
@@ -54,13 +47,13 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
       {page.offers && (
         page.slug === '' ? (
           <ServicesInteractive />
-        ) : page.slug === 'dental-seo-services' ? (
-          <Section title="What We Do" body="Tap any area to see exactly what's included and what it does.">
-            <SEOFeatureTabs />
-          </Section>
         ) : isAppointmentPage ? (
           <Section title={page.offerTitle ?? 'What We Offer'} body="Tap any feature to see how it works. Auto-cycles through all 7.">
             <AppointmentFeatureTabs />
+          </Section>
+        ) : page.slug === 'dental-marketing-services' ? (
+          <Section title={page.offerTitle ?? 'What We Do'} body="Tap any channel to see what we do and what results to expect.">
+            <MarketingFeatureTabs />
           </Section>
         ) : (
           <Section title={page.offerTitle ?? 'What We Offer'}>
@@ -74,12 +67,11 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
           <Steps steps={page.steps} />
         </Section>
       )}
-      {page.faq && page.slug !== 'dental-seo-services' && (
+      {page.faq && (
         <Section title="FAQ">
           <FAQ items={page.faq} />
         </Section>
       )}
-      {page.slug === 'dental-seo-services' && <SEOFaq />}
       {locationContent && (
         <>
           <Section title={locationContent.problemTitle} body={locationContent.problemBody} tint />
