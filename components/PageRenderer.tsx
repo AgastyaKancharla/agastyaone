@@ -4,6 +4,7 @@ import { CRMDemo } from './CRMDemo';
 import { ServicesInteractive } from './ServicesInteractive';
 import { AgencyVsUs } from './AgencyVsUs';
 import { BookingWidget } from './BookingWidget';
+import { AppointmentFeatureTabs } from './AppointmentFeatureTabs';
 import { faqSchemaForPage, getLocationContent, type SitePage } from '@/lib/site-data';
 
 export function PageRenderer({ page, schema = false }: { page: SitePage; schema?: boolean }) {
@@ -45,6 +46,10 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
       {page.offers && (
         page.slug === '' ? (
           <ServicesInteractive />
+        ) : isAppointmentPage ? (
+          <Section title={page.offerTitle ?? 'What We Offer'} body="Tap any feature to see how it works. Auto-cycles through all 7.">
+            <AppointmentFeatureTabs />
+          </Section>
         ) : (
           <Section title={page.offerTitle ?? 'What We Offer'}>
             <CardGrid cards={page.offers} />
