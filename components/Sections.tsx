@@ -11,10 +11,19 @@ const HeroCRMPanelClient = dynamic(
   { ssr: false }
 );
 
-const HeroDentalWebsitePanelClient = dynamic(
-  () => import('./HeroDentalWebsitePanel').then(m => m.HeroDentalWebsitePanelClient),
-  { ssr: false }
-);
+const WebsiteVisual     = dynamic(() => import('./ServiceHeroVisuals').then(m => m.WebsiteHeroVisual),     { ssr: false });
+const SEOVisual         = dynamic(() => import('./ServiceHeroVisuals').then(m => m.SEOHeroVisual),         { ssr: false });
+const AppointmentVisual = dynamic(() => import('./ServiceHeroVisuals').then(m => m.AppointmentHeroVisual), { ssr: false });
+const MarketingVisual   = dynamic(() => import('./ServiceHeroVisuals').then(m => m.MarketingHeroVisual),   { ssr: false });
+const AutomationVisual  = dynamic(() => import('./ServiceHeroVisuals').then(m => m.AutomationHeroVisual),  { ssr: false });
+
+const SERVICE_VISUALS: Record<string, React.ComponentType> = {
+  'dental-website-development':   WebsiteVisual,
+  'dental-seo-services':          SEOVisual,
+  'dentist-appointment-software': AppointmentVisual,
+  'dental-marketing-services':    MarketingVisual,
+  'dental-practice-automation':   AutomationVisual,
+};
 import {
   ArrowRight,
   BarChart3,
@@ -95,8 +104,6 @@ export function Hero({
   ctas,
   imageAlt,
   showCRM = false,
-  lightPanel = false,
-  showWebsitePanel = false,
   slug = '',
 }: {
   title: string;
@@ -104,23 +111,32 @@ export function Hero({
   ctas: LinkItem[];
   imageAlt: string;
   showCRM?: boolean;
-  lightPanel?: boolean;
-  showWebsitePanel?: boolean;
   slug?: string;
 }) {
   const highlightedTitle = title.split('Dental Clinics');
   const [panelIdx, setPanelIdx] = React.useState(0);
   const displaySubtitle = showCRM ? PANEL_SUBTITLES[panelIdx] : subtitle;
+  const ServiceVisual = SERVICE_VISUALS[slug] ?? null;
+  const hasVisual = showCRM || !!ServiceVisual;
+
+  const pillLabel =
+    slug === 'dental-crm-software'          ? '🦷 Dental CRM · Bengaluru' :
+    slug === 'dental-website-development'   ? '🌐 Clinic Websites · Bengaluru' :
+    slug === 'dental-seo-services'          ? '📍 SEO & GBP · Bengaluru' :
+    slug === 'dentist-appointment-software' ? '📅 Appointment Software · Bengaluru' :
+    slug === 'dental-marketing-services'    ? '📣 Dental Marketing · Bengaluru' :
+    slug === 'dental-practice-automation'   ? '⚡ Practice Automation · Bengaluru' :
+    '✨ Bengaluru growth systems';
 
   return (
     <section className="full-bleed overflow-hidden bg-gradient-to-br from-[#F8F6F3] to-white">
       <div className="dot-grid absolute inset-0 opacity-70" aria-hidden="true" />
-      <div className={"site-container relative grid items-center gap-8 py-10 md:py-16 lg:py-20 " + (showCRM || ['dental-website-development','dental-seo-services','dentist-appointment-software','dental-marketing-services','dental-practice-automation'].includes(slug) ? "lg:grid-cols-[1fr_.95fr]" : "lg:grid-cols-[1.05fr_.95fr]")}>
+      <div className={"site-container relative grid items-center gap-8 py-10 md:py-16 lg:py-20 " + (hasVisual ? "lg:grid-cols-[1fr_.95fr]" : "lg:grid-cols-[1.05fr_.95fr]")}>
         <Reveal>
           <p className="mb-4 inline-flex items-center rounded-full bg-orange-100 px-4 py-1 text-sm font-medium text-orange-700">
-            ✨ Bengaluru growth systems
+            {pillLabel}
           </p>
-          <h1 className="font-heading text-[2rem] font-black leading-tight tracking-tight text-[#1A1A2E] sm:text-5xl md:text-7xl"
+          <h1 className="font-heading font-black leading-tight tracking-tight text-[#1A1A2E]"
               style={{ fontSize: 'clamp(1.75rem, 8vw, 4.5rem)' }}>
             {highlightedTitle.length > 1 ? (
               <>
@@ -134,27 +150,23 @@ export function Hero({
               title
             )}
           </h1>
-          <p key={panelIdx} className="mt-6 max-w-2xl text-base leading-7 text-gray-600 md:text-lg md:leading-8" style={{ animation: showCRM ? 'subtitleFade 0.4s ease' : undefined }}>
+          <p key={panelIdx} className="mt-5 max-w-xl text-base leading-7 text-gray-600 md:text-lg md:leading-8" style={{ animation: showCRM ? 'subtitleFade 0.4s ease' : undefined }}>
             {displaySubtitle}
           </p>
 
+          {/* Mobile: visual between subtitle and CTA */}
           {showCRM && (
-            <div className="my-8 lg:hidden">
-              <HeroCRMPanelClient onPanelChange={setPanelIdx} light={lightPanel} />
+            <div className="my-7 lg:hidden">
+              <HeroCRMPanelClient onPanelChange={setPanelIdx} />
             </div>
           )}
-          {!showCRM && slug === 'dental-seo-services' && (
-            <div className="my-8 lg:hidden">
-              <SEOHeroPanel />
-            </div>
-          )}
-          {showWebsitePanel && (
-            <div className="my-8 lg:hidden">
-              <HeroDentalWebsitePanelClient />
+          {ServiceVisual && !showCRM && (
+            <div className="my-7 lg:hidden">
+              <ServiceVisual />
             </div>
           )}
 
-          <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
             <Button href={ctas[0].href} variant="primary">
               {ctas[0].label}
             </Button>
@@ -169,33 +181,15 @@ export function Hero({
           </div>
         </Reveal>
 
+        {/* Desktop: visual as right column */}
         {showCRM && (
           <Reveal delay={160} className="hidden lg:block">
             <HeroCRMPanelClient onPanelChange={setPanelIdx} />
           </Reveal>
         )}
-
-        {!showCRM && slug === 'dental-seo-services' && (
+        {ServiceVisual && !showCRM && (
           <Reveal delay={160} className="hidden lg:block">
-            <SEOHeroPanel />
-          </Reveal>
-        )}
-
-        {showWebsitePanel && (
-          <Reveal delay={160} className="hidden lg:block">
-            <HeroDentalWebsitePanelClient />
-          </Reveal>
-        )}
-
-        {!showCRM && !showWebsitePanel && slug === 'dentist-appointment-software' && (
-          <Reveal delay={160}>
-            <WhatsAppBookingPanel />
-          </Reveal>
-        )}
-
-        {!showCRM && !showWebsitePanel && slug !== 'dental-seo-services' && slug !== 'dentist-appointment-software' && (
-          <Reveal delay={160}>
-            <DashboardHeroPanel alt={imageAlt} />
+            <ServiceVisual />
           </Reveal>
         )}
       </div>
