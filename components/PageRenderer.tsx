@@ -6,7 +6,7 @@ import { AgencyVsUs } from './AgencyVsUs';
 import { BookingWidget } from './BookingWidget';
 import { AppointmentFeatureTabs } from './AppointmentFeatureTabs';
 import { InvisibilityCalculator } from './InvisibilityCalculator';
-import { SEOProofStrip, TwoTrackSection, TimelineSection } from './SEOPageContent';
+import { SEOProofStrip, TwoTrackSection, TimelineSection, SEOFaq } from './SEOPageContent';
 import { SEOFeatureTabs } from './SEOFeatureTabs';
 import { faqSchemaForPage, getLocationContent, type SitePage } from '@/lib/site-data';
 
@@ -76,11 +76,12 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
           <Steps steps={page.steps} />
         </Section>
       )}
-      {page.faq && (
+      {page.faq && page.slug !== 'dental-seo-services' && (
         <Section title="FAQ">
           <FAQ items={page.faq} />
         </Section>
       )}
+      {page.slug === 'dental-seo-services' && <SEOFaq />}
       {locationContent && (
         <>
           <Section title={locationContent.problemTitle} body={locationContent.problemBody} tint />

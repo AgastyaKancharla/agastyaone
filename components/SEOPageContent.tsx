@@ -222,3 +222,145 @@ export function TimelineSection() {
     </section>
   );
 }
+
+// ─── SEO FAQ ─────────────────────────────────────────────────────────────────
+
+const SEO_FAQS = [
+  {
+    q: "I tried SEO before and it didn't work. How is this different?",
+    a: "Most SEO failures come from one of three things: generic national keywords with no local intent, no GBP work, or agencies that set and forget. We work exclusively with dental clinics in Bengaluru — every keyword, every page, every citation is built around how patients in your specific neighbourhood actually search. You get a monthly report showing exactly what moved and what's next.",
+    highlight: true,
+  },
+  {
+    q: "My clinic is already on Practo. Do I still need SEO?",
+    a: "Absolutely — and this is important. Practo is rented visibility. The moment you stop paying, you disappear. Google ranking is an asset your clinic owns permanently. A patient who finds you through Google Maps or a treatment page you rank for costs you nothing per click. Practo charges per lead or per month, forever. SEO compounds.",
+    highlight: true,
+  },
+  {
+    q: "How long before I see results?",
+    a: "Google Business Profile improvements typically show ranking movement within 2–4 weeks. Local SEO for treatment pages takes 3–6 months to reach page 1. We're honest about this upfront — SEO is not an overnight fix. But by month 4–6, the results compound every month without additional spend. We send you a ranking report every month so you see exactly where things stand.",
+  },
+  {
+    q: "What if I stop after 3 months?",
+    a: "Your GBP remains optimised, your treatment pages stay live, and your reviews don't disappear. Rankings do gradually erode without ongoing signals, but you keep what was built. That said, the clinics that see the biggest results are the ones that stay consistent for 6+ months — that's when rankings self-reinforce and organic calls start arriving daily.",
+  },
+  {
+    q: "Will I need to write content or be involved week-to-week?",
+    a: "No. We handle the writing, optimisation, posting, citation building, and review system setup entirely. Your only involvement is a monthly check-in call where we walk through the report and next actions. We built this for busy clinic owners — not for people who want to manage an agency.",
+  },
+  {
+    q: "Do you work with newly opened clinics or only established ones?",
+    a: "Both — and new clinics are often easier. Starting from zero means no bad citations to fix, no history to undo. We can build the GBP, treatment pages, and review foundation correctly from day one. Established clinics with existing rankings need an audit first to identify what's holding them back.",
+  },
+  {
+    q: "How is this different from a general digital marketing agency?",
+    a: "A general agency will apply the same SEO framework they use for a plumber, a restaurant, and a dental clinic. We work only with dental clinics in Bengaluru. We know which treatments patients in Koramangala search for, how to compete against the specific clinics ranking in Indiranagar, and what a Bengaluru patient actually needs to see before they book. That specificity is the difference.",
+  },
+  {
+    q: "Is there a long-term contract?",
+    a: "No. Monthly plans only, cancel any time. We don't lock you in because we don't need to — the results speak for themselves. Most clients stay because the organic calls keep coming, not because a contract forces them to.",
+  },
+];
+
+export function SEOFaq() {
+  const [open, setOpen] = useState<number | null>(0);
+
+  return (
+    <section style={{ background: '#F8F6F3', padding: '72px 0', fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ maxWidth: 780, margin: '0 auto', padding: '0 clamp(1rem,5vw,3rem)' }}>
+
+        {/* Header */}
+        <div style={{ textAlign: 'center', marginBottom: 44 }}>
+          <p style={{ display: 'inline-block', background: '#FEE9D9', color: '#E86C2F', borderRadius: 999, padding: '4px 16px', fontSize: 13, fontWeight: 600, fontFamily: 'Poppins,sans-serif', marginBottom: 14 }}>
+            💬 Questions
+          </p>
+          <h2 style={{ fontFamily: 'Poppins,sans-serif', fontSize: 'clamp(24px,4.5vw,36px)', fontWeight: 800, color: '#1A1A2E', margin: '0 0 10px', lineHeight: 1.2 }}>
+            Questions clinic owners ask before starting
+          </h2>
+          <p style={{ color: '#6B7280', fontSize: 15, margin: '0 auto', maxWidth: 440, lineHeight: 1.6 }}>
+            Honest answers — no agency spin.
+          </p>
+        </div>
+
+        {/* Accordion */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {SEO_FAQS.map((faq, i) => {
+            const isOpen = open === i;
+            return (
+              <div
+                key={i}
+                onClick={() => setOpen(isOpen ? null : i)}
+                style={{
+                  background: '#fff',
+                  border: `1.5px solid ${isOpen ? '#E86C2F' : faq.highlight ? '#FDDCBF' : '#E5E7EB'}`,
+                  borderRadius: 16,
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  transition: 'border-color 0.2s ease',
+                  boxShadow: isOpen ? '0 8px 24px rgba(232,108,47,0.10)' : 'none',
+                }}
+              >
+                <div style={{ padding: '18px 20px', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, flex: 1 }}>
+                    {faq.highlight && (
+                      <div style={{ background: '#FEE9D9', borderRadius: 6, padding: '2px 8px', fontSize: 10, fontWeight: 700, color: '#E86C2F', fontFamily: 'Poppins,sans-serif', letterSpacing: '0.06em', textTransform: 'uppercase', flexShrink: 0, marginTop: 2 }}>
+                        TOP
+                      </div>
+                    )}
+                    <h3 style={{ fontFamily: 'Poppins,sans-serif', fontSize: 14, fontWeight: 700, color: '#1A1A2E', margin: 0, lineHeight: 1.45 }}>
+                      {faq.q}
+                    </h3>
+                  </div>
+                  {/* Animated +/× */}
+                  <div style={{
+                    width: 24, height: 24, borderRadius: '50%', flexShrink: 0,
+                    background: isOpen ? '#E86C2F' : '#F3F4F6',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    transition: 'background 0.2s ease',
+                    marginTop: 2,
+                  }}>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" style={{ transition: 'transform 0.3s ease', transform: isOpen ? 'rotate(45deg)' : 'none' }}>
+                      <line x1="5" y1="1" x2="5" y2="9" stroke={isOpen ? '#fff' : '#6B7280'} strokeWidth="1.8" strokeLinecap="round" />
+                      <line x1="1" y1="5" x2="9" y2="5" stroke={isOpen ? '#fff' : '#6B7280'} strokeWidth="1.8" strokeLinecap="round" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Answer — animated height */}
+                <div style={{
+                  maxHeight: isOpen ? 400 : 0,
+                  overflow: 'hidden',
+                  transition: 'max-height 0.35s cubic-bezier(0.22,1,0.36,1)',
+                }}>
+                  <div style={{ padding: '0 20px 20px', paddingLeft: faq.highlight ? 74 : 20 }}>
+                    <div style={{ width: '100%', height: 1, background: '#F0F0F0', marginBottom: 14 }} />
+                    <p style={{ fontSize: 14, lineHeight: 1.75, color: '#4B5563', margin: 0 }}>
+                      {faq.a}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Bottom CTA */}
+        <div style={{ textAlign: 'center', marginTop: 40, background: '#1A1A2E', borderRadius: 20, padding: 'clamp(24px,4vw,36px)', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(232,108,47,0.1) 1px, transparent 1px)', backgroundSize: '22px 22px', pointerEvents: 'none' }} />
+          <div style={{ position: 'relative' }}>
+            <p style={{ fontFamily: 'Poppins,sans-serif', fontSize: 'clamp(16px,3vw,20px)', fontWeight: 700, color: '#fff', margin: '0 0 8px' }}>
+              Still have a question?
+            </p>
+            <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: 14, margin: '0 0 24px', lineHeight: 1.6 }}>
+              Book a free 30-min call. No pitch — just honest answers about whether SEO makes sense for your clinic right now.
+            </p>
+            <Link href="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#E86C2F', color: '#fff', borderRadius: 999, padding: '13px 28px', fontSize: 14, fontWeight: 700, fontFamily: 'Poppins,sans-serif', textDecoration: 'none' }}>
+              Book a free call <ArrowRight size={15} />
+            </Link>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+}
