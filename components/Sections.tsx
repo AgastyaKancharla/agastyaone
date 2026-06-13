@@ -11,19 +11,10 @@ const HeroCRMPanelClient = dynamic(
   { ssr: false }
 );
 
-const WebsiteVisual     = dynamic(() => import('./ServiceHeroVisuals').then(m => m.WebsiteHeroVisual),     { ssr: false });
-const SEOVisual         = dynamic(() => import('./ServiceHeroVisuals').then(m => m.SEOHeroVisual),         { ssr: false });
-const AppointmentVisual = dynamic(() => import('./ServiceHeroVisuals').then(m => m.AppointmentHeroVisual), { ssr: false });
-const MarketingVisual   = dynamic(() => import('./ServiceHeroVisuals').then(m => m.MarketingHeroVisual),   { ssr: false });
-const AutomationVisual  = dynamic(() => import('./ServiceHeroVisuals').then(m => m.AutomationHeroVisual),  { ssr: false });
-
-const SERVICE_VISUALS: Record<string, React.ComponentType> = {
-  'dental-website-development':   WebsiteVisual,
-  'dental-seo-services':          SEOVisual,
-  'dentist-appointment-software': AppointmentVisual,
-  'dental-marketing-services':    MarketingVisual,
-  'dental-practice-automation':   AutomationVisual,
-};
+const HeroDentalWebsitePanelClient = dynamic(
+  () => import('./HeroDentalWebsitePanel').then(m => m.HeroDentalWebsitePanelClient),
+  { ssr: false }
+);
 import {
   ArrowRight,
   BarChart3,
@@ -104,6 +95,8 @@ export function Hero({
   ctas,
   imageAlt,
   showCRM = false,
+  lightPanel = false,
+  showWebsitePanel = false,
   slug = '',
 }: {
   title: string;
@@ -111,32 +104,23 @@ export function Hero({
   ctas: LinkItem[];
   imageAlt: string;
   showCRM?: boolean;
+  lightPanel?: boolean;
+  showWebsitePanel?: boolean;
   slug?: string;
 }) {
   const highlightedTitle = title.split('Dental Clinics');
   const [panelIdx, setPanelIdx] = React.useState(0);
   const displaySubtitle = showCRM ? PANEL_SUBTITLES[panelIdx] : subtitle;
-  const ServiceVisual = SERVICE_VISUALS[slug] ?? null;
-  const hasVisual = showCRM || !!ServiceVisual;
-
-  const pillLabel =
-    slug === 'dental-crm-software'          ? '🦷 Dental CRM · Bengaluru' :
-    slug === 'dental-website-development'   ? '🌐 Clinic Websites · Bengaluru' :
-    slug === 'dental-seo-services'          ? '📍 SEO & GBP · Bengaluru' :
-    slug === 'dentist-appointment-software' ? '📅 Appointment Software · Bengaluru' :
-    slug === 'dental-marketing-services'    ? '📣 Dental Marketing · Bengaluru' :
-    slug === 'dental-practice-automation'   ? '⚡ Practice Automation · Bengaluru' :
-    '✨ Bengaluru growth systems';
 
   return (
     <section className="full-bleed overflow-hidden bg-gradient-to-br from-[#F8F6F3] to-white">
       <div className="dot-grid absolute inset-0 opacity-70" aria-hidden="true" />
-      <div className={"site-container relative grid items-center gap-8 py-10 md:py-16 lg:py-20 " + (hasVisual ? "lg:grid-cols-[1fr_.95fr]" : "lg:grid-cols-[1.05fr_.95fr]")}>
+      <div className={"site-container relative grid items-center gap-8 py-10 md:py-16 lg:py-20 " + (showCRM || ['dental-website-development','dental-seo-services','dentist-appointment-software','dental-marketing-services','dental-practice-automation'].includes(slug) ? "lg:grid-cols-[1fr_.95fr]" : "lg:grid-cols-[1.05fr_.95fr]")}>
         <Reveal>
           <p className="mb-4 inline-flex items-center rounded-full bg-orange-100 px-4 py-1 text-sm font-medium text-orange-700">
-            {pillLabel}
+            ✨ Bengaluru growth systems
           </p>
-          <h1 className="font-heading font-black leading-tight tracking-tight text-[#1A1A2E]"
+          <h1 className="font-heading text-[2rem] font-black leading-tight tracking-tight text-[#1A1A2E] sm:text-5xl md:text-7xl"
               style={{ fontSize: 'clamp(1.75rem, 8vw, 4.5rem)' }}>
             {highlightedTitle.length > 1 ? (
               <>
@@ -150,23 +134,27 @@ export function Hero({
               title
             )}
           </h1>
-          <p key={panelIdx} className="mt-5 max-w-xl text-base leading-7 text-gray-600 md:text-lg md:leading-8" style={{ animation: showCRM ? 'subtitleFade 0.4s ease' : undefined }}>
+          <p key={panelIdx} className="mt-6 max-w-2xl text-base leading-7 text-gray-600 md:text-lg md:leading-8" style={{ animation: showCRM ? 'subtitleFade 0.4s ease' : undefined }}>
             {displaySubtitle}
           </p>
 
-          {/* Mobile: visual between subtitle and CTA */}
           {showCRM && (
-            <div className="my-7 lg:hidden">
-              <HeroCRMPanelClient onPanelChange={setPanelIdx} />
+            <div className="my-8 lg:hidden">
+              <HeroCRMPanelClient onPanelChange={setPanelIdx} light={lightPanel} />
             </div>
           )}
-          {ServiceVisual && !showCRM && (
-            <div className="my-7 lg:hidden">
-              <ServiceVisual />
+          {!showCRM && slug === 'dental-seo-services' && (
+            <div className="my-8 lg:hidden">
+              <SEOHeroPanel />
+            </div>
+          )}
+          {showWebsitePanel && (
+            <div className="my-8 lg:hidden">
+              <HeroDentalWebsitePanelClient />
             </div>
           )}
 
-          <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+          <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
             <Button href={ctas[0].href} variant="primary">
               {ctas[0].label}
             </Button>
@@ -181,15 +169,27 @@ export function Hero({
           </div>
         </Reveal>
 
-        {/* Desktop: visual as right column */}
         {showCRM && (
           <Reveal delay={160} className="hidden lg:block">
             <HeroCRMPanelClient onPanelChange={setPanelIdx} />
           </Reveal>
         )}
-        {ServiceVisual && !showCRM && (
+
+        {!showCRM && slug === 'dental-seo-services' && (
           <Reveal delay={160} className="hidden lg:block">
-            <ServiceVisual />
+            <SEOHeroPanel />
+          </Reveal>
+        )}
+
+        {showWebsitePanel && (
+          <Reveal delay={160} className="hidden lg:block">
+            <HeroDentalWebsitePanelClient />
+          </Reveal>
+        )}
+
+        {!showCRM && !showWebsitePanel && slug !== 'dental-seo-services' && (
+          <Reveal delay={160}>
+            <DashboardHeroPanel alt={imageAlt} />
           </Reveal>
         )}
       </div>
@@ -404,176 +404,6 @@ function DashboardHeroPanel({ alt }: { alt: string }) {
           ))}
         </div>
       </div>
-    </div>
-  );
-}
-
-function WhatsAppBookingPanel() {
-  const [visibleCount, setVisibleCount] = React.useState(0);
-
-  React.useEffect(() => {
-    setVisibleCount(0);
-    const timers = [
-      setTimeout(() => setVisibleCount(1), 600),
-      setTimeout(() => setVisibleCount(2), 1600),
-      setTimeout(() => setVisibleCount(3), 2800),
-      setTimeout(() => setVisibleCount(4), 4200),
-    ];
-    // Loop: restart after full sequence
-    const loop = setTimeout(() => setVisibleCount(0), 7000);
-    return () => { timers.forEach(clearTimeout); clearTimeout(loop); };
-  }, []);
-
-  // Restart loop when reset
-  React.useEffect(() => {
-    if (visibleCount === 0) {
-      const timers = [
-        setTimeout(() => setVisibleCount(1), 600),
-        setTimeout(() => setVisibleCount(2), 1600),
-        setTimeout(() => setVisibleCount(3), 2800),
-        setTimeout(() => setVisibleCount(4), 4200),
-      ];
-      const loop = setTimeout(() => setVisibleCount(0), 7000);
-      return () => { timers.forEach(clearTimeout); clearTimeout(loop); };
-    }
-  }, [visibleCount]);
-
-  const messages = [
-    {
-      from: 'clinic',
-      text: 'Hi Priya! ✅ Your appointment is confirmed.',
-      time: '9:01 AM',
-    },
-    {
-      from: 'clinic',
-      card: true,
-      lines: [
-        { icon: '📅', text: 'Tuesday, Jun 17' },
-        { icon: '⏰', text: '9:00 AM' },
-        { icon: '🦷', text: 'Root Canal' },
-        { icon: '📍', text: 'BrightSmile Clinic, Bengaluru' },
-      ],
-      time: '9:01 AM',
-    },
-    {
-      from: 'patient',
-      text: 'Thank you! See you then 😊',
-      time: '9:03 AM',
-    },
-  ];
-
-  return (
-    <div className="rounded-2xl border border-white/20 bg-white/70 p-4 shadow-2xl backdrop-blur-sm">
-      <div className="rounded-2xl bg-[linear-gradient(135deg,#1A1A2E_0%,#242442_58%,#11111f_100%)] overflow-hidden">
-
-        {/* WhatsApp header */}
-        <div style={{ background: '#075E54', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#128C7E', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, flexShrink: 0 }}>
-            🦷
-          </div>
-          <div style={{ flex: 1 }}>
-            <p style={{ color: '#fff', fontSize: '0.82rem', fontWeight: 700, margin: 0, lineHeight: 1.2 }}>BrightSmile Clinic</p>
-            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.7rem', margin: 0 }}>
-              <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: '#25D366', marginRight: 4, verticalAlign: 'middle' }} />
-              Online
-            </p>
-          </div>
-          <div style={{ display: 'flex', gap: 14, color: 'rgba(255,255,255,0.7)', fontSize: 14 }}>
-            📞 ⋮
-          </div>
-        </div>
-
-        {/* Chat area */}
-        <div style={{ background: '#ECE5DD', padding: '12px 10px', minHeight: 280, position: 'relative' }}>
-          {/* Wallpaper pattern */}
-          <div style={{ position: 'absolute', inset: 0, opacity: 0.06, backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23000\' fill-opacity=\'1\'%3E%3Ccircle cx=\'1\' cy=\'1\' r=\'1\'/%3E%3C/g%3E%3C/svg%3E")', pointerEvents: 'none' }} />
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6, position: 'relative' }}>
-            {/* Date chip */}
-            {visibleCount >= 1 && (
-              <div style={{ textAlign: 'center', marginBottom: 4, animation: 'waFadeUp 0.3s ease' }}>
-                <span style={{ background: 'rgba(255,255,255,0.85)', borderRadius: 8, padding: '3px 10px', fontSize: '0.68rem', color: '#667781', fontWeight: 600 }}>
-                  Today
-                </span>
-              </div>
-            )}
-
-            {messages.map((msg, i) => {
-              if (visibleCount < i + 1) return null;
-              const isClinic = msg.from === 'clinic';
-              return (
-                <div
-                  key={i}
-                  style={{
-                    display: 'flex',
-                    justifyContent: isClinic ? 'flex-start' : 'flex-end',
-                    animation: 'waFadeUp 0.35s ease',
-                  }}
-                >
-                  <div style={{
-                    background: isClinic ? '#fff' : '#DCF8C6',
-                    borderRadius: isClinic ? '0 12px 12px 12px' : '12px 0 12px 12px',
-                    padding: msg.card ? '10px 12px' : '8px 10px',
-                    maxWidth: '82%',
-                    boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
-                  }}>
-                    {msg.card ? (
-                      <div>
-                        {msg.lines!.map(({ icon, text }) => (
-                          <div key={text} style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '3px 0', borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
-                            <span style={{ fontSize: '0.85rem', flexShrink: 0 }}>{icon}</span>
-                            <span style={{ fontSize: '0.78rem', color: '#1a1a2e', fontWeight: 600 }}>{text}</span>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <p style={{ fontSize: '0.82rem', color: '#1a1a2e', margin: 0, lineHeight: 1.45 }}>{msg.text}</p>
-                    )}
-                    <p style={{ fontSize: '0.62rem', color: '#667781', margin: '4px 0 0', textAlign: 'right' }}>
-                      {msg.time} {isClinic ? '✓✓' : ''}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-
-            {/* Typing indicator */}
-            {visibleCount >= 1 && visibleCount < 4 && (
-              <div style={{ display: 'flex', justifyContent: 'flex-start', animation: 'waFadeUp 0.3s ease' }}>
-                <div style={{ background: '#fff', borderRadius: '0 12px 12px 12px', padding: '10px 14px', display: 'flex', gap: 4, alignItems: 'center' }}>
-                  {[0, 1, 2].map(i => (
-                    <span key={i} style={{ width: 6, height: 6, borderRadius: '50%', background: '#667781', display: 'block', animation: `waDot 1.2s ease-in-out ${i * 0.2}s infinite` }} />
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Stat strip */}
-        <div style={{ display: 'flex', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-          {[
-            { num: '24/7', label: 'Auto-sent' },
-            { num: '0', label: 'Manual calls' },
-            { num: '↓68%', label: 'No-shows' },
-          ].map(({ num, label }) => (
-            <div key={label} style={{ flex: 1, textAlign: 'center', padding: '10px 4px', borderRight: '1px solid rgba(255,255,255,0.07)' }}>
-              <p style={{ color: '#E86C2F', fontSize: '0.88rem', fontWeight: 800, margin: 0 }}>{num}</p>
-              <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.62rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', margin: '2px 0 0' }}>{label}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-      <style>{`
-        @keyframes waFadeUp {
-          from { opacity: 0; transform: translateY(6px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes waDot {
-          0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-          30%            { transform: translateY(-4px); opacity: 1; }
-        }
-      `}</style>
     </div>
   );
 }
@@ -835,17 +665,114 @@ export function Steps({ steps }: { steps: string[] }) {
   );
 }
 
+// FAQ category groupings — keyed by first word of question
+const FAQ_CATEGORIES: { label: string; emoji: string; keys: string[] }[] = [
+  { label: 'Timeline & Process',   emoji: '⏱', keys: ['How long', 'What if I', 'You Review'] },
+  { label: 'Pricing & Inclusions', emoji: '💰', keys: ['Do you write', 'What about ongoing', 'Investment', 'Rs', 'cost'] },
+  { label: 'Technical',            emoji: '🔧', keys: ['Will it show', 'Can I update', 'What does mobile', 'Do you build'] },
+];
+
+function getFaqCategory(q: string): string {
+  for (const cat of FAQ_CATEGORIES) {
+    if (cat.keys.some(k => q.includes(k))) return cat.label;
+  }
+  return 'General';
+}
+
+function groupFaqs(items: { q: string; a: string }[]) {
+  const groups: Record<string, { q: string; a: string }[]> = {};
+  for (const item of items) {
+    const cat = getFaqCategory(item.q);
+    if (!groups[cat]) groups[cat] = [];
+    groups[cat].push(item);
+  }
+  return groups;
+}
+
 export function FAQ({ items }: { items: { q: string; a: string }[] }) {
+  const [openIdx, setOpenIdx] = React.useState<string | null>(null);
+  const groups = groupFaqs(items);
+  const catOrder = FAQ_CATEGORIES.map(c => c.label).filter(l => groups[l]);
+  if (groups['General']) catOrder.push('General');
+
+  let globalIdx = 0;
+
   return (
     <div className="mx-auto max-w-3xl">
-      {items.map((item, index) => (
-        <Reveal key={item.q} delay={index * 60}>
-          <details className="motion-card mb-4 rounded-2xl border border-gray-100 bg-white p-5 shadow-card">
-            <summary className="cursor-pointer font-heading font-semibold text-charcoal">{item.q}</summary>
-            <p className="mt-3 leading-7 text-gray-600">{item.a}</p>
-          </details>
-        </Reveal>
-      ))}
+      {catOrder.map((catLabel) => {
+        const cat = FAQ_CATEGORIES.find(c => c.label === catLabel);
+        const catItems = groups[catLabel] || [];
+        return (
+          <div key={catLabel} className="mb-8">
+            {/* Category header */}
+            <div className="mb-3 flex items-center gap-2">
+              <span className="text-lg">{cat?.emoji ?? '💬'}</span>
+              <span className="font-heading text-xs font-bold uppercase tracking-widest text-gray-400">
+                {catLabel}
+              </span>
+              <div className="flex-1 border-t border-gray-100" />
+            </div>
+
+            {/* Questions */}
+            <div className="grid gap-2">
+              {catItems.map((item) => {
+                const idx = `${catLabel}-${globalIdx++}`;
+                const isOpen = openIdx === idx;
+                const isPricing = catLabel === 'Pricing & Inclusions';
+                return (
+                  <Reveal key={item.q} delay={0}>
+                    <div
+                      className={`overflow-hidden rounded-2xl border transition-all duration-200 ${
+                        isOpen && isPricing
+                          ? 'border-[#E86C2F]/30 bg-orange-50 shadow-md'
+                          : isOpen
+                          ? 'border-gray-200 bg-white shadow-md'
+                          : 'border-gray-100 bg-white shadow-card hover:border-gray-200'
+                      }`}
+                    >
+                      {/* Question row */}
+                      <button
+                        onClick={() => setOpenIdx(isOpen ? null : idx)}
+                        className="flex w-full items-center justify-between gap-4 p-5 text-left"
+                      >
+                        <span className={`font-heading font-semibold leading-snug ${isOpen && isPricing ? 'text-[#E86C2F]' : 'text-[#1A1A2E]'}`}>
+                          {item.q}
+                        </span>
+                        <span
+                          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
+                            isOpen
+                              ? isPricing ? 'bg-[#E86C2F] text-white' : 'bg-[#1A1A2E] text-white'
+                              : 'bg-gray-100 text-gray-400'
+                          }`}
+                          style={{ transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)' }}
+                        >
+                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                          </svg>
+                        </span>
+                      </button>
+
+                      {/* Answer — animated */}
+                      <div
+                        style={{
+                          maxHeight: isOpen ? '400px' : '0',
+                          opacity: isOpen ? 1 : 0,
+                          transition: 'max-height 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        <p className={`px-5 pb-5 leading-7 ${isPricing && isOpen ? 'text-orange-900/80' : 'text-gray-600'}`}>
+                          {item.a}
+                        </p>
+                      </div>
+                    </div>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
