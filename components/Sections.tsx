@@ -148,6 +148,11 @@ export function Hero({
               <SEOHeroPanel />
             </div>
           )}
+          {!showCRM && slug === 'dental-marketing-services' && (
+            <div className="my-8 lg:hidden">
+              <MarketingHeroPanel />
+            </div>
+          )}
           {showWebsitePanel && (
             <div className="my-8 lg:hidden">
               <HeroDentalWebsitePanelClient />
@@ -181,13 +186,25 @@ export function Hero({
           </Reveal>
         )}
 
+        {!showCRM && slug === 'dental-marketing-services' && (
+          <Reveal delay={160} className="hidden lg:block">
+            <MarketingHeroPanel />
+          </Reveal>
+        )}
+
         {showWebsitePanel && (
           <Reveal delay={160} className="hidden lg:block">
             <HeroDentalWebsitePanelClient />
           </Reveal>
         )}
 
-        {!showCRM && !showWebsitePanel && slug !== 'dental-seo-services' && (
+        {!showCRM && !showWebsitePanel && slug === 'dentist-appointment-software' && (
+          <Reveal delay={160}>
+            <WhatsAppBookingPanel />
+          </Reveal>
+        )}
+
+        {!showCRM && !showWebsitePanel && slug !== 'dental-seo-services' && slug !== 'dentist-appointment-software' && slug !== 'dental-marketing-services' && (
           <Reveal delay={160}>
             <DashboardHeroPanel alt={imageAlt} />
           </Reveal>
@@ -349,6 +366,128 @@ function SEOHeroPanel() {
   );
 }
 
+function MarketingHeroPanel() {
+  const [step, setStep] = React.useState(0);
+  const [reviews, setReviews] = React.useState(12);
+  const [enquiries, setEnquiries] = React.useState(3);
+  const [rank, setRank] = React.useState(9);
+
+  React.useEffect(() => {
+    const timers = [
+      setTimeout(() => { setStep(1); setRank(6); }, 900),
+      setTimeout(() => { setStep(2); setReviews(r => r + 8); setEnquiries(e => e + 4); }, 2000),
+      setTimeout(() => { setStep(3); setRank(3); setReviews(r => r + 12); }, 3200),
+      setTimeout(() => { setStep(4); setEnquiries(e => e + 9); }, 4200),
+      setTimeout(() => { setStep(5); setRank(1); setReviews(r => r + 15); setEnquiries(e => e + 11); }, 5400),
+    ];
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  const channels = [
+    { label: 'Google Business', done: step >= 1, color: '#4285F4' },
+    { label: 'WhatsApp Marketing', done: step >= 2, color: '#25D366' },
+    { label: 'Local SEO', done: step >= 3, color: '#E86C2F' },
+    { label: 'Review Generation', done: step >= 4, color: '#F59E0B' },
+    { label: 'Online Reputation', done: step >= 5, color: '#8B5CF6' },
+  ];
+
+  return (
+    <div style={{
+      background: '#fff',
+      borderRadius: 20,
+      border: '1.5px solid #E5E7EB',
+      boxShadow: '0 20px 60px rgba(26,26,46,0.10)',
+      overflow: 'hidden',
+      fontFamily: 'Inter, system-ui, sans-serif',
+      maxWidth: 380,
+    }}>
+      {/* Title bar */}
+      <div style={{ background: '#1A1A2E', padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{ display: 'flex', gap: 5 }}>
+          {['#ff5f57', '#ffbd2e', '#28c840'].map(c => (
+            <div key={c} style={{ width: 10, height: 10, borderRadius: '50%', background: c }} />
+          ))}
+        </div>
+        <div style={{ flex: 1, background: 'rgba(255,255,255,0.08)', borderRadius: 6, padding: '4px 10px', fontSize: 11, color: 'rgba(255,255,255,0.5)', textAlign: 'center' }}>
+          AgastyaOne · Marketing Dashboard
+        </div>
+      </div>
+
+      <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
+
+        {/* Live stats row */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
+          {[
+            { label: 'Google Rank', value: `#${rank}`, trend: rank <= 3 ? '↑' : '', color: rank <= 3 ? '#22c55e' : '#9CA3AF' },
+            { label: 'Reviews', value: reviews, trend: step >= 2 ? '+' : '', color: '#F59E0B' },
+            { label: 'Enquiries/mo', value: enquiries, trend: step >= 2 ? '↑' : '', color: '#E86C2F' },
+          ].map(({ label, value, trend, color }) => (
+            <div key={label} style={{ background: '#F9FAFB', borderRadius: 10, padding: '10px 8px', textAlign: 'center', border: '1px solid #F0F0F0' }}>
+              <div style={{ fontSize: 16, fontWeight: 800, color, transition: 'color 0.4s ease' }}>
+                {trend}{value}
+              </div>
+              <div style={{ fontSize: 9, color: '#9CA3AF', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: 2 }}>{label}</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ height: 1, background: '#F0F0F0' }} />
+
+        {/* Channel activation */}
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#9CA3AF', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 8 }}>
+            📣 Marketing channels activating
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+            {channels.map(ch => (
+              <div key={ch.label} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <div style={{
+                  width: 8, height: 8, borderRadius: '50%', flexShrink: 0,
+                  background: ch.done ? ch.color : '#E5E7EB',
+                  boxShadow: ch.done ? `0 0 6px ${ch.color}80` : 'none',
+                  transition: 'all 0.5s ease',
+                }} />
+                <div style={{ flex: 1, height: 6, background: '#F3F4F6', borderRadius: 99, overflow: 'hidden' }}>
+                  <div style={{
+                    height: '100%',
+                    background: ch.color,
+                    width: ch.done ? '100%' : '0%',
+                    borderRadius: 99,
+                    transition: 'width 0.8s ease',
+                    opacity: ch.done ? 1 : 0,
+                  }} />
+                </div>
+                <span style={{ fontSize: 10, color: ch.done ? '#1A1A2E' : '#D1D5DB', fontWeight: ch.done ? 600 : 400, transition: 'color 0.4s ease', whiteSpace: 'nowrap' }}>
+                  {ch.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Result badge */}
+        {step >= 5 && (
+          <div style={{
+            background: 'linear-gradient(135deg, #1A1A2E, #2d3561)',
+            borderRadius: 12, padding: '12px 16px',
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            animation: 'fadeUp 0.4s ease',
+          }}>
+            <div>
+              <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.5)', marginBottom: 2 }}>This month</div>
+              <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 16, fontWeight: 800, color: '#E86C2F' }}>
+                {enquiries} new patients
+              </div>
+              <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', marginTop: 2 }}>from digital marketing alone</div>
+            </div>
+            <div style={{ fontSize: 28 }}>🚀</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function DashboardHeroPanel({ alt }: { alt: string }) {
   const stats: Array<[string, string, LucideIcon]> = [
     ['500+', 'Patients Managed', CheckCircle],
@@ -404,6 +543,176 @@ function DashboardHeroPanel({ alt }: { alt: string }) {
           ))}
         </div>
       </div>
+    </div>
+  );
+}
+
+function WhatsAppBookingPanel() {
+  const [visibleCount, setVisibleCount] = React.useState(0);
+
+  React.useEffect(() => {
+    setVisibleCount(0);
+    const timers = [
+      setTimeout(() => setVisibleCount(1), 600),
+      setTimeout(() => setVisibleCount(2), 1600),
+      setTimeout(() => setVisibleCount(3), 2800),
+      setTimeout(() => setVisibleCount(4), 4200),
+    ];
+    // Loop: restart after full sequence
+    const loop = setTimeout(() => setVisibleCount(0), 7000);
+    return () => { timers.forEach(clearTimeout); clearTimeout(loop); };
+  }, []);
+
+  // Restart loop when reset
+  React.useEffect(() => {
+    if (visibleCount === 0) {
+      const timers = [
+        setTimeout(() => setVisibleCount(1), 600),
+        setTimeout(() => setVisibleCount(2), 1600),
+        setTimeout(() => setVisibleCount(3), 2800),
+        setTimeout(() => setVisibleCount(4), 4200),
+      ];
+      const loop = setTimeout(() => setVisibleCount(0), 7000);
+      return () => { timers.forEach(clearTimeout); clearTimeout(loop); };
+    }
+  }, [visibleCount]);
+
+  const messages = [
+    {
+      from: 'clinic',
+      text: 'Hi Priya! ✅ Your appointment is confirmed.',
+      time: '9:01 AM',
+    },
+    {
+      from: 'clinic',
+      card: true,
+      lines: [
+        { icon: '📅', text: 'Tuesday, Jun 17' },
+        { icon: '⏰', text: '9:00 AM' },
+        { icon: '🦷', text: 'Root Canal' },
+        { icon: '📍', text: 'BrightSmile Clinic, Bengaluru' },
+      ],
+      time: '9:01 AM',
+    },
+    {
+      from: 'patient',
+      text: 'Thank you! See you then 😊',
+      time: '9:03 AM',
+    },
+  ];
+
+  return (
+    <div className="rounded-2xl border border-white/20 bg-white/70 p-4 shadow-2xl backdrop-blur-sm">
+      <div className="rounded-2xl bg-[linear-gradient(135deg,#1A1A2E_0%,#242442_58%,#11111f_100%)] overflow-hidden">
+
+        {/* WhatsApp header */}
+        <div style={{ background: '#075E54', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#128C7E', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, flexShrink: 0 }}>
+            🦷
+          </div>
+          <div style={{ flex: 1 }}>
+            <p style={{ color: '#fff', fontSize: '0.82rem', fontWeight: 700, margin: 0, lineHeight: 1.2 }}>BrightSmile Clinic</p>
+            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.7rem', margin: 0 }}>
+              <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: '#25D366', marginRight: 4, verticalAlign: 'middle' }} />
+              Online
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: 14, color: 'rgba(255,255,255,0.7)', fontSize: 14 }}>
+            📞 ⋮
+          </div>
+        </div>
+
+        {/* Chat area */}
+        <div style={{ background: '#ECE5DD', padding: '12px 10px', minHeight: 280, position: 'relative' }}>
+          {/* Wallpaper pattern */}
+          <div style={{ position: 'absolute', inset: 0, opacity: 0.06, backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23000\' fill-opacity=\'1\'%3E%3Ccircle cx=\'1\' cy=\'1\' r=\'1\'/%3E%3C/g%3E%3C/svg%3E")', pointerEvents: 'none' }} />
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6, position: 'relative' }}>
+            {/* Date chip */}
+            {visibleCount >= 1 && (
+              <div style={{ textAlign: 'center', marginBottom: 4, animation: 'waFadeUp 0.3s ease' }}>
+                <span style={{ background: 'rgba(255,255,255,0.85)', borderRadius: 8, padding: '3px 10px', fontSize: '0.68rem', color: '#667781', fontWeight: 600 }}>
+                  Today
+                </span>
+              </div>
+            )}
+
+            {messages.map((msg, i) => {
+              if (visibleCount < i + 1) return null;
+              const isClinic = msg.from === 'clinic';
+              return (
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    justifyContent: isClinic ? 'flex-start' : 'flex-end',
+                    animation: 'waFadeUp 0.35s ease',
+                  }}
+                >
+                  <div style={{
+                    background: isClinic ? '#fff' : '#DCF8C6',
+                    borderRadius: isClinic ? '0 12px 12px 12px' : '12px 0 12px 12px',
+                    padding: msg.card ? '10px 12px' : '8px 10px',
+                    maxWidth: '82%',
+                    boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
+                  }}>
+                    {msg.card ? (
+                      <div>
+                        {msg.lines!.map(({ icon, text }) => (
+                          <div key={text} style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '3px 0', borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
+                            <span style={{ fontSize: '0.85rem', flexShrink: 0 }}>{icon}</span>
+                            <span style={{ fontSize: '0.78rem', color: '#1a1a2e', fontWeight: 600 }}>{text}</span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p style={{ fontSize: '0.82rem', color: '#1a1a2e', margin: 0, lineHeight: 1.45 }}>{msg.text}</p>
+                    )}
+                    <p style={{ fontSize: '0.62rem', color: '#667781', margin: '4px 0 0', textAlign: 'right' }}>
+                      {msg.time} {isClinic ? '✓✓' : ''}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Typing indicator */}
+            {visibleCount >= 1 && visibleCount < 4 && (
+              <div style={{ display: 'flex', justifyContent: 'flex-start', animation: 'waFadeUp 0.3s ease' }}>
+                <div style={{ background: '#fff', borderRadius: '0 12px 12px 12px', padding: '10px 14px', display: 'flex', gap: 4, alignItems: 'center' }}>
+                  {[0, 1, 2].map(i => (
+                    <span key={i} style={{ width: 6, height: 6, borderRadius: '50%', background: '#667781', display: 'block', animation: `waDot 1.2s ease-in-out ${i * 0.2}s infinite` }} />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Stat strip */}
+        <div style={{ display: 'flex', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+          {[
+            { num: '24/7', label: 'Auto-sent' },
+            { num: '0', label: 'Manual calls' },
+            { num: '↓68%', label: 'No-shows' },
+          ].map(({ num, label }) => (
+            <div key={label} style={{ flex: 1, textAlign: 'center', padding: '10px 4px', borderRight: '1px solid rgba(255,255,255,0.07)' }}>
+              <p style={{ color: '#E86C2F', fontSize: '0.88rem', fontWeight: 800, margin: 0 }}>{num}</p>
+              <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.62rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', margin: '2px 0 0' }}>{label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        @keyframes waFadeUp {
+          from { opacity: 0; transform: translateY(6px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes waDot {
+          0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+          30%            { transform: translateY(-4px); opacity: 1; }
+        }
+      `}</style>
     </div>
   );
 }
@@ -665,114 +974,17 @@ export function Steps({ steps }: { steps: string[] }) {
   );
 }
 
-// FAQ category groupings — keyed by first word of question
-const FAQ_CATEGORIES: { label: string; emoji: string; keys: string[] }[] = [
-  { label: 'Timeline & Process',   emoji: '⏱', keys: ['How long', 'What if I', 'You Review'] },
-  { label: 'Pricing & Inclusions', emoji: '💰', keys: ['Do you write', 'What about ongoing', 'Investment', 'Rs', 'cost'] },
-  { label: 'Technical',            emoji: '🔧', keys: ['Will it show', 'Can I update', 'What does mobile', 'Do you build'] },
-];
-
-function getFaqCategory(q: string): string {
-  for (const cat of FAQ_CATEGORIES) {
-    if (cat.keys.some(k => q.includes(k))) return cat.label;
-  }
-  return 'General';
-}
-
-function groupFaqs(items: { q: string; a: string }[]) {
-  const groups: Record<string, { q: string; a: string }[]> = {};
-  for (const item of items) {
-    const cat = getFaqCategory(item.q);
-    if (!groups[cat]) groups[cat] = [];
-    groups[cat].push(item);
-  }
-  return groups;
-}
-
 export function FAQ({ items }: { items: { q: string; a: string }[] }) {
-  const [openIdx, setOpenIdx] = React.useState<string | null>(null);
-  const groups = groupFaqs(items);
-  const catOrder = FAQ_CATEGORIES.map(c => c.label).filter(l => groups[l]);
-  if (groups['General']) catOrder.push('General');
-
-  let globalIdx = 0;
-
   return (
     <div className="mx-auto max-w-3xl">
-      {catOrder.map((catLabel) => {
-        const cat = FAQ_CATEGORIES.find(c => c.label === catLabel);
-        const catItems = groups[catLabel] || [];
-        return (
-          <div key={catLabel} className="mb-8">
-            {/* Category header */}
-            <div className="mb-3 flex items-center gap-2">
-              <span className="text-lg">{cat?.emoji ?? '💬'}</span>
-              <span className="font-heading text-xs font-bold uppercase tracking-widest text-gray-400">
-                {catLabel}
-              </span>
-              <div className="flex-1 border-t border-gray-100" />
-            </div>
-
-            {/* Questions */}
-            <div className="grid gap-2">
-              {catItems.map((item) => {
-                const idx = `${catLabel}-${globalIdx++}`;
-                const isOpen = openIdx === idx;
-                const isPricing = catLabel === 'Pricing & Inclusions';
-                return (
-                  <Reveal key={item.q} delay={0}>
-                    <div
-                      className={`overflow-hidden rounded-2xl border transition-all duration-200 ${
-                        isOpen && isPricing
-                          ? 'border-[#E86C2F]/30 bg-orange-50 shadow-md'
-                          : isOpen
-                          ? 'border-gray-200 bg-white shadow-md'
-                          : 'border-gray-100 bg-white shadow-card hover:border-gray-200'
-                      }`}
-                    >
-                      {/* Question row */}
-                      <button
-                        onClick={() => setOpenIdx(isOpen ? null : idx)}
-                        className="flex w-full items-center justify-between gap-4 p-5 text-left"
-                      >
-                        <span className={`font-heading font-semibold leading-snug ${isOpen && isPricing ? 'text-[#E86C2F]' : 'text-[#1A1A2E]'}`}>
-                          {item.q}
-                        </span>
-                        <span
-                          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
-                            isOpen
-                              ? isPricing ? 'bg-[#E86C2F] text-white' : 'bg-[#1A1A2E] text-white'
-                              : 'bg-gray-100 text-gray-400'
-                          }`}
-                          style={{ transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)' }}
-                        >
-                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                            <path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                          </svg>
-                        </span>
-                      </button>
-
-                      {/* Answer — animated */}
-                      <div
-                        style={{
-                          maxHeight: isOpen ? '400px' : '0',
-                          opacity: isOpen ? 1 : 0,
-                          transition: 'max-height 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease',
-                          overflow: 'hidden',
-                        }}
-                      >
-                        <p className={`px-5 pb-5 leading-7 ${isPricing && isOpen ? 'text-orange-900/80' : 'text-gray-600'}`}>
-                          {item.a}
-                        </p>
-                      </div>
-                    </div>
-                  </Reveal>
-                );
-              })}
-            </div>
-          </div>
-        );
-      })}
+      {items.map((item, index) => (
+        <Reveal key={item.q} delay={index * 60}>
+          <details className="motion-card mb-4 rounded-2xl border border-gray-100 bg-white p-5 shadow-card">
+            <summary className="cursor-pointer font-heading font-semibold text-charcoal">{item.q}</summary>
+            <p className="mt-3 leading-7 text-gray-600">{item.a}</p>
+          </details>
+        </Reveal>
+      ))}
     </div>
   );
 }
