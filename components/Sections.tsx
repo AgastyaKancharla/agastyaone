@@ -10,6 +10,11 @@ const HeroCRMPanelClient = dynamic(
   () => import('./HeroCRMPanel').then(m => m.HeroCRMPanel),
   { ssr: false }
 );
+
+const HeroDentalWebsitePanelClient = dynamic(
+  () => import('./HeroDentalWebsitePanel').then(m => m.HeroDentalWebsitePanelClient),
+  { ssr: false }
+);
 import {
   ArrowRight,
   BarChart3,
@@ -91,6 +96,7 @@ export function Hero({
   imageAlt,
   showCRM = false,
   lightPanel = false,
+  showWebsitePanel = false,
   slug = '',
 }: {
   title: string;
@@ -99,6 +105,7 @@ export function Hero({
   imageAlt: string;
   showCRM?: boolean;
   lightPanel?: boolean;
+  showWebsitePanel?: boolean;
   slug?: string;
 }) {
   const highlightedTitle = title.split('Dental Clinics');
@@ -942,6 +949,7 @@ export function FounderCard() {
     </div>
   );
 }
+
 
 
 
