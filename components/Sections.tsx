@@ -295,16 +295,40 @@ export function TextSections({ sections }: { sections: TextBlock[] }) {
     <div className="grid gap-6 lg:grid-cols-2">
       {sections.map((section, index) => {
         const isAudienceCard = section.title === 'Dental Clinics';
+        const isInsightCard = section.title?.includes('60 Seconds');
         return (
           <Reveal key={`${section.title}-${index}`} delay={index * 90}>
-            <article className={`motion-card h-full rounded-2xl p-8 ${isAudienceCard ? 'border border-white/20 bg-white/10 text-white backdrop-blur' : 'border border-gray-100 bg-white shadow-card'}`}>
+            <article className={`motion-card h-full rounded-2xl p-8 ${
+              isAudienceCard ? 'border border-white/20 bg-white/10 text-white backdrop-blur' :
+              isInsightCard  ? 'relative overflow-hidden border-0 bg-[#1A1A2E] text-white shadow-xl' :
+              'border border-gray-100 bg-white shadow-card'
+            }`}>
               {isAudienceCard && <div className="mb-5 text-5xl">🦷</div>}
-              {section.title && <h2 className={`font-heading text-xl font-semibold ${isAudienceCard ? 'text-white' : 'text-[#1A1A2E]'}`}>{section.title}</h2>}
-              {section.body && <p className={`mt-4 whitespace-pre-line text-base leading-7 ${isAudienceCard ? 'text-white/70' : 'text-gray-600'}`}>{section.body}</p>}
+              {isInsightCard && (
+                <>
+                  {/* dot grid accent */}
+                  <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: 'radial-gradient(rgba(232,108,47,0.12) 1px,transparent 1px)', backgroundSize: '18px 18px' }} />
+                  {/* top accent line */}
+                  <div className="absolute left-0 right-0 top-0 h-1 rounded-t-2xl" style={{ background: 'linear-gradient(90deg,#E86C2F,#f59e0b)' }} />
+                  {/* big stat */}
+                  <div className="relative mb-5 inline-flex items-end gap-2">
+                    <span className="font-heading text-6xl font-black leading-none text-[#E86C2F]">60</span>
+                    <span className="mb-2 font-heading text-lg font-bold text-white/60">seconds</span>
+                  </div>
+                </>
+              )}
+              {section.title && <h2 className={`relative font-heading text-xl font-semibold ${isAudienceCard || isInsightCard ? 'text-white' : 'text-[#1A1A2E]'}`}>{section.title}</h2>}
+              {section.body && <p className={`relative mt-4 whitespace-pre-line text-base leading-7 ${isAudienceCard || isInsightCard ? 'text-white/70' : 'text-gray-600'}`}>{section.body}</p>}
+              {isInsightCard && (
+                <div className="relative mt-5 flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+                  <span className="text-xl">⏱</span>
+                  <p className="text-sm font-medium text-white/80">15 seconds per website. 3 websites compared. Your clinic wins or loses a patient in under a minute.</p>
+                </div>
+              )}
               {section.items && (
-                <ul className="mt-5 grid gap-3">
+                <ul className="relative mt-5 grid gap-3">
                   {section.items.map((item) => (
-                    <li key={item} className={`flex gap-3 leading-7 ${isAudienceCard ? 'text-white/75' : 'text-gray-600'}`}>
+                    <li key={item} className={`flex gap-3 leading-7 ${isAudienceCard || isInsightCard ? 'text-white/75' : 'text-gray-600'}`}>
                       <CheckCircle className="mt-1 shrink-0 text-saffron" size={18} />
                       <span>{item}</span>
                     </li>
@@ -753,6 +777,7 @@ export function FounderCard() {
     </div>
   );
 }
+
 
 
 
