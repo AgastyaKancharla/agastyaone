@@ -102,44 +102,50 @@ export function AppointmentFeatureTabs() {
   return (
     <div style={{ width: '100%' }}>
       {/* Tab pill row */}
-      <div
-        ref={tabsRef}
-        style={{
-          display: 'flex',
-          gap: 8,
-          overflowX: 'auto',
-          paddingBottom: 4,
-          scrollbarWidth: 'none',
-          msOverflowStyle: 'none',
-          WebkitOverflowScrolling: 'touch',
-        }}
-      >
-        {FEATURES.map((f, i) => (
-          <button
-            key={f.tab}
-            onClick={() => handleTabClick(i)}
-            style={{
-              flexShrink: 0,
-              padding: '8px 16px',
-              borderRadius: 999,
-              border: `1.5px solid ${active === i ? '#E86C2F' : 'rgba(26,26,46,0.12)'}`,
-              background: active === i ? '#E86C2F' : '#fff',
-              color: active === i ? '#fff' : '#555',
-              fontSize: '0.8rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              transition: 'all 0.2s',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {f.icon} {f.tab}
-            {f.highlight && active !== i && (
-              <span style={{ marginLeft: 5, background: '#E86C2F', color: '#fff', fontSize: '0.6rem', fontWeight: 700, padding: '1px 5px', borderRadius: 999, verticalAlign: 'middle' }}>
-                TOP
-              </span>
-            )}
-          </button>
-        ))}
+      {/* Tab pill row — needs explicit overflow wrapper */}
+      <div style={{ overflowX: 'auto', overflowY: 'visible', marginLeft: -4, marginRight: -4, paddingLeft: 4, paddingRight: 4 }}>
+        <div
+          ref={tabsRef}
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: 8,
+            paddingBottom: 4,
+            width: 'max-content',
+            minWidth: '100%',
+          }}
+        >
+          {FEATURES.map((f, i) => (
+            <button
+              key={f.tab}
+              onClick={() => handleTabClick(i)}
+              style={{
+                flexShrink: 0,
+                padding: '8px 16px',
+                borderRadius: 999,
+                border: `1.5px solid ${active === i ? '#E86C2F' : 'rgba(26,26,46,0.12)'}`,
+                background: active === i ? '#E86C2F' : '#fff',
+                color: active === i ? '#fff' : '#555',
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                whiteSpace: 'nowrap',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 5,
+              }}
+            >
+              <span>{f.icon}</span>
+              <span>{f.tab}</span>
+              {f.highlight && active !== i && (
+                <span style={{ background: '#E86C2F', color: '#fff', fontSize: '0.6rem', fontWeight: 700, padding: '1px 5px', borderRadius: 999 }}>
+                  TOP
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Progress bar */}
@@ -236,7 +242,7 @@ export function AppointmentFeatureTabs() {
           from { opacity: 0; transform: translateY(8px); }
           to   { opacity: 1; transform: translateY(0); }
         }
-        div::-webkit-scrollbar { display: none; }
+        .apt-tabs-scroll::-webkit-scrollbar { display: none; }
       `}</style>
     </div>
   );
