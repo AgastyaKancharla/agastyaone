@@ -10,20 +10,6 @@ const HeroCRMPanelClient = dynamic(
   () => import('./HeroCRMPanel').then(m => m.HeroCRMPanel),
   { ssr: false }
 );
-
-const WebsiteVisual    = dynamic(() => import('./ServiceHeroVisuals').then(m => m.WebsiteHeroVisual),    { ssr: false });
-const SEOVisual        = dynamic(() => import('./ServiceHeroVisuals').then(m => m.SEOHeroVisual),        { ssr: false });
-const AppointmentVisual= dynamic(() => import('./ServiceHeroVisuals').then(m => m.AppointmentHeroVisual),{ ssr: false });
-const MarketingVisual  = dynamic(() => import('./ServiceHeroVisuals').then(m => m.MarketingHeroVisual),  { ssr: false });
-const AutomationVisual = dynamic(() => import('./ServiceHeroVisuals').then(m => m.AutomationHeroVisual), { ssr: false });
-
-const SERVICE_VISUALS: Record<string, React.ComponentType> = {
-  'dental-website-development':   WebsiteVisual,
-  'dental-seo-services':          SEOVisual,
-  'dentist-appointment-software': AppointmentVisual,
-  'dental-marketing-services':    MarketingVisual,
-  'dental-practice-automation':   AutomationVisual,
-};
 import {
   ArrowRight,
   BarChart3,
@@ -104,36 +90,28 @@ export function Hero({
   ctas,
   imageAlt,
   showCRM = false,
-  slug = '',
+  lightPanel = false,
 }: {
   title: string;
   subtitle: string;
   ctas: LinkItem[];
   imageAlt: string;
   showCRM?: boolean;
-  slug?: string;
+  lightPanel?: boolean;
 }) {
   const highlightedTitle = title.split('Dental Clinics');
   const [panelIdx, setPanelIdx] = React.useState(0);
   const displaySubtitle = showCRM ? PANEL_SUBTITLES[panelIdx] : subtitle;
-  const ServiceVisual = SERVICE_VISUALS[slug] ?? null;
-  const hasVisual = showCRM || !!ServiceVisual;
 
   return (
     <section className="full-bleed overflow-hidden bg-gradient-to-br from-[#F8F6F3] to-white">
       <div className="dot-grid absolute inset-0 opacity-70" aria-hidden="true" />
-      <div className={"site-container relative grid items-center gap-10 py-14 md:py-20 lg:py-24 " + (hasVisual ? "lg:grid-cols-[1fr_.95fr]" : "lg:grid-cols-[1.05fr_.95fr]")}>
+      <div className={"site-container relative grid items-center gap-10 py-14 md:py-20 lg:py-24 " + (showCRM ? "lg:grid-cols-[1fr_.95fr]" : "lg:grid-cols-[1.05fr_.95fr]")}>
         <Reveal>
           <p className="mb-4 inline-flex items-center rounded-full bg-orange-100 px-4 py-1 text-sm font-medium text-orange-700">
-            {slug === 'dental-crm-software' ? '🦷 Dental CRM · Bengaluru' :
-             slug === 'dental-website-development' ? '🌐 Clinic Websites · Bengaluru' :
-             slug === 'dental-seo-services' ? '📍 SEO & GBP · Bengaluru' :
-             slug === 'dentist-appointment-software' ? '📅 Appointment Software · Bengaluru' :
-             slug === 'dental-marketing-services' ? '📣 Dental Marketing · Bengaluru' :
-             slug === 'dental-practice-automation' ? '⚡ Practice Automation · Bengaluru' :
-             '✨ Bengaluru growth systems'}
+            ✨ Bengaluru growth systems
           </p>
-          <h1 className="font-heading text-4xl font-black leading-tight tracking-tight text-[#1A1A2E] md:text-6xl">
+          <h1 className="font-heading text-5xl font-black leading-tight tracking-tight text-[#1A1A2E] md:text-7xl">
             {highlightedTitle.length > 1 ? (
               <>
                 {highlightedTitle[0]}
@@ -146,23 +124,17 @@ export function Hero({
               title
             )}
           </h1>
-          <p key={panelIdx} className="mt-5 max-w-xl text-base leading-7 text-gray-600 md:text-lg md:leading-8" style={{ animation: showCRM ? 'subtitleFade 0.4s ease' : undefined }}>
+          <p key={panelIdx} className="mt-6 max-w-2xl text-base leading-7 text-gray-600 md:text-lg md:leading-8" style={{ animation: showCRM ? 'subtitleFade 0.4s ease' : undefined }}>
             {displaySubtitle}
           </p>
 
-          {/* Mobile: visual sits between subtitle and CTA — builds confidence before click */}
           {showCRM && (
-            <div className="my-7 lg:hidden">
-              <HeroCRMPanelClient onPanelChange={setPanelIdx} />
-            </div>
-          )}
-          {ServiceVisual && !showCRM && (
-            <div className="my-7 lg:hidden">
-              <ServiceVisual />
+            <div className="my-8 lg:hidden">
+              <HeroCRMPanelClient onPanelChange={setPanelIdx} light={lightPanel} />
             </div>
           )}
 
-          <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+          <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
             <Button href={ctas[0].href} variant="primary">
               {ctas[0].label}
             </Button>
@@ -177,18 +149,17 @@ export function Hero({
           </div>
         </Reveal>
 
-        {/* Desktop: visual as right column */}
         {showCRM && (
           <Reveal delay={160} className="hidden lg:block">
             <HeroCRMPanelClient onPanelChange={setPanelIdx} />
           </Reveal>
         )}
-        {ServiceVisual && !showCRM && (
-          <Reveal delay={160} className="hidden lg:block">
-            <ServiceVisual />
+
+        {!showCRM && (
+          <Reveal delay={160}>
+            <DashboardHeroPanel alt={imageAlt} />
           </Reveal>
         )}
-        {/* no visual fallback — intentionally empty for text-only pages */}
       </div>
       <style dangerouslySetInnerHTML={{ __html: '@keyframes subtitleFade { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:none; } }' }} />
     </section>
@@ -782,6 +753,7 @@ export function FounderCard() {
     </div>
   );
 }
+
 
 
 
