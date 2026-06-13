@@ -23,6 +23,7 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
         imageAlt={`${page.h1} dashboard illustration`}
         showCRM={page.slug === '' || page.slug === 'dental-solutions'}
         lightPanel={page.slug === 'dental-solutions'}
+        showWebsitePanel={page.slug === 'dental-website-development'}
       />
       {page.trust && page.trust.length > 0 && <TrustBar items={page.trust} />}
       {page.slug === '' ? (
