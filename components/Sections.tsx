@@ -148,6 +148,11 @@ export function Hero({
               <SEOHeroPanel />
             </div>
           )}
+          {showWebsitePanel && (
+            <div className="my-8 lg:hidden">
+              <HeroDentalWebsitePanelClient />
+            </div>
+          )}
 
           <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
             <Button href={ctas[0].href} variant="primary">
@@ -176,7 +181,13 @@ export function Hero({
           </Reveal>
         )}
 
-        {!showCRM && slug !== 'dental-seo-services' && (
+        {showWebsitePanel && (
+          <Reveal delay={160} className="hidden lg:block">
+            <HeroDentalWebsitePanelClient />
+          </Reveal>
+        )}
+
+        {!showCRM && !showWebsitePanel && slug !== 'dental-seo-services' && (
           <Reveal delay={160}>
             <DashboardHeroPanel alt={imageAlt} />
           </Reveal>
@@ -949,6 +960,7 @@ export function FounderCard() {
     </div>
   );
 }
+
 
 
 
