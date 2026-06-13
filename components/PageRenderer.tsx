@@ -2,6 +2,7 @@ import { CardGrid, ContactStrip, FAQ, Hero, Section, Steps, TextSections, TrustB
 import { CRMDemo } from './CRMDemo';
 import { ServicesInteractive } from './ServicesInteractive';
 import { AgencyVsUs } from './AgencyVsUs';
+import { InvisibilityCalculator } from './InvisibilityCalculator';
 import { faqSchemaForPage, getLocationContent, type SitePage } from '@/lib/site-data';
 
 export function PageRenderer({ page, schema = false }: { page: SitePage; schema?: boolean }) {
@@ -31,6 +32,7 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
           <TextSections sections={page.intro} />
         </Section>
       )}
+      {page.slug === 'dental-seo-services' && <InvisibilityCalculator />}
       {page.offers && (
         page.slug === '' ? (
           <ServicesInteractive />
