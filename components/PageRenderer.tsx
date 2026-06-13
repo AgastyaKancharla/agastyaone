@@ -26,6 +26,7 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
         showCRM={page.slug === '' || page.slug === 'dental-solutions'}
         lightPanel={page.slug === 'dental-solutions'}
         showWebsitePanel={page.slug === 'dental-website-development'}
+        slug={page.slug}
       />
       {page.trust && page.trust.length > 0 && <TrustBar items={page.trust} />}
       {page.slug === '' ? (
