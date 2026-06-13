@@ -11,12 +11,12 @@ const WA_HREF =
   );
 
 const solutions = [
-  ['Dental CRM', '/dental-crm-software'],
-  ['Dental Websites', '/dental-website-development'],
-  ['Dental SEO', '/dental-seo-services'],
-  ['Appointment Software', '/dentist-appointment-software'],
-  ['Dental Marketing', '/dental-marketing-services'],
-  ['Practice Automation', '/dental-practice-automation'],
+  { label: 'Dental CRM', href: '/dental-crm-software', desc: 'Manage patients & follow-ups', icon: '🗂️' },
+  { label: 'Dental Websites', href: '/dental-website-development', desc: 'Convert visitors to bookings', icon: '🌐' },
+  { label: 'Dental SEO', href: '/dental-seo-services', desc: 'Rank #1 in your area', icon: '📈' },
+  { label: 'Appointment Software', href: '/dentist-appointment-software', desc: 'Zero no-shows', icon: '📅' },
+  { label: 'Dental Marketing', href: '/dental-marketing-services', desc: 'Ads that bring real patients', icon: '📣' },
+  { label: 'Practice Automation', href: '/dental-practice-automation', desc: 'Run your clinic on autopilot', icon: '⚙️' },
 ];
 
 const company = [
@@ -67,29 +67,17 @@ export function Footer() {
       {/* Saffron top accent border */}
       <div style={{ height: 2, background: 'linear-gradient(90deg, #E86C2F 0%, #f59e0b 60%, transparent 100%)' }} />
 
-      {/* Micro-CTA strip */}
-      <div style={{
-        background: 'rgba(232,108,47,0.07)',
-        borderBottom: '1px solid rgba(232,108,47,0.12)',
-      }}>
-        <div className="site-container" style={{ padding: '14px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+      {/* Micro-CTA strip — tightened copy */}
+      <div style={{ background: 'rgba(232,108,47,0.07)', borderBottom: '1px solid rgba(232,108,47,0.12)' }}>
+        <div className="site-container" style={{ padding: '13px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
           <p style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.55)', margin: 0 }}>
-            💬 Still thinking? Most clinic owners book after seeing our CRM live.
+            💬 Still deciding? See the CRM live first.
           </p>
           <a
             href={WA_HREF}
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              fontSize: '0.8rem',
-              fontWeight: 700,
-              color: '#E86C2F',
-              whiteSpace: 'nowrap',
-              textDecoration: 'none',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-            }}
+            style={{ fontSize: '0.8rem', fontWeight: 700, color: '#E86C2F', whiteSpace: 'nowrap', textDecoration: 'none' }}
           >
             WhatsApp us now →
           </a>
@@ -100,7 +88,7 @@ export function Footer() {
       <div className="site-container" style={{ paddingTop: '3.5rem', paddingBottom: '3rem' }}>
         <div style={{ display: 'grid', gap: '2.5rem', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))' }}>
 
-          {/* Col 1 — Brand + contact */}
+          {/* Col 1 — Brand + contact + CTA */}
           <Reveal>
             <div>
               <div className="font-heading" style={{ fontSize: '1.3rem', fontWeight: 900, color: '#fff' }}>
@@ -110,22 +98,20 @@ export function Footer() {
                 Dental digital solutions built in Bengaluru — by someone who has actually sat in the dentist&rsquo;s chair too long.
               </p>
 
-              {/* Contact details */}
+              {/* Contact */}
               <div style={{ marginTop: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 <a href={NAP_PHONE_HREF} style={{ fontSize: '0.83rem', color: 'rgba(255,255,255,0.65)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 7 }}>
-                  <span style={{ color: '#E86C2F', fontSize: '0.75rem' }}>📞</span>
-                  {NAP_PHONE}
+                  <span style={{ color: '#E86C2F' }}>📞</span>{NAP_PHONE}
                 </a>
                 <a href="mailto:hello@agastyaone.com" style={{ fontSize: '0.83rem', color: 'rgba(255,255,255,0.65)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 7 }}>
-                  <span style={{ color: '#E86C2F', fontSize: '0.75rem' }}>✉️</span>
-                  hello@agastyaone.com
+                  <span style={{ color: '#E86C2F' }}>✉️</span>hello@agastyaone.com
                 </a>
-                <address style={{ fontStyle: 'normal', fontSize: '0.8rem', color: 'rgba(255,255,255,0.35)', lineHeight: 1.5, marginTop: 2 }}>
+                <address style={{ fontStyle: 'normal', fontSize: '0.78rem', color: 'rgba(255,255,255,0.3)', lineHeight: 1.5, marginTop: 2 }}>
                   {NAP_ADDRESS}
                 </address>
               </div>
 
-              {/* Social icons */}
+              {/* Social */}
               <div style={{ marginTop: '1.25rem', display: 'flex', gap: '0.5rem' }}>
                 {socialLinks.map(({ href, label, Icon }) => (
                   <a
@@ -134,45 +120,71 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    style={{
-                      display: 'inline-flex', width: 34, height: 34,
-                      alignItems: 'center', justifyContent: 'center',
-                      borderRadius: '50%', border: '1px solid rgba(255,255,255,0.12)',
-                      color: 'rgba(255,255,255,0.5)', textDecoration: 'none',
-                      transition: 'border-color 0.2s, color 0.2s',
-                    }}
-                    onMouseEnter={e => {
-                      (e.currentTarget as HTMLAnchorElement).style.borderColor = '#E86C2F';
-                      (e.currentTarget as HTMLAnchorElement).style.color = '#E86C2F';
-                    }}
-                    onMouseLeave={e => {
-                      (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.12)';
-                      (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.5)';
-                    }}
+                    style={{ display: 'inline-flex', width: 34, height: 34, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.5)', textDecoration: 'none', transition: 'border-color 0.2s, color 0.2s' }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#E86C2F'; (e.currentTarget as HTMLAnchorElement).style.color = '#E86C2F'; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.12)'; (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.5)'; }}
                   >
                     <Icon />
                   </a>
                 ))}
               </div>
+
+              {/* Book a Call CTA */}
+              <Link
+                href="/contact"
+                style={{
+                  display: 'inline-flex',
+                  marginTop: '1.5rem',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '0.6rem 1.25rem',
+                  borderRadius: '999px',
+                  background: '#E86C2F',
+                  color: '#fff',
+                  fontSize: '0.8rem',
+                  fontWeight: 700,
+                  textDecoration: 'none',
+                  transition: 'background 0.2s',
+                  gap: 6,
+                }}
+                onMouseEnter={e => ((e.currentTarget as HTMLAnchorElement).style.background = '#d05a1f')}
+                onMouseLeave={e => ((e.currentTarget as HTMLAnchorElement).style.background = '#E86C2F')}
+              >
+                📞 Book a Free Call
+              </Link>
             </div>
           </Reveal>
 
-          {/* Col 2 — Solutions */}
+          {/* Col 2 — Solutions with icons + descriptions */}
           <Reveal delay={80}>
             <div>
               <h3 style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#E86C2F', marginBottom: '1rem' }}>
                 Solutions
               </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
-                {solutions.map(([label, href]) => (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                {solutions.map(({ label, href, desc, icon }) => (
                   <Link
                     key={href}
                     href={href}
-                    style={{ fontSize: '0.83rem', color: 'rgba(255,255,255,0.55)', textDecoration: 'none', transition: 'color 0.15s' }}
-                    onMouseEnter={e => ((e.currentTarget as HTMLAnchorElement).style.color = '#fff')}
-                    onMouseLeave={e => ((e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.55)')}
+                    style={{ textDecoration: 'none', display: 'flex', alignItems: 'flex-start', gap: 9 }}
+                    onMouseEnter={e => {
+                      const el = e.currentTarget as HTMLAnchorElement;
+                      (el.querySelector('.sol-label') as HTMLElement).style.color = '#fff';
+                    }}
+                    onMouseLeave={e => {
+                      const el = e.currentTarget as HTMLAnchorElement;
+                      (el.querySelector('.sol-label') as HTMLElement).style.color = 'rgba(255,255,255,0.7)';
+                    }}
                   >
-                    {label}
+                    <span style={{ fontSize: '0.9rem', marginTop: 1, flexShrink: 0 }}>{icon}</span>
+                    <span>
+                      <span className="sol-label" style={{ display: 'block', fontSize: '0.83rem', fontWeight: 600, color: 'rgba(255,255,255,0.7)', transition: 'color 0.15s' }}>
+                        {label}
+                      </span>
+                      <span style={{ display: 'block', fontSize: '0.73rem', color: 'rgba(255,255,255,0.3)', marginTop: 1 }}>
+                        {desc}
+                      </span>
+                    </span>
                   </Link>
                 ))}
               </div>
@@ -200,14 +212,8 @@ export function Footer() {
               </div>
 
               {/* Trust block */}
-              <div style={{
-                marginTop: '1.75rem',
-                padding: '1rem',
-                borderRadius: '10px',
-                border: '1px solid rgba(232,108,47,0.18)',
-                background: 'rgba(232,108,47,0.05)',
-              }}>
-                <p style={{ fontSize: '0.72rem', fontWeight: 700, color: '#E86C2F', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
+              <div style={{ marginTop: '1.75rem', padding: '1rem', borderRadius: '10px', border: '1px solid rgba(232,108,47,0.18)', background: 'rgba(232,108,47,0.05)' }}>
+                <p style={{ fontSize: '0.72rem', fontWeight: 700, color: '#E86C2F', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.6rem' }}>
                   Why clinics choose us
                 </p>
                 {[
@@ -215,7 +221,7 @@ export function Footer() {
                   'Dental-focused, nothing else',
                   'Replies within 1 hour on WhatsApp',
                 ].map(line => (
-                  <p key={line} style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.5)', margin: '0.3rem 0', display: 'flex', alignItems: 'flex-start', gap: 6 }}>
+                  <p key={line} style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.5)', margin: '0.35rem 0', display: 'flex', alignItems: 'flex-start', gap: 6 }}>
                     <span style={{ color: '#E86C2F', marginTop: 1, flexShrink: 0 }}>✓</span>
                     {line}
                   </p>
@@ -228,14 +234,7 @@ export function Footer() {
 
       {/* Bottom bar */}
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-        <div className="site-container" style={{
-          padding: '1rem 0',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '0.5rem',
-        }}>
+        <div className="site-container" style={{ padding: '1rem 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
           <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)', margin: 0 }}>
             © 2026 AgastyaOne · Built in Bengaluru 🦷
           </p>
