@@ -102,17 +102,24 @@ export function AppointmentFeatureTabs() {
   return (
     <div style={{ width: '100%' }}>
       {/* Tab pill row */}
-      {/* Tab pill row — needs explicit overflow wrapper */}
-      <div style={{ overflowX: 'auto', overflowY: 'visible', marginLeft: -4, marginRight: -4, paddingLeft: 4, paddingRight: 4 }}>
+      {/* Tab pill row */}
+      <div
+        style={{
+          overflowX: 'scroll',
+          overflowY: 'visible',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          WebkitOverflowScrolling: 'touch',
+          paddingBottom: 4,
+        }}
+      >
         <div
           ref={tabsRef}
           style={{
             display: 'flex',
             flexDirection: 'row',
             gap: 8,
-            paddingBottom: 4,
             width: 'max-content',
-            minWidth: '100%',
           }}
         >
           {FEATURES.map((f, i) => (
@@ -120,7 +127,9 @@ export function AppointmentFeatureTabs() {
               key={f.tab}
               onClick={() => handleTabClick(i)}
               style={{
-                flexShrink: 0,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 5,
                 padding: '8px 16px',
                 borderRadius: 999,
                 border: `1.5px solid ${active === i ? '#E86C2F' : 'rgba(26,26,46,0.12)'}`,
@@ -131,15 +140,13 @@ export function AppointmentFeatureTabs() {
                 cursor: 'pointer',
                 transition: 'all 0.2s',
                 whiteSpace: 'nowrap',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 5,
+                lineHeight: 1,
               }}
             >
-              <span>{f.icon}</span>
+              <span style={{ fontSize: '0.9rem' }}>{f.icon}</span>
               <span>{f.tab}</span>
               {f.highlight && active !== i && (
-                <span style={{ background: '#E86C2F', color: '#fff', fontSize: '0.6rem', fontWeight: 700, padding: '1px 5px', borderRadius: 999 }}>
+                <span style={{ background: '#E86C2F', color: '#fff', fontSize: '0.58rem', fontWeight: 700, padding: '2px 5px', borderRadius: 999 }}>
                   TOP
                 </span>
               )}
@@ -243,6 +250,7 @@ export function AppointmentFeatureTabs() {
           to   { opacity: 1; transform: translateY(0); }
         }
         .apt-tabs-scroll::-webkit-scrollbar { display: none; }
+        [data-apt-scroll]::-webkit-scrollbar { display: none; }
       `}</style>
     </div>
   );
