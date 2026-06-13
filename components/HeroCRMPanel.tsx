@@ -84,20 +84,20 @@ function CRMPanel({ active }: { active: boolean }) {
             <span style={{ color: toast.color, flexShrink: 0 }}>
               {toast.icon === 'wa' ? <WaIcon /> : toast.icon === 'star' ? <span style={{ fontSize: 9 }}>⭐</span> : <span style={{ fontSize: 9 }}>🔔</span>}
             </span>
-            <span style={{ color: 'rgba(255,255,255,0.82)', fontSize: 10.5, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{toast.text}</span>
+            <span style={{ color: T.textPrimary, fontSize: 10.5, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{toast.text}</span>
           </div>
-        ) : <span style={{ color: 'rgba(255,255,255,0.18)', fontSize: 10.5 }}>Automation running…</span>}
+        ) : <span style={{ color: T.textMuted, fontSize: 10.5 }}>Automation running…</span>}
       </div>
       {/* rows */}
       <div style={{ padding: '2px 10px 8px', display: 'flex', flexDirection: 'column', gap: 5 }}>
         {rows.slice(0, 4).map(p => {
           const cfg = ST[p.st]; const on = lit === p.id;
           return (
-            <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: 9, background: on ? 'rgba(232,108,47,0.08)' : 'rgba(255,255,255,0.025)', border: `1px solid ${on ? 'rgba(232,108,47,0.3)' : 'rgba(255,255,255,0.05)'}`, borderRadius: 9, padding: '7px 10px', transition: 'all .4s' }}>
+            <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: 9, background: on ? T.cardBgOn : T.cardBg, border: `1px solid ${on ? T.cardBorderOn : T.cardBorder}`, borderRadius: 9, padding: '7px 10px', transition: 'all .4s' }}>
               <div style={{ width: 28, height: 28, borderRadius: '50%', flexShrink: 0, background: `${cfg.c}22`, border: `1.5px solid ${cfg.c}44`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: cfg.c, fontWeight: 700, fontSize: 9, fontFamily: 'Poppins,sans-serif' }}>{p.ini}</div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ color: '#fff', fontSize: 11.5, fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name}</div>
-                <div style={{ color: 'rgba(255,255,255,0.38)', fontSize: 9.5, marginTop: 1 }}>{p.tx}</div>
+                <div style={{ color: T.textPrimary, fontSize: 11.5, fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name}</div>
+                <div style={{ color: T.textSub, fontSize: 9.5, marginTop: 1 }}>{p.tx}</div>
               </div>
               <div style={{ background: `${cfg.c}18`, color: cfg.c, fontSize: 8.5, fontWeight: 700, padding: '2px 7px', borderRadius: 99, whiteSpace: 'nowrap', flexShrink: 0, border: `1px solid ${cfg.c}33`, transition: 'all .4s' }}>{cfg.l}</div>
             </div>
@@ -105,11 +105,11 @@ function CRMPanel({ active }: { active: boolean }) {
         })}
       </div>
       {/* stat strip */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', borderTop: '1px solid rgba(255,255,255,0.05)', background: 'rgba(0,0,0,0.2)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', borderTop: T.statBorder, background: T.statBg }}>
         {[['500+','Patients','#34d399'],[String(reviews),'Reviews','#f59e0b'],['3x','Bookings','#E86C2F']].map(([v,l,c],i) => (
-          <div key={l} style={{ padding: '9px 6px', textAlign: 'center', borderRight: i < 2 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+          <div key={l} style={{ padding: '9px 6px', textAlign: 'center', borderRight: i < 2 ? T.statBorder : 'none' }}>
             <div style={{ color: c, fontFamily: 'Poppins,sans-serif', fontWeight: 800, fontSize: 15, transition: 'all .4s' }}>{v}</div>
-            <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: 8.5, marginTop: 1, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{l}</div>
+            <div style={{ color: T.statLabel, fontSize: 8.5, marginTop: 1, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{l}</div>
           </div>
         ))}
       </div>
@@ -146,39 +146,39 @@ function SEOPanel({ active }: { active: boolean }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
       {/* GBP card */}
-      <div style={{ margin: '8px 10px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '9px 12px', display: 'flex', alignItems: 'center', gap: 10 }}>
+      <div style={{ margin: '8px 10px', background: T.sectionBg, border: T.sectionBorder, borderRadius: 10, padding: '9px 12px', display: 'flex', alignItems: 'center', gap: 10 }}>
         <div style={{ width: 34, height: 34, borderRadius: 8, background: 'rgba(232,108,47,0.15)', border: '1px solid rgba(232,108,47,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, flexShrink: 0 }}>📍</div>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ color: '#fff', fontSize: 11.5, fontWeight: 700 }}>Dr. Priya Dental Clinic</div>
+          <div style={{ color: T.textPrimary, fontSize: 11.5, fontWeight: 700 }}>Dr. Priya Dental Clinic</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginTop: 3 }}>
             {'★★★★★'.split('').map((s,i) => <span key={i} style={{ color: '#f59e0b', fontSize: 10 }}>{s}</span>)}
-            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: 9.5, marginLeft: 2 }}>{reviews} reviews</span>
+            <span style={{ color: T.inputText, fontSize: 9.5, marginLeft: 2 }}>{reviews} reviews</span>
           </div>
         </div>
         <div style={{ textAlign: 'right', flexShrink: 0 }}>
           <div style={{ color: '#34d399', fontFamily: 'Poppins,sans-serif', fontWeight: 800, fontSize: 20, lineHeight: 1, transition: 'all 0.5s' }}>#{rank}</div>
-          <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: 8.5, marginTop: 2 }}>Maps rank</div>
+          <div style={{ color: T.statLabel, fontSize: 8.5, marginTop: 2 }}>Maps rank</div>
         </div>
       </div>
       {/* search results */}
       <div style={{ padding: '0 10px 8px', display: 'flex', flexDirection: 'column', gap: 5 }}>
-        <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: 9.5, marginBottom: 2, paddingLeft: 2 }}>Google Search · "dentist near me Koramangala"</div>
+        <div style={{ color: T.textMuted, fontSize: 9.5, marginBottom: 2, paddingLeft: 2 }}>Google Search · "dentist near me Koramangala"</div>
         {results.map((r, i) => (
-          <div key={r.title} style={{ display: 'flex', alignItems: 'center', gap: 8, background: r.yours && lit === 1 ? 'rgba(52,211,153,0.1)' : r.yours ? 'rgba(52,211,153,0.06)' : 'rgba(255,255,255,0.02)', border: `1px solid ${r.yours ? 'rgba(52,211,153,0.25)' : 'rgba(255,255,255,0.05)'}`, borderRadius: 8, padding: '7px 10px', transition: 'all 0.5s' }}>
-            <div style={{ width: 18, height: 18, borderRadius: 4, background: r.yours ? 'rgba(52,211,153,0.2)' : 'rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: r.yours ? '#34d399' : 'rgba(255,255,255,0.3)', fontSize: 9, fontWeight: 800, flexShrink: 0 }}>{i + 1}</div>
+          <div key={r.title} style={{ display: 'flex', alignItems: 'center', gap: 8, background: r.yours && lit === 1 ? 'rgba(52,211,153,0.1)' : r.yours ? 'rgba(52,211,153,0.06)' : T.rowBg, border: `1px solid ${r.yours ? 'rgba(52,211,153,0.25)' : T.rowBorder}`, borderRadius: 8, padding: '7px 10px', transition: 'all 0.5s' }}>
+            <div style={{ width: 18, height: 18, borderRadius: 4, background: r.yours ? 'rgba(52,211,153,0.2)' : T.cardBg, display: 'flex', alignItems: 'center', justifyContent: 'center', color: r.yours ? '#34d399' : T.textMuted, fontSize: 9, fontWeight: 800, flexShrink: 0 }}>{i + 1}</div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ color: r.yours ? '#34d399' : 'rgba(255,255,255,0.6)', fontSize: 11, fontWeight: r.yours ? 700 : 400, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.title} {r.yours && '✓'}</div>
-              <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: 9.5 }}>{r.sub}</div>
+              <div style={{ color: r.yours ? '#34d399' : T.textSub, fontSize: 11, fontWeight: r.yours ? 700 : 400, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.title} {r.yours && '✓'}</div>
+              <div style={{ color: T.textMuted, fontSize: 9.5 }}>{r.sub}</div>
             </div>
           </div>
         ))}
       </div>
       {/* stat strip */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', borderTop: '1px solid rgba(255,255,255,0.05)', background: 'rgba(0,0,0,0.2)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', borderTop: T.statBorder, background: T.statBg }}>
         {[['#1','Maps Rank','#34d399'],['5x','More Calls','#E86C2F'],['90d','To Results','#f59e0b']].map(([v,l,c],i) => (
-          <div key={l} style={{ padding: '9px 6px', textAlign: 'center', borderRight: i < 2 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+          <div key={l} style={{ padding: '9px 6px', textAlign: 'center', borderRight: i < 2 ? T.statBorder : 'none' }}>
             <div style={{ color: c, fontFamily: 'Poppins,sans-serif', fontWeight: 800, fontSize: 15 }}>{v}</div>
-            <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: 8.5, marginTop: 1, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{l}</div>
+            <div style={{ color: T.statLabel, fontSize: 8.5, marginTop: 1, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{l}</div>
           </div>
         ))}
       </div>
@@ -211,40 +211,40 @@ function WebsitePanel({ active }: { active: boolean }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
       {/* browser bar */}
-      <div style={{ margin: '8px 10px 4px', background: 'rgba(255,255,255,0.04)', borderRadius: 8, padding: '6px 10px', display: 'flex', alignItems: 'center', gap: 8 }}>
+      <div style={{ margin: '8px 10px 4px', background: T.sectionBg, borderRadius: 8, padding: '6px 10px', display: 'flex', alignItems: 'center', gap: 8 }}>
         <div style={{ display: 'flex', gap: 4 }}>
           {['#ff5f57','#febc2e','#28c840'].map(c => <span key={c} style={{ width: 7, height: 7, borderRadius: '50%', background: c, display: 'inline-block' }} />)}
         </div>
-        <div style={{ flex: 1, background: 'rgba(255,255,255,0.07)', borderRadius: 4, padding: '3px 8px', fontSize: 9.5, color: 'rgba(255,255,255,0.5)', display: 'flex', alignItems: 'center', gap: 5 }}>
+        <div style={{ flex: 1, background: T.inputBg, borderRadius: 4, padding: '3px 8px', fontSize: 9.5, color: T.inputText, display: 'flex', alignItems: 'center', gap: 5 }}>
           <span style={{ color: '#34d399', fontSize: 9 }}>🔒</span> drpriya-dental.com
         </div>
       </div>
       {/* load bar */}
       {!loaded && (
-        <div style={{ height: 2, margin: '0 10px 4px', background: 'rgba(255,255,255,0.06)', borderRadius: 2, overflow: 'hidden' }}>
+        <div style={{ height: 2, margin: '0 10px 4px', background: T.progressBg, borderRadius: 2, overflow: 'hidden' }}>
           <div style={{ height: '100%', width: `${barW}%`, background: 'linear-gradient(90deg,#E86C2F,#f59e0b)', borderRadius: 2, transition: 'width 0.4s ease' }} />
         </div>
       )}
       {/* site mockup */}
-      <div style={{ margin: '0 10px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 8, padding: '10px', opacity: loaded ? 1 : 0.4, transition: 'opacity 0.5s' }}>
+      <div style={{ margin: '0 10px', background: T.searchBg, border: T.searchBorder, borderRadius: 8, padding: '10px', opacity: loaded ? 1 : 0.4, transition: 'opacity 0.5s' }}>
         <div style={{ background: 'rgba(232,108,47,0.15)', borderRadius: 6, padding: '8px 10px', marginBottom: 8 }}>
-          <div style={{ color: '#fff', fontFamily: 'Poppins,sans-serif', fontWeight: 800, fontSize: 12 }}>Dr. Priya Dental Clinic</div>
-          <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 9.5, marginTop: 2 }}>Koramangala, Bengaluru</div>
+          <div style={{ color: T.textPrimary, fontFamily: 'Poppins,sans-serif', fontWeight: 800, fontSize: 12 }}>Dr. Priya Dental Clinic</div>
+          <div style={{ color: T.inputText, fontSize: 9.5, marginTop: 2 }}>Koramangala, Bengaluru</div>
           <div style={{ marginTop: 6, display: 'inline-flex', alignItems: 'center', gap: 5, background: '#E86C2F', borderRadius: 99, padding: '3px 10px' }}>
             <WaIcon size={9} />
             <span style={{ color: '#fff', fontSize: 9, fontWeight: 700 }}>Book Appointment</span>
           </div>
         </div>
         {trust.map(t => (
-          <div key={t} style={{ color: 'rgba(255,255,255,0.6)', fontSize: 9.5, padding: '3px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>{t}</div>
+          <div key={t} style={{ color: T.textSub, fontSize: 9.5, padding: '3px 0', borderBottom: T.divider }}>{t}</div>
         ))}
       </div>
       {/* stat strip */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', borderTop: '1px solid rgba(255,255,255,0.05)', background: 'rgba(0,0,0,0.2)', marginTop: 8 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', borderTop: T.statBorder, background: T.statBg, marginTop: 8 }}>
         {[[`${visits}`,'Visitors/mo','#34d399'],['1.2s','Load Time','#E86C2F'],['SEO','Ready','#f59e0b']].map(([v,l,c],i) => (
-          <div key={l} style={{ padding: '9px 6px', textAlign: 'center', borderRight: i < 2 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+          <div key={l} style={{ padding: '9px 6px', textAlign: 'center', borderRight: i < 2 ? T.statBorder : 'none' }}>
             <div style={{ color: c, fontFamily: 'Poppins,sans-serif', fontWeight: 800, fontSize: 15, transition: 'all .4s' }}>{v}</div>
-            <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: 8.5, marginTop: 1, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{l}</div>
+            <div style={{ color: T.statLabel, fontSize: 8.5, marginTop: 1, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{l}</div>
           </div>
         ))}
       </div>
@@ -287,30 +287,30 @@ function BookingPanel({ active }: { active: boolean }) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-      <div style={{ padding: '6px 10px 4px', color: 'rgba(255,255,255,0.3)', fontSize: 9.5 }}>Today's Schedule · Tuesday, Jun 17</div>
+      <div style={{ padding: '6px 10px 4px', color: T.textMuted, fontSize: 9.5 }}>Today's Schedule · Tuesday, Jun 17</div>
       <div style={{ padding: '0 10px 8px', display: 'flex', flexDirection: 'column', gap: 5 }}>
         {slots.map(s => (
-          <div key={s.time} style={{ display: 'flex', alignItems: 'center', gap: 8, background: flash === s.time ? 'rgba(52,211,153,0.12)' : s.filled ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.015)', border: `1px solid ${flash === s.time ? 'rgba(52,211,153,0.35)' : s.filled ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.03)'}`, borderRadius: 8, padding: '7px 10px', transition: 'all 0.4s' }}>
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 9.5, fontWeight: 600, width: 48, flexShrink: 0 }}>{s.time}</div>
+          <div key={s.time} style={{ display: 'flex', alignItems: 'center', gap: 8, background: flash === s.time ? 'rgba(52,211,153,0.12)' : s.filled ? T.cardBg : T.rowBg, border: `1px solid ${flash === s.time ? 'rgba(52,211,153,0.35)' : s.filled ? T.cardBorder : T.rowBorder}`, borderRadius: 8, padding: '7px 10px', transition: 'all 0.4s' }}>
+            <div style={{ color: T.textSub, fontSize: 9.5, fontWeight: 600, width: 48, flexShrink: 0 }}>{s.time}</div>
             {s.filled ? (
               <>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ color: '#fff', fontSize: 11, fontWeight: 600 }}>{s.name}</div>
-                  <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: 9 }}>{s.tx}</div>
+                  <div style={{ color: T.textPrimary, fontSize: 11, fontWeight: 600 }}>{s.name}</div>
+                  <div style={{ color: T.statLabel, fontSize: 9 }}>{s.tx}</div>
                 </div>
                 <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#34d399', flexShrink: 0 }} />
               </>
             ) : (
-              <div style={{ color: 'rgba(255,255,255,0.2)', fontSize: 10, fontStyle: 'italic' }}>Open slot</div>
+              <div style={{ color: T.textFaint, fontSize: 10, fontStyle: 'italic' }}>Open slot</div>
             )}
           </div>
         ))}
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', borderTop: '1px solid rgba(255,255,255,0.05)', background: 'rgba(0,0,0,0.2)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', borderTop: T.statBorder, background: T.statBg }}>
         {[['5/5','Slots Filled','#34d399'],[String(noShows),'No-Shows','#fb923c'],['24/7','Online Book','#E86C2F']].map(([v,l,c],i) => (
-          <div key={l} style={{ padding: '9px 6px', textAlign: 'center', borderRight: i < 2 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+          <div key={l} style={{ padding: '9px 6px', textAlign: 'center', borderRight: i < 2 ? T.statBorder : 'none' }}>
             <div style={{ color: c, fontFamily: 'Poppins,sans-serif', fontWeight: 800, fontSize: 15, transition: 'all .4s' }}>{v}</div>
-            <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: 8.5, marginTop: 1, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{l}</div>
+            <div style={{ color: T.statLabel, fontSize: 8.5, marginTop: 1, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{l}</div>
           </div>
         ))}
       </div>
@@ -363,11 +363,11 @@ function WhatsAppPanel({ active }: { active: boolean }) {
           </div>
         ))}
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', borderTop: '1px solid rgba(255,255,255,0.05)', background: 'rgba(0,0,0,0.2)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', borderTop: T.statBorder, background: T.statBg }}>
         {[[String(sent),'Sent Today','#25D366'],['98%','Open Rate','#34d399'],['0','Manual Work','#E86C2F']].map(([v,l,c],i) => (
-          <div key={l} style={{ padding: '9px 6px', textAlign: 'center', borderRight: i < 2 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+          <div key={l} style={{ padding: '9px 6px', textAlign: 'center', borderRight: i < 2 ? T.statBorder : 'none' }}>
             <div style={{ color: c, fontFamily: 'Poppins,sans-serif', fontWeight: 800, fontSize: 15, transition: 'all .4s' }}>{v}</div>
-            <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: 8.5, marginTop: 1, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{l}</div>
+            <div style={{ color: T.statLabel, fontSize: 8.5, marginTop: 1, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{l}</div>
           </div>
         ))}
       </div>
@@ -395,7 +395,7 @@ const TABS = [
 
 /* ─── Main export ────────────────────────────────────── */
 
-export function HeroCRMPanel({ onPanelChange }: { onPanelChange?: (idx: number) => void }) {
+export function HeroCRMPanel({ onPanelChange, light = false }: { onPanelChange?: (idx: number) => void; light?: boolean }) {
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState(0);
   const autoRef  = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -431,19 +431,52 @@ export function HeroCRMPanel({ onPanelChange }: { onPanelChange?: (idx: number) 
     };
   }, [active, onPanelChange]);
 
+  // Theme tokens
+  const T = {
+    cardBg:       light ? 'rgba(0,0,0,0.03)'        : 'rgba(255,255,255,0.025)',
+    cardBorder:   light ? 'rgba(0,0,0,0.07)'        : 'rgba(255,255,255,0.05)',
+    cardBgOn:     light ? 'rgba(232,108,47,0.07)'   : 'rgba(232,108,47,0.08)',
+    cardBorderOn: light ? 'rgba(232,108,47,0.25)'   : 'rgba(232,108,47,0.3)',
+    rowBg:        light ? 'rgba(0,0,0,0.02)'        : 'rgba(255,255,255,0.02)',
+    rowBorder:    light ? 'rgba(0,0,0,0.05)'        : 'rgba(255,255,255,0.05)',
+    statBg:       light ? '#F3F4F6'                 : 'rgba(0,0,0,0.2)',
+    statBorder:   light ? '1px solid #E5E7EB'       : '1px solid rgba(255,255,255,0.05)',
+    statLabel:    light ? '#9CA3AF'                 : 'rgba(255,255,255,0.35)',
+    textPrimary:  light ? '#1A1A2E'                 : '#fff',
+    textSub:      light ? '#6B7280'                 : 'rgba(255,255,255,0.38)',
+    textMuted:    light ? '#9CA3AF'                 : 'rgba(255,255,255,0.3)',
+    textFaint:    light ? '#D1D5DB'                 : 'rgba(255,255,255,0.2)',
+    inputBg:      light ? '#F3F4F6'                 : 'rgba(255,255,255,0.07)',
+    inputText:    light ? '#6B7280'                 : 'rgba(255,255,255,0.5)',
+    sectionBg:    light ? 'rgba(0,0,0,0.02)'        : 'rgba(255,255,255,0.04)',
+    sectionBorder:light ? '1px solid #E5E7EB'       : '1px solid rgba(255,255,255,0.06)',
+    divider:      light ? '1px solid #F3F4F6'       : '1px solid rgba(255,255,255,0.04)',
+    progressBg:   light ? '#E5E7EB'                 : 'rgba(255,255,255,0.06)',
+    searchBg:     light ? '#F9FAFB'                 : 'rgba(255,255,255,0.03)',
+    searchBorder: light ? '1px solid #E5E7EB'       : '1px solid rgba(255,255,255,0.06)',
+  };
+
+  const bg = light
+    ? 'linear-gradient(135deg,#F8F6F3 0%,#fff 60%,#f0ede8 100%)'
+    : 'linear-gradient(135deg,#1A1A2E 0%,#242442 60%,#11111f 100%)';
+  const innerBg = light ? '#ffffff' : '#13132a';
+  const shadow  = light
+    ? '0 24px 60px rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.06)'
+    : '0 32px 80px rgba(26,26,46,0.22), 0 0 0 1px rgba(255,255,255,0.07)';
+
   return (
     <div style={{
-      background: 'linear-gradient(135deg,#1A1A2E 0%,#242442 60%,#11111f 100%)',
+      background: bg,
       borderRadius: 20, padding: 3,
-      boxShadow: '0 32px 80px rgba(26,26,46,0.22), 0 0 0 1px rgba(255,255,255,0.07)',
+      boxShadow: shadow,
     }}>
-      <div style={{ borderRadius: 17, overflow: 'hidden', background: '#13132a' }}>
+      <div style={{ borderRadius: 17, overflow: 'hidden', background: innerBg }}>
 
         {/* titlebar */}
-        <div style={{ background: 'rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '10px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ background: light ? '#F8F6F3' : 'rgba(255,255,255,0.04)', borderBottom: light ? '1px solid #E5E7EB' : '1px solid rgba(255,255,255,0.06)', padding: '10px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div>
             <span style={{ color: '#E86C2F', fontFamily: 'Poppins,sans-serif', fontWeight: 700, fontSize: 12 }}>AgastyaOne</span>
-            <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: 10.5, marginLeft: 6 }}>{TABS[active].label}</span>
+            <span style={{ color: light ? '#9CA3AF' : 'rgba(255,255,255,0.35)', fontSize: 10.5, marginLeft: 6 }}>{TABS[active].label}</span>
           </div>
           <div style={{ display: 'flex', gap: 5 }}>
             {['#E86C2F','#f59e0b','#25D366'].map(c => <span key={c} style={{ width: 8, height: 8, borderRadius: '50%', background: c, display: 'inline-block' }} />)}
@@ -451,14 +484,14 @@ export function HeroCRMPanel({ onPanelChange }: { onPanelChange?: (idx: number) 
         </div>
 
         {/* tabs */}
-        <div style={{ display: 'flex', gap: 0, borderBottom: '1px solid rgba(255,255,255,0.06)', overflowX: 'auto', scrollbarWidth: 'none' }}>
+        <div style={{ display: 'flex', gap: 0, borderBottom: light ? '1px solid #E5E7EB' : '1px solid rgba(255,255,255,0.06)', overflowX: 'auto', scrollbarWidth: 'none' }}>
           {TABS.map((t, i) => (
             <button
               key={t.label}
               onClick={() => switchTo(i)}
               style={{
                 flex: '1 0 auto', padding: '7px 6px', fontSize: 9, fontWeight: 600,
-                color: active === i ? '#E86C2F' : 'rgba(255,255,255,0.35)',
+                color: active === i ? '#E86C2F' : (light ? '#9CA3AF' : 'rgba(255,255,255,0.35)'),
                 background: active === i ? 'rgba(232,108,47,0.08)' : 'transparent',
                 borderBottom: active === i ? '2px solid #E86C2F' : '2px solid transparent',
                 border: 'none', cursor: 'pointer', transition: 'all 0.2s',
@@ -473,7 +506,7 @@ export function HeroCRMPanel({ onPanelChange }: { onPanelChange?: (idx: number) 
         </div>
 
         {/* progress bar */}
-        <div style={{ height: 2, background: 'rgba(255,255,255,0.04)' }}>
+        <div style={{ height: 2, background: light ? '#F3F4F6' : 'rgba(255,255,255,0.04)' }}>
           <div style={{ height: '100%', width: `${progress}%`, background: 'linear-gradient(90deg,#E86C2F,#f59e0b)', transition: 'width 0.08s linear' }} />
         </div>
 
@@ -495,3 +528,4 @@ export function HeroCRMPanel({ onPanelChange }: { onPanelChange?: (idx: number) 
     </div>
   );
 }
+
