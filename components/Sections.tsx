@@ -125,7 +125,13 @@ export function Hero({
       <div className={"site-container relative grid items-center gap-10 py-14 md:py-20 lg:py-24 " + (hasVisual ? "lg:grid-cols-[1fr_.95fr]" : "lg:grid-cols-[1.05fr_.95fr]")}>
         <Reveal>
           <p className="mb-4 inline-flex items-center rounded-full bg-orange-100 px-4 py-1 text-sm font-medium text-orange-700">
-            ✨ Bengaluru growth systems
+            {slug === 'dental-crm-software' ? '🦷 Dental CRM · Bengaluru' :
+             slug === 'dental-website-development' ? '🌐 Clinic Websites · Bengaluru' :
+             slug === 'dental-seo-services' ? '📍 SEO & GBP · Bengaluru' :
+             slug === 'dentist-appointment-software' ? '📅 Appointment Software · Bengaluru' :
+             slug === 'dental-marketing-services' ? '📣 Dental Marketing · Bengaluru' :
+             slug === 'dental-practice-automation' ? '⚡ Practice Automation · Bengaluru' :
+             '✨ Bengaluru growth systems'}
           </p>
           <h1 className="font-heading text-4xl font-black leading-tight tracking-tight text-[#1A1A2E] md:text-6xl">
             {highlightedTitle.length > 1 ? (
@@ -144,7 +150,7 @@ export function Hero({
             {displaySubtitle}
           </p>
 
-          {/* Mobile: service visual between subtitle and buttons */}
+          {/* Mobile: visual sits between subtitle and CTA — builds confidence before click */}
           {showCRM && (
             <div className="my-7 lg:hidden">
               <HeroCRMPanelClient onPanelChange={setPanelIdx} />
@@ -156,7 +162,7 @@ export function Hero({
             </div>
           )}
 
-          <div className="mt-7 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
             <Button href={ctas[0].href} variant="primary">
               {ctas[0].label}
             </Button>
@@ -182,11 +188,7 @@ export function Hero({
             <ServiceVisual />
           </Reveal>
         )}
-        {!hasVisual && (
-          <Reveal delay={160}>
-            <DashboardHeroPanel alt={imageAlt} />
-          </Reveal>
-        )}
+        {/* no visual fallback — intentionally empty for text-only pages */}
       </div>
       <style dangerouslySetInnerHTML={{ __html: '@keyframes subtitleFade { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:none; } }' }} />
     </section>

@@ -247,9 +247,9 @@ export const pages: SitePage[] = [
       internalLinks: [{ label: 'Dental Solutions Bangalore', href: '/dental-solutions-bangalore' }, ...dentalLinks]
     }
   ),
-  page('dental-crm-software', 'Dental CRM Software in Bangalore | AgastyaOne', 'Dental CRM software for clinics in Bengaluru. Manage patients, automate appointment reminders and build your Google reviews. Built for Indian dental practices.', 'Dental CRM Software That Helps Bengaluru Clinics Fill Appointments and Keep Patients Coming Back', 'Manage your patients, track leads, automate follow-ups and fill your appointment slots — built specifically for how dental clinics in Bengaluru actually operate', {
+  page('dental-crm-software', 'Dental CRM Software in Bangalore | AgastyaOne', 'Dental CRM software for clinics in Bengaluru. Manage patients, automate appointment reminders and build your Google reviews. Built for Indian dental practices.', 'Stop Losing Patients You Already Have', 'Most clinics lose 25% of patients every year — not to competitors, but to silence. No follow-up, no recall, no reminder. Our CRM fixes that automatically for dental clinics in Bengaluru.', {
     primaryLabel: 'Book a Free Demo',
-    parent: '/dental-solutions',
+    secondaryLabel: 'See All Features',
     intro: [{ title: 'Most Dental Clinics in Bengaluru Are Losing Patients They Already Have', body: 'The average dental patient should visit twice a year. Most visit once every two to three years or never again. That gap is lost revenue and preventable.' }, { title: 'The Numbers', body: 'A clinic with 500 active patients losing 25% annually loses 125 patients every year. At Rs 3,000 average value, that is Rs 3,75,000 in lost revenue.' }],
     offerTitle: 'What You Get',
     offers: featureCards(['Patient Database', 'Lead Management', 'Appointment Reminders', 'Treatment Follow-ups', 'Recall System', 'Review Requests', 'Clinic Dashboard']),

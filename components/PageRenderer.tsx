@@ -22,7 +22,7 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
         subtitle={page.subtitle}
         ctas={ctas}
         imageAlt={`${page.h1} dashboard illustration`}
-        showCRM={page.slug === '' || page.slug === 'dental-solutions'}
+        showCRM={page.slug === '' || page.slug === 'dental-solutions' || page.slug === 'dental-crm-software'}
         slug={page.slug}
       />
       {page.trust && page.trust.length > 0 && <TrustBar items={page.trust} />}
