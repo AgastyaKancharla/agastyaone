@@ -298,8 +298,7 @@ export const pages: SitePage[] = [
         ]
       }
     ],
-    offerTitle: 'Every Page We Build Includes',
-    offers: featureCards(['Trust Building Professional Design', 'Mobile First', 'Speed Optimised', 'Treatment Pages', 'Doctor Profile Pages', 'WhatsApp Appointment Button', 'Google Reviews Integration', 'SEO Ready From Day One', 'Before and After Gallery', 'Location and Maps Integration']),
+
     steps: [
       'Free 30 Min Consultation — Tell us about your clinic, your current website situation and what you most want patients to do when they find you',
       'We Plan the Structure — We map out every page, every section and all the content before writing a single line of code',
