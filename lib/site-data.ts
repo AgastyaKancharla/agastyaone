@@ -332,7 +332,14 @@ export const pages: SitePage[] = [
     intro: [{ title: 'Empty Appointment Slots and No-Shows Are Costing Your Clinic Real Money Every Day', body: 'The average dental clinic in Bengaluru loses 15 to 20% of appointment revenue to no-shows and last minute cancellations every month.' }, { title: 'The Numbers', body: 'A clinic with 20 appointments per day losing 15% to no-shows can lose Rs 90,000 per month from patients who intended to come but were not reminded.' }],
     offerTitle: 'What You Get',
     offers: featureCards(['Online Appointment Booking', 'Automatic WhatsApp Reminders', 'Appointment Confirmation', 'Cancellation and Rescheduling', 'Waitlist Management', 'Post Appointment Follow-up', 'Appointment Dashboard']),
-    faq: [{ q: 'Can patients book outside clinic hours?', a: 'Yes. 24/7 booking.' }, { q: 'What happens when a patient cancels last minute?', a: 'The system can contact the next patient on the waitlist.' }],
+    faq: [
+      { q: 'Can patients book outside clinic hours?', a: 'Yes. The online booking system works 24/7. Patients can request appointments at any time and your team sees the request when they open the dashboard the next morning.' },
+      { q: 'What happens when a patient cancels last minute?', a: 'The system contacts the next patient on your waitlist automatically. Most clinics recover 70-80% of cancelled slots this way instead of leaving chairs empty.' },
+      { q: 'Will patients actually use online booking?', a: 'Yes — especially for after-hours requests. Most dental enquiries happen between 9PM and midnight when clinics are closed. Online booking captures these patients instead of losing them.' },
+      { q: 'How are WhatsApp reminders sent?', a: 'Reminders go out automatically 24 hours and 2 hours before each appointment. Patients reply to confirm or reschedule. Your team sees all confirmations in one dashboard — no manual follow-up needed.' },
+      { q: 'Is there a setup fee?', a: 'No upfront setup fee. We set everything up as part of onboarding. You only pay the monthly subscription once the system is live and working for your clinic.' },
+      { q: 'How long does setup take?', a: 'Most clinics are fully live within 5 to 7 days. We handle the technical setup, WhatsApp Business integration and staff training so your team doesn\'t need to figure anything out.' },
+    ],
     internalLinks: [{ label: 'Dental Solutions', href: '/dental-solutions' }, { label: 'Dental Practice Automation', href: '/dental-practice-automation' }]
   }),
   page('dental-marketing-services', 'Dental Marketing Services in Bangalore | AgastyaOne', 'Dental marketing services for clinics in Bengaluru. SEO, Google reviews, WhatsApp marketing and online reputation management for dental practices.', 'Dental Marketing Services in Bengaluru That Bring New Patients to Your Clinic Every Month', 'A complete digital marketing system for dental clinics — SEO, WhatsApp, Google reviews and online presence — built to grow your patient base consistently and affordably', {
