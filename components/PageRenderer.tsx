@@ -5,6 +5,8 @@ import { ServicesInteractive } from './ServicesInteractive';
 import { AgencyVsUs } from './AgencyVsUs';
 import { BookingWidget } from './BookingWidget';
 import { AppointmentFeatureTabs } from './AppointmentFeatureTabs';
+import { InvisibilityCalculator } from './InvisibilityCalculator';
+import { SEOProofStrip, TwoTrackSection, TimelineSection } from './SEOPageContent';
 import { faqSchemaForPage, getLocationContent, type SitePage } from '@/lib/site-data';
 
 export function PageRenderer({ page, schema = false }: { page: SitePage; schema?: boolean }) {
@@ -32,6 +34,13 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
       {page.trust && page.trust.length > 0 && <TrustBar items={page.trust} />}
       {page.slug === '' ? (
         <CRMDemo />
+      ) : page.slug === 'dental-seo-services' ? (
+        <>
+          <SEOProofStrip />
+          <InvisibilityCalculator />
+          <TwoTrackSection />
+          <TimelineSection />
+        </>
       ) : page.intro && (
         <Section tint>
           <TextSections sections={page.intro} />
