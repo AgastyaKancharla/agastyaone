@@ -312,9 +312,55 @@ export function CRMFeaturesSection() {
           </p>
         </div>
 
-        {/* layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 16 }} className="crm-demo-grid">
+        {/* ── MOBILE: horizontal tab switcher ── */}
+        <div className="crm-mobile-layout">
+          {/* scrollable icon tabs */}
+          <div style={{ display: 'flex', gap: 6, overflowX: 'auto', paddingBottom: 4, scrollbarWidth: 'none', marginBottom: 12 }}>
+            {FEATURES.map(f => {
+              const isActive = selected === f.id;
+              return (
+                <button
+                  key={f.id}
+                  onClick={() => handleSelect(f.id)}
+                  style={{
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
+                    padding: '8px 10px', borderRadius: 12, flexShrink: 0,
+                    background: isActive ? '#fff' : 'rgba(255,255,255,0.5)',
+                    border: `2px solid ${isActive ? feat.tagColor : 'transparent'}`,
+                    boxShadow: isActive ? `0 4px 16px ${feat.tagColor}25` : 'none',
+                    cursor: 'pointer', transition: 'all 0.2s ease', minWidth: 60,
+                  }}
+                >
+                  <span style={{ fontSize: 20 }}>{f.icon}</span>
+                  <span style={{ fontSize: 8.5, fontWeight: 700, color: isActive ? feat.tagColor : '#9CA3AF', fontFamily: 'Poppins,sans-serif', textAlign: 'center', lineHeight: 1.2, whiteSpace: 'nowrap' }}>
+                    {f.title.split(' ')[0]}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
 
+          {/* full width preview panel */}
+          <div style={{ background: '#fff', borderRadius: 18, padding: '16px', boxShadow: '0 8px 40px rgba(0,0,0,0.08)', border: `1.5px solid ${feat.tagColor}30` }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14, paddingBottom: 10, borderBottom: '1px solid #F3F4F6' }}>
+              <span style={{ fontSize: 16 }}>{feat.icon}</span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontFamily: 'Poppins,sans-serif', fontSize: 13, fontWeight: 700, color: '#1A1A2E' }}>{feat.title}</div>
+                <div style={{ color: '#9CA3AF', fontSize: 10, marginTop: 1 }}>{feat.pitch}</div>
+              </div>
+              <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                <div style={{ fontFamily: 'Poppins,sans-serif', fontWeight: 800, fontSize: 18, color: feat.tagColor, lineHeight: 1 }}>{feat.stat}</div>
+                <div style={{ color: '#9CA3AF', fontSize: 8.5, marginTop: 1 }}>{feat.statLabel}</div>
+              </div>
+            </div>
+            <div key={selected + '-mobile'} style={{ animation: 'previewFadeIn 0.3s ease' }}>
+              <FeaturePreview id={selected} active={previewing} />
+            </div>
+          </div>
+        </div>
+
+        {/* ── DESKTOP: list left, preview right ── */}
+        <div className="crm-desktop-layout" style={{ display: 'none', gridTemplateColumns: '1fr 1.2fr', gap: 20, alignItems: 'start' }}>
           {/* feature list */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             {FEATURES.map(f => {
@@ -330,8 +376,7 @@ export function CRMFeaturesSection() {
                     border: `1.5px solid ${isActive ? f.tagColor + '40' : 'transparent'}`,
                     borderLeft: isActive ? `4px solid ${f.tagColor}` : '4px solid transparent',
                     boxShadow: isActive ? '0 4px 20px rgba(0,0,0,0.07)' : 'none',
-                    cursor: 'pointer', textAlign: 'left',
-                    transition: 'all 0.25s ease',
+                    cursor: 'pointer', textAlign: 'left', transition: 'all 0.25s ease',
                   }}
                 >
                   <span style={{ fontSize: 20, flexShrink: 0 }}>{f.icon}</span>
@@ -347,10 +392,8 @@ export function CRMFeaturesSection() {
               );
             })}
           </div>
-
-          {/* preview panel — desktop right col, mobile below selected */}
-          <div className="crm-preview-panel" style={{ background: '#fff', borderRadius: 18, padding: '20px', boxShadow: '0 8px 40px rgba(0,0,0,0.08)', border: `1.5px solid ${feat.tagColor}25`, minHeight: 280 }}>
-            {/* panel header */}
+          {/* preview panel */}
+          <div style={{ background: '#fff', borderRadius: 18, padding: '20px', boxShadow: '0 8px 40px rgba(0,0,0,0.08)', border: `1.5px solid ${feat.tagColor}25`, minHeight: 280 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16, paddingBottom: 12, borderBottom: '1px solid #F3F4F6' }}>
               <span style={{ fontSize: 18 }}>{feat.icon}</span>
               <div>
@@ -359,8 +402,7 @@ export function CRMFeaturesSection() {
               </div>
               <span style={{ marginLeft: 'auto', background: `${feat.tagColor}12`, color: feat.tagColor, fontSize: 9, fontWeight: 700, padding: '2px 8px', borderRadius: 99, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{feat.tag}</span>
             </div>
-            {/* animated preview */}
-            <div key={selected} style={{ animation: 'previewFadeIn 0.3s ease' }}>
+            <div key={selected + '-desktop'} style={{ animation: 'previewFadeIn 0.3s ease' }}>
               <FeaturePreview id={selected} active={previewing} />
             </div>
           </div>
@@ -383,9 +425,13 @@ export function CRMFeaturesSection() {
 
       <style>{`
         @keyframes previewFadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+        .crm-mobile-layout  { display: block; }
+        .crm-desktop-layout { display: none !important; }
         @media (min-width: 768px) {
-          .crm-demo-grid { grid-template-columns: 1fr 1.2fr !important; align-items: start; gap: 20px !important; }
+          .crm-mobile-layout  { display: none !important; }
+          .crm-desktop-layout { display: grid !important; }
         }
+        .crm-mobile-layout ::-webkit-scrollbar { display: none; }
       `}</style>
     </section>
   );
