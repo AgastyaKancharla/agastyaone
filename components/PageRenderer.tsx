@@ -7,6 +7,7 @@ import { BookingWidget } from './BookingWidget';
 import { AppointmentFeatureTabs } from './AppointmentFeatureTabs';
 import { InvisibilityCalculator } from './InvisibilityCalculator';
 import { SEOProofStrip, TwoTrackSection, TimelineSection } from './SEOPageContent';
+import { SEOFeatureTabs } from './SEOFeatureTabs';
 import { faqSchemaForPage, getLocationContent, type SitePage } from '@/lib/site-data';
 
 export function PageRenderer({ page, schema = false }: { page: SitePage; schema?: boolean }) {
@@ -55,6 +56,10 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
       {page.offers && (
         page.slug === '' ? (
           <ServicesInteractive />
+        ) : page.slug === 'dental-seo-services' ? (
+          <Section title="What We Do" body="Tap any area to see exactly what's included and what it does.">
+            <SEOFeatureTabs />
+          </Section>
         ) : isAppointmentPage ? (
           <Section title={page.offerTitle ?? 'What We Offer'} body="Tap any feature to see how it works. Auto-cycles through all 7.">
             <AppointmentFeatureTabs />
