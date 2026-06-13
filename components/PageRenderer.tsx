@@ -1,9 +1,7 @@
 import { CardGrid, ContactStrip, FAQ, Hero, Section, Steps, TextSections, TrustBar } from './Sections';
 import { CRMDemo } from './CRMDemo';
 import { ServicesInteractive } from './ServicesInteractive';
-import { ServicesInteractiveDental } from './ServicesInteractiveDental';
 import { AgencyVsUs } from './AgencyVsUs';
-import { ProblemSolution } from './ProblemSolution';
 import { faqSchemaForPage, getLocationContent, type SitePage } from '@/lib/site-data';
 
 export function PageRenderer({ page, schema = false }: { page: SitePage; schema?: boolean }) {
@@ -22,14 +20,12 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
         subtitle={page.subtitle}
         ctas={ctas}
         imageAlt={`${page.h1} dashboard illustration`}
-        showCRM={page.slug === '' || page.slug === 'dental-solutions' || page.slug === 'dental-crm-software'}
-        slug={page.slug}
+        showCRM={page.slug === '' || page.slug === 'dental-solutions'}
+        lightPanel={page.slug === 'dental-solutions'}
       />
       {page.trust && page.trust.length > 0 && <TrustBar items={page.trust} />}
       {page.slug === '' ? (
         <CRMDemo />
-      ) : page.slug === 'dental-solutions' ? (
-        <ProblemSolution />
       ) : page.intro && (
         <Section tint>
           <TextSections sections={page.intro} />
@@ -38,8 +34,6 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
       {page.offers && (
         page.slug === '' ? (
           <ServicesInteractive />
-        ) : page.slug === 'dental-solutions' ? (
-          <ServicesInteractiveDental />
         ) : (
           <Section title={page.offerTitle ?? 'What We Offer'}>
             <CardGrid cards={page.offers} />
