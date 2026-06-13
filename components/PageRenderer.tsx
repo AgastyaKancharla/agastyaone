@@ -3,12 +3,14 @@ import { WebsitePagesTabs } from './WebsitePagesTabs';
 import { CRMDemo } from './CRMDemo';
 import { ServicesInteractive } from './ServicesInteractive';
 import { AgencyVsUs } from './AgencyVsUs';
+import { BookingWidget } from './BookingWidget';
 import { faqSchemaForPage, getLocationContent, type SitePage } from '@/lib/site-data';
 
 export function PageRenderer({ page, schema = false }: { page: SitePage; schema?: boolean }) {
+  const isAppointmentPage = page.slug === 'dentist-appointment-software';
   const ctas = [
     { label: page.primaryLabel ?? 'Book a Free 30 Min Call', href: '/contact' },
-    { label: page.secondaryLabel ?? 'See How It Works', href: page.parent || page.internalLinks?.[0]?.href || '/blog' }
+    { label: page.secondaryLabel ?? 'See How It Works', href: isAppointmentPage ? '#booking-demo' : (page.parent || page.internalLinks?.[0]?.href || '/blog') }
   ];
   const locationContent = getLocationContent(page);
   const faqSchema = faqSchemaForPage(page);
@@ -31,6 +33,11 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
       ) : page.intro && (
         <Section tint>
           <TextSections sections={page.intro} />
+        </Section>
+      )}
+      {isAppointmentPage && (
+        <Section title="See How the Booking Flow Works" body="Try it yourself — this is exactly what your patients experience when they book through your clinic.">
+          <BookingWidget />
         </Section>
       )}
       {page.slug === 'dental-website-development' && <WebsitePagesTabs />}
