@@ -345,10 +345,31 @@ export const pages: SitePage[] = [
   page('dental-marketing-services', 'Dental Marketing Services in Bangalore | AgastyaOne', 'Dental marketing services for clinics in Bengaluru. SEO, Google reviews, WhatsApp marketing and online reputation management for dental practices.', 'Dental Marketing Services in Bengaluru That Bring New Patients to Your Clinic Every Month', 'A complete digital marketing system for dental clinics — SEO, WhatsApp, Google reviews and online presence — built to grow your patient base consistently and affordably', {
     primaryLabel: 'Book a Free Consultation',
     parent: '/dental-solutions',
-    intro: [{ title: 'Most Dental Clinics in Bengaluru Rely on Word of Mouth and Hope', body: 'Word of mouth is powerful, but it is not a predictable growth strategy. You need control over how many new patients walk through your door each month.' }, { title: 'Who This Is For', items: ['You rely mainly on word of mouth', 'Your Google Business Profile has fewer than 50 reviews', 'You have a website that gets no traffic', 'You want to grow without a fortune in paid ads'] }],
+    intro: [
+      {
+        title: 'Word of Mouth Is Not a Growth Strategy',
+        body: 'Most Bengaluru dental clinics rely on referrals and hope. That worked in 2015. Today, 78% of patients search Google before calling a clinic — and if you are not ranking, that patient books with someone who is. You need a system, not luck.'
+      },
+      {
+        title: 'This Is Built For You If',
+        items: [
+          'You rely mainly on word of mouth and walk-ins',
+          'Your Google Business Profile has fewer than 50 reviews',
+          'You have a website that gets fewer than 200 visitors a month',
+          'You want consistent new patients without spending a fortune on ads',
+          'You have tried marketing before but saw no measurable results'
+        ]
+      }
+    ],
     offerTitle: 'What We Do',
     offers: featureCards(['Google Business Profile Management', 'Google Review Generation', 'Local SEO', 'WhatsApp Marketing', 'Website Optimisation', 'Online Reputation Management', 'Monthly Strategy and Reporting']),
-    faq: [{ q: 'Do I need a big budget?', a: 'No. Most effective strategies require zero ad spend.' }, { q: 'Can you help a brand new clinic?', a: 'Absolutely. Starting from scratch is often easier.' }],
+    faq: [
+      { q: 'Do I need a big advertising budget?', a: 'No. Most of our highest-impact strategies require zero ad spend — Google Business Profile, local SEO and review generation are all organic. Paid ads are optional and only recommended once the organic foundation is solid.' },
+      { q: 'How long before I see results?', a: 'Google Business Profile improvements often show results within 2 to 4 weeks. SEO and review generation build over 60 to 90 days. We set honest expectations from day one — no overnight promises.' },
+      { q: 'Can you help a brand new clinic?', a: 'Absolutely. Starting from scratch is often easier because there are no bad habits to undo. A new clinic with a strong digital setup from day one grows faster than an established clinic trying to catch up.' },
+      { q: 'We already tried a marketing agency and it didn\'t work. Why would this be different?', a: 'Most agencies are generalists who apply the same strategy to every client. We work exclusively with dental clinics, which means every tactic is specific to how dental patients search, compare and decide in Bengaluru.' },
+      { q: 'What do I actually get each month?', a: 'A clear monthly report showing ranking movements, new patient attribution, review count growth and what we are doing next. You always know exactly what your money is doing.' },
+    ],
     internalLinks: [{ label: 'Dental Solutions', href: '/dental-solutions' }, { label: 'Dental SEO Services', href: '/dental-seo-services' }]
   }),
   page('dental-practice-automation', 'Dental Practice Automation in Bangalore | AgastyaOne', 'Dental practice automation for clinics in Bengaluru. Automate appointment reminders, patient follow-ups, review requests and recall systems on WhatsApp.', 'Dental Practice Automation That Removes the Manual Work From Running Your Clinic in Bengaluru', 'Automate patient reminders, follow-ups, review requests and recall systems — so your team focuses on patients not paperwork', {
