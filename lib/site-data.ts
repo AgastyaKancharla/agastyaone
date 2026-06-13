@@ -45,8 +45,8 @@ function offerCards(items: string[][]): TextBlock[] {
 const featureDescriptions: Record<string, string> = {
   'Patient Database':
     'Complete patient profiles with contact details, treatment history, last visit date and next appointment due - all in one place. Never lose track of a patient again.',
-  'Lead Management':
-    'Track every enquiry from first contact to booked appointment. No lead falls through the cracks with our visual pipeline system.',
+  'New Patient Enquiries':
+    'Every call, WhatsApp message or online enquiry goes into one place. Track each new patient from first contact to booked appointment — no enquiry ever falls through the cracks again.',
   'Appointment Reminders':
     'Automatic WhatsApp reminders sent 24 hours and 2 hours before every appointment. Reduce no-shows without calling every patient manually.',
   'Treatment Follow-ups':
@@ -249,11 +249,27 @@ export const pages: SitePage[] = [
   ),
   page('dental-crm-software', 'Dental CRM Software in Bangalore | AgastyaOne', 'Dental CRM software for clinics in Bengaluru. Manage patients, automate appointment reminders and build your Google reviews. Built for Indian dental practices.', 'Stop Losing Patients You Already Have', 'Most clinics lose 25% of patients every year — not to competitors, but to silence. No follow-up, no recall, no reminder. Our CRM fixes that automatically for dental clinics in Bengaluru.', {
     primaryLabel: 'Book a Free Demo',
-    secondaryLabel: 'See All Features',
-    intro: [{ title: 'Most Dental Clinics in Bengaluru Are Losing Patients They Already Have', body: 'The average dental patient should visit twice a year. Most visit once every two to three years or never again. That gap is lost revenue and preventable.' }, { title: 'The Numbers', body: 'A clinic with 500 active patients losing 25% annually loses 125 patients every year. At Rs 3,000 average value, that is Rs 3,75,000 in lost revenue.' }],
+    secondaryLabel: '↓ See What Is Included',
+    intro: [
+      { title: 'The Hidden Revenue Problem Every Dental Clinic Has', body: 'A clinic with 500 active patients losing 25% annually loses 125 patients every year. At Rs 3,000 average visit value, that is Rs 3,75,000 walking out the door silently — not because they were unhappy, but because nobody followed up.' },
+      { title: 'Why It Keeps Happening', body: 'Your receptionist is busy with walk-ins and calls. No one has time to manually check who is overdue for a recall, who missed their appointment last week or who just had a root canal and never came back. That is not a people problem — it is a systems problem. AgastyaOne CRM solves it automatically.' }
+    ],
     offerTitle: 'What You Get',
-    offers: featureCards(['Patient Database', 'Lead Management', 'Appointment Reminders', 'Treatment Follow-ups', 'Recall System', 'Review Requests', 'Clinic Dashboard']),
-    faq: [{ q: 'Suitable for small single-dentist clinic?', a: 'Yes. Built for independent clinics first.' }, { q: 'Do patients need to download anything?', a: 'No. All communication happens through WhatsApp.' }],
+    offers: featureCards(['Patient Database', 'New Patient Enquiries', 'Appointment Reminders', 'Treatment Follow-ups', 'Recall System', 'Review Requests', 'Clinic Dashboard']),
+    steps: [
+      'Book a Free Demo — 30 minutes, we show you exactly how the CRM works for your clinic type',
+      'We Set It Up — We configure your patient pipeline, message templates and automation sequences. Takes 3 to 5 days.',
+      'Your Team Goes Live — Simple enough for your receptionist to manage between patient calls. We train them.',
+      'Patients Start Coming Back — Reminders go out, recalls fire, reviews build. You watch it work.'
+    ],
+    faq: [
+      { q: 'How long does setup take?', a: '3 to 5 working days. We handle the configuration — your team just needs a 30-minute walkthrough.' },
+      { q: 'Will my receptionist actually use it?', a: 'Yes. We built this specifically for clinic receptionists, not tech teams. If they can use WhatsApp, they can use this.' },
+      { q: 'Do patients need to download anything?', a: 'No. All patient communication happens through WhatsApp — nothing new for them to install or learn.' },
+      { q: 'Is it suitable for a single-dentist clinic?', a: 'Absolutely. We built it for independent clinics first. Most of our users are solo practitioners or 2-dentist setups.' },
+      { q: 'Is my patient data safe?', a: 'Yes. All data is stored securely, never shared with third parties and you own it completely. You can export everything at any time.' },
+      { q: 'What if I want to cancel?', a: 'No long-term contracts. Monthly plans only. Cancel anytime — your data remains yours.' }
+    ],
     internalLinks: [{ label: 'Dental Solutions', href: '/dental-solutions' }, { label: 'Dental CRM Bangalore', href: '/dental-crm-bangalore' }, { label: 'Dental Solutions Bangalore', href: '/dental-solutions-bangalore' }]
   }),
   page('dental-website-development', 'Dental Website Development in Bangalore | AgastyaOne', 'Professional dental website development in Bengaluru. Fast, mobile first, SEO ready websites for dental clinics that convert visitors into booked patients.', 'Dental Website Development in Bengaluru That Turns Online Visitors Into Booked Patients', 'A professional dental clinic website built specifically for Bengaluru dental clinics — mobile first, SEO ready and designed to convert visitors into booked appointments', {
