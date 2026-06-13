@@ -256,14 +256,58 @@ export const pages: SitePage[] = [
     faq: [{ q: 'Suitable for small single-dentist clinic?', a: 'Yes. Built for independent clinics first.' }, { q: 'Do patients need to download anything?', a: 'No. All communication happens through WhatsApp.' }],
     internalLinks: [{ label: 'Dental Solutions', href: '/dental-solutions' }, { label: 'Dental CRM Bangalore', href: '/dental-crm-bangalore' }, { label: 'Dental Solutions Bangalore', href: '/dental-solutions-bangalore' }]
   }),
-  page('dental-website-development', 'Dental Website Development in Bangalore | AgastyaOne', 'Professional dental website development in Bengaluru. Fast, mobile first, SEO ready websites for dental clinics that convert visitors into booked patients.', 'Dental Website Development in Bengaluru That Turns Online Visitors Into Booked Patients', 'A professional dental clinic website that builds trust, ranks on Google and converts visitors into appointments — built specifically for dental clinics across Bengaluru', {
+  page('dental-website-development', 'Dental Website Development in Bangalore | AgastyaOne', 'Professional dental website development in Bengaluru. Fast, mobile first, SEO ready websites for dental clinics that convert visitors into booked patients.', 'Dental Website Development in Bengaluru That Turns Online Visitors Into Booked Patients', 'A professional dental clinic website built specifically for Bengaluru dental clinics — mobile first, SEO ready and designed to convert visitors into booked appointments', {
     primaryLabel: 'Book a Free Consultation',
     parent: '/dental-solutions',
-    intro: [{ title: 'Your Patients Judge Your Clinic Before They Ever Walk Through Your Door', body: 'Before a patient books an appointment they search Google, look at your website and read reviews in under 60 seconds. A poor website sends patients to competitors.' }],
-    offerTitle: 'What We Build',
-    offers: featureCards(['Professional Trust-Building Design', 'Mobile First', 'Fast Loading', 'Services Pages', 'Doctor Profile Page', 'WhatsApp Appointment Button', 'Google Reviews Integration', 'SEO Ready', 'Location and Maps Integration']),
-    faq: [{ q: 'How long to build?', a: '7 to 14 days.' }, { q: 'Do you write the content?', a: 'Yes. All content included.' }],
-    internalLinks: [{ label: 'Dental Solutions', href: '/dental-solutions' }, { label: 'Dental Website Bangalore', href: '/dental-website-development-bangalore' }, { label: 'Dental Solutions Bangalore', href: '/dental-solutions-bangalore' }]
+    trust: ['7–14 Day Delivery', 'All Content Written For You', 'Mobile First Design', 'SEO Ready From Day One'],
+    intro: [
+      {
+        title: 'Your Patients Judge Your Clinic in Under 60 Seconds — Before They Ever Walk In',
+        body: 'When a patient searches for a dentist in Koramangala or Indiranagar, they open the top 3 results, spend 15 seconds on each website and book with the one that feels most trustworthy. A slow, outdated or generic website loses that patient to your competitor every single time.'
+      },
+      {
+        title: 'What a Dental Website From AgastyaOne Includes',
+        items: [
+          'Homepage built around trust — credentials, treatments, reviews and a clear call to action',
+          'Individual service pages for common treatments: cleaning, RCT, implants, braces, whitening',
+          'Doctor profile page with qualifications, experience and a warm personal introduction',
+          'WhatsApp appointment button on every page so patients can contact you instantly',
+          'Google Reviews section pulling in your real reviews as social proof',
+          'Location page with embedded map, neighbourhood name and directions',
+          'Mobile-first layout that loads fast on every phone and network',
+          'SEO structure built in from day one — titles, headings, local keywords, schema markup',
+          'Before and after gallery to show treatment outcomes',
+          'Contact page with form, WhatsApp, phone and location in one place'
+        ]
+      },
+      {
+        title: 'What Makes It Different From a Generic Website',
+        body: 'Most web agencies build the same template with your logo swapped in. We build around how Bengaluru dental patients actually search, compare and decide. Every section, every word and every button is written for a dental patient who is hesitant, comparing options and needs a reason to trust your clinic over the one three streets away.'
+      },
+      {
+        title: 'Investment',
+        body: 'Dental clinic websites start from Rs 18,000. Final pricing depends on number of treatment pages, whether you have an existing website to migrate from and any custom features. All content writing is included — you do not need to write a single word.'
+      }
+    ],
+    offerTitle: 'Every Page We Build Includes',
+    offers: featureCards(['Trust Building Professional Design', 'Mobile First', 'Speed Optimised', 'Treatment Pages', 'Doctor Profile Pages', 'WhatsApp Appointment Button', 'Google Reviews Integration', 'SEO Ready From Day One', 'Before and After Gallery', 'Location and Maps Integration']),
+    steps: [
+      'Free 30 Min Consultation — Tell us about your clinic, your current website situation and what you most want patients to do when they find you',
+      'We Plan the Structure — We map out every page, every section and all the content before writing a single line of code',
+      'You Review and Approve — You see the design direction before we build. No surprises.',
+      'We Go Live in 7–14 Days — Full website launched, tested on mobile and connected to your WhatsApp and Google Business Profile'
+    ],
+    faq: [
+      { q: 'How long does it take to build?', a: '7 to 14 days from the day we start. Most delays come from waiting for clinic photos — we handle all the writing ourselves.' },
+      { q: 'Do you write all the content?', a: 'Yes. All page copy, treatment descriptions and doctor profiles are written by us. You provide basic information about the clinic and doctor and we handle the rest.' },
+      { q: 'What if I already have a website?', a: 'We audit your current site first. Sometimes we improve and rebuild it. Sometimes we start fresh. We will tell you honestly which approach makes more sense for your clinic.' },
+      { q: 'Will it show up on Google?', a: 'The website is built SEO-ready from day one — proper structure, local keywords and technical basics included. Ranking on Google takes ongoing SEO work over 3 to 6 months, which we offer separately.' },
+      { q: 'Can I update it myself after it is built?', a: 'Yes. We build on a simple CMS so you or your receptionist can update content, add photos or change clinic timings without any technical knowledge.' },
+      { q: 'What does mobile first actually mean?', a: 'Over 70% of dental searches in Bengaluru happen on mobile. Mobile first means we design for the phone screen first, test on real devices and make sure buttons, text and WhatsApp links work perfectly on every phone.' },
+      { q: 'Do you build on WordPress?', a: 'It depends on your needs. We use the best tool for each clinic — sometimes WordPress, sometimes a faster custom build. We will recommend what is right for you on the call.' },
+      { q: 'What about ongoing support after launch?', a: 'Yes — we offer ongoing support, updates and SEO packages. You are not left alone after the website goes live.' }
+    ],
+    internalLinks: [{ label: 'Dental Solutions', href: '/dental-solutions' }, { label: 'Dental Website Development Bangalore', href: '/dental-website-development-bangalore' }]
   }),
   page('dental-seo-services', 'Dental SEO Services in Bangalore | AgastyaOne', 'Dental SEO services for clinics in Bengaluru. Get your dental clinic found on Google Maps and local search in Koramangala, Indiranagar, Jayanagar and HSR Layout.', 'Dental SEO Services in Bengaluru That Get Your Clinic Found by Patients Searching on Google Right Now', 'When patients in Koramangala, Indiranagar, Jayanagar, HSR Layout and Whitefield search for a dentist near them — we make sure they find your clinic first', {
     primaryLabel: 'Book a Free SEO Audit',
@@ -415,6 +459,7 @@ export function getLocationContent(page: SitePage) {
     ]
   };
 }
+
 
 
 
