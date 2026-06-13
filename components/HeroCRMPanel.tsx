@@ -29,7 +29,36 @@ const ST = {
   recall:    { l: 'Recall',    c: '#fb923c' },
 };
 
-function CRMPanel({ active }: { active: boolean }) {
+
+function getTheme(light: boolean) {
+  return {
+    cardBg:       light ? 'rgba(0,0,0,0.03)'        : 'rgba(255,255,255,0.025)',
+    cardBorder:   light ? 'rgba(0,0,0,0.07)'        : 'rgba(255,255,255,0.05)',
+    cardBgOn:     light ? 'rgba(232,108,47,0.07)'   : 'rgba(232,108,47,0.08)',
+    cardBorderOn: light ? 'rgba(232,108,47,0.25)'   : 'rgba(232,108,47,0.3)',
+    rowBg:        light ? 'rgba(0,0,0,0.02)'        : 'rgba(255,255,255,0.02)',
+    rowBorder:    light ? 'rgba(0,0,0,0.05)'        : 'rgba(255,255,255,0.05)',
+    statBg:       light ? '#F3F4F6'                 : 'rgba(0,0,0,0.2)',
+    statBorder:   light ? '1px solid #E5E7EB'       : '1px solid rgba(255,255,255,0.05)',
+    statLabel:    light ? '#9CA3AF'                 : 'rgba(255,255,255,0.35)',
+    textPrimary:  light ? '#1A1A2E'                 : '#fff',
+    textSub:      light ? '#6B7280'                 : 'rgba(255,255,255,0.38)',
+    textMuted:    light ? '#9CA3AF'                 : 'rgba(255,255,255,0.3)',
+    textFaint:    light ? '#D1D5DB'                 : 'rgba(255,255,255,0.2)',
+    inputBg:      light ? '#F3F4F6'                 : 'rgba(255,255,255,0.07)',
+    inputText:    light ? '#6B7280'                 : 'rgba(255,255,255,0.5)',
+    sectionBg:    light ? 'rgba(0,0,0,0.02)'        : 'rgba(255,255,255,0.04)',
+    sectionBorder:light ? '1px solid #E5E7EB'       : '1px solid rgba(255,255,255,0.06)',
+    divider:      light ? '1px solid #F3F4F6'       : '1px solid rgba(255,255,255,0.04)',
+    progressBg:   light ? '#E5E7EB'                 : 'rgba(255,255,255,0.06)',
+    searchBg:     light ? '#F9FAFB'                 : 'rgba(255,255,255,0.03)',
+    searchBorder: light ? '1px solid #E5E7EB'       : '1px solid rgba(255,255,255,0.06)',
+  };
+}
+
+
+function CRMPanel({ active, light = false }: { active: boolean; light?: boolean }) {
+  const T = getTheme(light);
   type P = typeof CRM_PATIENTS[0];
   const [rows, setRows] = useState<P[]>(CRM_PATIENTS);
   const [lit, setLit]   = useState<number | null>(null);
@@ -119,7 +148,8 @@ function CRMPanel({ active }: { active: boolean }) {
 
 /* ─── Panel 2: SEO + GBP ─────────────────────────────── */
 
-function SEOPanel({ active }: { active: boolean }) {
+function SEOPanel({ active, light = false }: { active: boolean; light?: boolean }) {
+  const T = getTheme(light);
   const [rank, setRank]       = useState(4);
   const [reviews, setReviews] = useState(31);
   const [lit, setLit]         = useState<number | null>(null);
@@ -188,7 +218,8 @@ function SEOPanel({ active }: { active: boolean }) {
 
 /* ─── Panel 3: Website ───────────────────────────────── */
 
-function WebsitePanel({ active }: { active: boolean }) {
+function WebsitePanel({ active, light = false }: { active: boolean; light?: boolean }) {
+  const T = getTheme(light);
   const [loaded, setLoaded]   = useState(false);
   const [barW, setBarW]       = useState(0);
   const [visits, setVisits]   = useState(124);
@@ -262,7 +293,8 @@ const SLOTS = [
   { time: '3:30 PM',  name: '',           tx: '',              filled: false },
 ];
 
-function BookingPanel({ active }: { active: boolean }) {
+function BookingPanel({ active, light = false }: { active: boolean; light?: boolean }) {
+  const T = getTheme(light);
   const [slots, setSlots]   = useState(SLOTS);
   const [flash, setFlash]   = useState<string | null>(null);
   const [noShows, setNoShows] = useState(3);
@@ -327,7 +359,8 @@ const WA_MSGS = [
   { id: 4, name: 'Kavya Reddy',  msg: '🎉 Welcome to Dr. Priya Dental! Your appointment is confirmed for tomorrow.',   time: '9:45 AM',  status: 'pending'   as const, delay: 4200 },
 ];
 
-function WhatsAppPanel({ active }: { active: boolean }) {
+function WhatsAppPanel({ active, light = false }: { active: boolean; light?: boolean }) {
+  const T = getTheme(light);
   const [msgs, setMsgs] = useState([WA_MSGS[0]]);
   const [sent, setSent] = useState(1);
   const ts = useRef<ReturnType<typeof setTimeout>[]>([]);
@@ -431,31 +464,6 @@ export function HeroCRMPanel({ onPanelChange, light = false }: { onPanelChange?:
     };
   }, [active, onPanelChange]);
 
-  // Theme tokens
-  const T = {
-    cardBg:       light ? 'rgba(0,0,0,0.03)'        : 'rgba(255,255,255,0.025)',
-    cardBorder:   light ? 'rgba(0,0,0,0.07)'        : 'rgba(255,255,255,0.05)',
-    cardBgOn:     light ? 'rgba(232,108,47,0.07)'   : 'rgba(232,108,47,0.08)',
-    cardBorderOn: light ? 'rgba(232,108,47,0.25)'   : 'rgba(232,108,47,0.3)',
-    rowBg:        light ? 'rgba(0,0,0,0.02)'        : 'rgba(255,255,255,0.02)',
-    rowBorder:    light ? 'rgba(0,0,0,0.05)'        : 'rgba(255,255,255,0.05)',
-    statBg:       light ? '#F3F4F6'                 : 'rgba(0,0,0,0.2)',
-    statBorder:   light ? '1px solid #E5E7EB'       : '1px solid rgba(255,255,255,0.05)',
-    statLabel:    light ? '#9CA3AF'                 : 'rgba(255,255,255,0.35)',
-    textPrimary:  light ? '#1A1A2E'                 : '#fff',
-    textSub:      light ? '#6B7280'                 : 'rgba(255,255,255,0.38)',
-    textMuted:    light ? '#9CA3AF'                 : 'rgba(255,255,255,0.3)',
-    textFaint:    light ? '#D1D5DB'                 : 'rgba(255,255,255,0.2)',
-    inputBg:      light ? '#F3F4F6'                 : 'rgba(255,255,255,0.07)',
-    inputText:    light ? '#6B7280'                 : 'rgba(255,255,255,0.5)',
-    sectionBg:    light ? 'rgba(0,0,0,0.02)'        : 'rgba(255,255,255,0.04)',
-    sectionBorder:light ? '1px solid #E5E7EB'       : '1px solid rgba(255,255,255,0.06)',
-    divider:      light ? '1px solid #F3F4F6'       : '1px solid rgba(255,255,255,0.04)',
-    progressBg:   light ? '#E5E7EB'                 : 'rgba(255,255,255,0.06)',
-    searchBg:     light ? '#F9FAFB'                 : 'rgba(255,255,255,0.03)',
-    searchBorder: light ? '1px solid #E5E7EB'       : '1px solid rgba(255,255,255,0.06)',
-  };
-
   const bg = light
     ? 'linear-gradient(135deg,#F8F6F3 0%,#fff 60%,#f0ede8 100%)'
     : 'linear-gradient(135deg,#1A1A2E 0%,#242442 60%,#11111f 100%)';
@@ -528,4 +536,5 @@ export function HeroCRMPanel({ onPanelChange, light = false }: { onPanelChange?:
     </div>
   );
 }
+
 
