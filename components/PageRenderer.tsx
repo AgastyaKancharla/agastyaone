@@ -33,16 +33,27 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
         <ProblemSolution />
       ) : page.slug === 'dental-crm-software' ? (
         page.intro && (
-          <Section tint>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 20 }}>
-              {page.intro.map((block, i) => (
-                <div key={i} style={{ background: '#fff', borderRadius: 16, padding: '24px', border: '1px solid #F3F4F6', boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}>
-                  <h3 style={{ fontFamily: 'Poppins,sans-serif', fontSize: 17, fontWeight: 700, color: '#1A1A2E', margin: '0 0 12px', lineHeight: 1.3 }}>{block.title}</h3>
-                  <p style={{ color: '#6B7280', fontSize: 14, lineHeight: 1.75, margin: 0 }}>{block.body}</p>
+          <section style={{ background: '#F8F6F3', padding: '40px 0 48px' }}>
+            <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 clamp(1rem,5vw,2rem)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 16 }}>
+              {/* Card 1 — Problem with stat callout */}
+              <div style={{ background: '#1A1A2E', borderRadius: 18, padding: '24px 24px 20px', boxShadow: '0 12px 40px rgba(26,26,46,0.12)' }}>
+                <div style={{ marginBottom: 16 }}>
+                  <div style={{ fontFamily: 'Poppins,sans-serif', fontWeight: 800, fontSize: 42, color: '#E86C2F', lineHeight: 1 }}>₹3.75L</div>
+                  <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 11, marginTop: 4, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600 }}>Lost per year · avg clinic</div>
                 </div>
-              ))}
+                <h3 style={{ fontFamily: 'Poppins,sans-serif', fontSize: 16, fontWeight: 700, color: '#fff', margin: '0 0 10px', lineHeight: 1.3 }}>{page.intro[0].title}</h3>
+                <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 13, lineHeight: 1.75, margin: 0 }}>{page.intro[0].body}</p>
+              </div>
+              {/* Card 2 — Cause with orange left border */}
+              <div style={{ background: '#fff', borderRadius: 18, padding: '24px 24px 20px', borderLeft: '4px solid #E86C2F', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(232,108,47,0.08)', border: '1px solid rgba(232,108,47,0.15)', borderRadius: 99, padding: '3px 12px', fontSize: 11, fontWeight: 700, color: '#E86C2F', marginBottom: 14, width: 'fit-content' }}>
+                  WHY THIS HAPPENS
+                </div>
+                <h3 style={{ fontFamily: 'Poppins,sans-serif', fontSize: 16, fontWeight: 700, color: '#1A1A2E', margin: '0 0 10px', lineHeight: 1.3 }}>{page.intro[1].title}</h3>
+                <p style={{ color: '#6B7280', fontSize: 13, lineHeight: 1.75, margin: 0 }}>{page.intro[1].body}</p>
+              </div>
             </div>
-          </Section>
+          </section>
         )
       ) : page.intro && (
         <Section tint>
