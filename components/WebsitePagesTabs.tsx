@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 const TABS = [
   {
     id: 'homepage',
-    label: 'Homepage',
+    label: 'Home',
     emoji: '🏠',
     tagline: 'First impression. Built to convert.',
     why: '70% of patients decide in the first 10 seconds. Your homepage needs to show trust immediately.',
@@ -14,7 +14,7 @@ const TABS = [
   },
   {
     id: 'doctor',
-    label: 'Doctor Profile',
+    label: 'Doctor',
     emoji: '👨‍⚕️',
     tagline: 'Patients book doctors, not clinics.',
     why: 'A personal, credible doctor profile removes the biggest fear patients have — "will I be in safe hands?"',
@@ -23,7 +23,7 @@ const TABS = [
   },
   {
     id: 'treatments',
-    label: 'Treatment Pages',
+    label: 'Treatments',
     emoji: '🦷',
     tagline: 'One page per treatment. More Google entry points.',
     why: 'Patients search "RCT dentist Koramangala" not just "dentist". Individual pages capture each search.',
@@ -32,7 +32,7 @@ const TABS = [
   },
   {
     id: 'reviews',
-    label: 'Reviews Page',
+    label: 'Reviews',
     emoji: '⭐',
     tagline: 'Your best salesperson. Automated.',
     why: 'Patients trust other patients more than any marketing. A dedicated reviews page turns social proof into bookings.',
@@ -41,7 +41,7 @@ const TABS = [
   },
   {
     id: 'location',
-    label: 'Location Page',
+    label: 'Location',
     emoji: '📍',
     tagline: 'Show up for "dentist near me" searches.',
     why: 'A strong location page with your neighbourhood name, map and landmarks helps Google rank you for local searches.',
@@ -50,7 +50,7 @@ const TABS = [
   },
   {
     id: 'gallery',
-    label: 'Before & After',
+    label: 'Gallery',
     emoji: '📸',
     tagline: 'Visual proof builds confidence.',
     why: 'Patients considering implants, braces or whitening want to see real outcomes before booking. This page answers that.',
@@ -59,7 +59,7 @@ const TABS = [
   },
   {
     id: 'appointments',
-    label: 'Book Appointment',
+    label: 'Booking',
     emoji: '📅',
     tagline: 'Turn visits into bookings. 24/7.',
     why: 'Clinic owners lose patients who visit at 11pm when the phone is off. An online booking page captures them.',
@@ -68,7 +68,7 @@ const TABS = [
   },
   {
     id: 'contact',
-    label: 'Contact Page',
+    label: 'Contact',
     emoji: '✉️',
     tagline: 'Every contact channel. One page.',
     why: 'Different patients prefer different channels — some call, some WhatsApp, some email. Give them all options in one place.',
@@ -298,7 +298,7 @@ export function WebsitePagesTabs() {
         {/* Main panel */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'clamp(120px,30%,200px) 1fr',
+          gridTemplateColumns: '100px 1fr',
           gap: 0,
           borderRadius: 20,
           border: '1.5px solid #E5E7EB',
@@ -314,8 +314,8 @@ export function WebsitePagesTabs() {
                 key={t.id}
                 onClick={() => resetTimer(i)}
                 style={{
-                  display: 'flex', alignItems: 'center', gap: 8,
-                  padding: '10px 12px',
+                  display: 'flex', alignItems: 'center', gap: 6,
+                  padding: '9px 10px',
                   background: active === i ? '#fff' : 'transparent',
                   borderLeft: active === i ? '3px solid #E86C2F' : '3px solid transparent',
                   borderTop: 'none', borderRight: 'none',
@@ -328,11 +328,10 @@ export function WebsitePagesTabs() {
                 <span style={{ fontSize: 14, lineHeight: 1 }}>{t.emoji}</span>
                 <span style={{
                   fontFamily: 'Poppins,sans-serif',
-                  fontSize: 11, fontWeight: active === i ? 700 : 500,
+                  fontSize: 10, fontWeight: active === i ? 700 : 500,
                   color: active === i ? '#E86C2F' : '#6B7280',
                   transition: 'color 0.2s',
                   whiteSpace: 'nowrap',
-                  overflow: 'hidden', textOverflow: 'ellipsis',
                 }}>
                   {t.label}
                 </span>
@@ -349,10 +348,10 @@ export function WebsitePagesTabs() {
             transform: animating ? 'translateY(6px)' : 'translateY(0)',
             transition: 'opacity 0.18s ease, transform 0.18s ease',
           }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0, minHeight: 260 }}>
 
-              {/* Left: text */}
-              <div style={{ padding: '18px 16px', display: 'flex', flexDirection: 'column', gap: 10, borderRight: '1px solid #F3F1EE' }}>
+              {/* Left: text — full width on mobile */}
+              <div className="col-span-2 sm:col-span-1" style={{ padding: '18px 16px', display: 'flex', flexDirection: 'column', gap: 10, borderRight: '1px solid #F3F1EE' }}>
                 <div>
                   <span style={{ fontSize: 20 }}>{tab.emoji}</span>
                   <h3 style={{
@@ -372,7 +371,7 @@ export function WebsitePagesTabs() {
                   background: '#FEF3EC', borderRadius: 8, padding: '8px 10px',
                   borderLeft: '3px solid #E86C2F',
                 }}>
-                  <p style={{ fontSize: 11, color: '#92400E', margin: 0, lineHeight: 1.6, fontWeight: 500 }}>
+                  <p style={{ fontSize: 10, color: '#92400E', margin: 0, lineHeight: 1.55, fontWeight: 500 }}>
                     {tab.why}
                   </p>
                 </div>
@@ -382,14 +381,14 @@ export function WebsitePagesTabs() {
                   {tab.includes.map(item => (
                     <div key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: 5 }}>
                       <span style={{ color: '#E86C2F', fontSize: 10, marginTop: 2, flexShrink: 0 }}>✓</span>
-                      <span style={{ fontSize: 11, color: '#374151', lineHeight: 1.5 }}>{item}</span>
+                      <span style={{ fontSize: 10.5, color: '#374151', lineHeight: 1.5 }}>{item}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Right: phone mockup */}
-              <div style={{ background: '#F8F6F3', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 12 }}>
+              {/* Right: phone mockup — hidden on mobile via CSS */}
+              <div className="hidden sm:flex" style={{ background: '#F8F6F3', alignItems: 'center', justifyContent: 'center', padding: 12 }}>
                 <div style={{
                   width: 110, height: 200,
                   borderRadius: 16,
@@ -458,3 +457,4 @@ export function WebsitePagesTabs() {
     </section>
   );
 }
+
