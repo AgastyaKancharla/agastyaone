@@ -164,7 +164,7 @@ export function Hero({
         )}
 
         {!showCRM && slug === 'dental-seo-services' && (
-          <Reveal delay={160}>
+          <Reveal delay={160} className="hidden lg:block">
             <SEOHeroPanel />
           </Reveal>
         )}
