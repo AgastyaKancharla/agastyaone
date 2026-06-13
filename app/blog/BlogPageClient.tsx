@@ -226,3 +226,4 @@ function ArticleCard({ post, featured = false }: {
     </article>
   );
 }
+
