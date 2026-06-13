@@ -91,6 +91,7 @@ export function Hero({
   imageAlt,
   showCRM = false,
   lightPanel = false,
+  slug = '',
 }: {
   title: string;
   subtitle: string;
@@ -98,6 +99,7 @@ export function Hero({
   imageAlt: string;
   showCRM?: boolean;
   lightPanel?: boolean;
+  slug?: string;
 }) {
   const highlightedTitle = title.split('Dental Clinics');
   const [panelIdx, setPanelIdx] = React.useState(0);
@@ -111,7 +113,8 @@ export function Hero({
           <p className="mb-4 inline-flex items-center rounded-full bg-orange-100 px-4 py-1 text-sm font-medium text-orange-700">
             ✨ Bengaluru growth systems
           </p>
-          <h1 className="font-heading text-5xl font-black leading-tight tracking-tight text-[#1A1A2E] md:text-7xl">
+          <h1 className="font-heading text-[2rem] font-black leading-tight tracking-tight text-[#1A1A2E] sm:text-5xl md:text-7xl"
+              style={{ fontSize: 'clamp(1.75rem, 8vw, 4.5rem)' }}>
             {highlightedTitle.length > 1 ? (
               <>
                 {highlightedTitle[0]}
@@ -131,6 +134,11 @@ export function Hero({
           {showCRM && (
             <div className="my-8 lg:hidden">
               <HeroCRMPanelClient onPanelChange={setPanelIdx} light={lightPanel} />
+            </div>
+          )}
+          {!showCRM && slug === 'dental-seo-services' && (
+            <div className="my-8 lg:hidden">
+              <SEOHeroPanel />
             </div>
           )}
 
@@ -155,7 +163,13 @@ export function Hero({
           </Reveal>
         )}
 
-        {!showCRM && (
+        {!showCRM && slug === 'dental-seo-services' && (
+          <Reveal delay={160}>
+            <SEOHeroPanel />
+          </Reveal>
+        )}
+
+        {!showCRM && slug !== 'dental-seo-services' && (
           <Reveal delay={160}>
             <DashboardHeroPanel alt={imageAlt} />
           </Reveal>
@@ -163,6 +177,157 @@ export function Hero({
       </div>
       <style dangerouslySetInnerHTML={{ __html: '@keyframes subtitleFade { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:none; } }' }} />
     </section>
+  );
+}
+
+function SEOHeroPanel() {
+  const [step, setStep] = React.useState(0);
+  const [reviews, setReviews] = React.useState(12);
+  const [rank, setRank] = React.useState(7);
+
+  React.useEffect(() => {
+    const timers = [
+      setTimeout(() => setStep(1), 800),
+      setTimeout(() => setStep(2), 1800),
+      setTimeout(() => setStep(3), 2800),
+      setTimeout(() => { setStep(4); setReviews(r => r + 1); setRank(6); }, 3600),
+      setTimeout(() => { setStep(5); setReviews(r => r + 1); setRank(4); }, 4400),
+      setTimeout(() => { setStep(6); setReviews(r => r + 1); setRank(2); }, 5400),
+      setTimeout(() => { setStep(7); setReviews(r => r + 1); setRank(1); }, 6400),
+    ];
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  const clinics = [
+    { name: 'SmileCare Dental', rating: 4.8, reviews: 127, badge: null },
+    { name: 'Your Clinic', rating: 4.6, reviews, badge: 'YOU' },
+    { name: 'City Dental Hub', rating: 4.5, reviews: 89, badge: null },
+  ];
+
+  const sorted = rank <= 3
+    ? [clinics[1], clinics[0], clinics[2]].slice(0, 3)
+    : clinics;
+
+  const tasks = [
+    { label: 'GBP categories updated', done: step >= 1 },
+    { label: 'Photos & services added', done: step >= 2 },
+    { label: 'Local keywords mapped', done: step >= 3 },
+    { label: 'Review system activated', done: step >= 4 },
+    { label: 'On-page SEO complete', done: step >= 5 },
+    { label: 'Citations built', done: step >= 6 },
+  ];
+
+  return (
+    <div style={{
+      background: '#fff',
+      borderRadius: 20,
+      border: '1.5px solid #E5E7EB',
+      boxShadow: '0 20px 60px rgba(26,26,46,0.10)',
+      overflow: 'hidden',
+      fontFamily: 'Inter, system-ui, sans-serif',
+      maxWidth: 380,
+    }}>
+      {/* Title bar */}
+      <div style={{ background: '#1A1A2E', padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{ display: 'flex', gap: 5 }}>
+          {['#ff5f57','#ffbd2e','#28c840'].map(c => (
+            <div key={c} style={{ width: 10, height: 10, borderRadius: '50%', background: c }} />
+          ))}
+        </div>
+        <div style={{ flex: 1, background: 'rgba(255,255,255,0.08)', borderRadius: 6, padding: '4px 10px', fontSize: 11, color: 'rgba(255,255,255,0.5)', textAlign: 'center' }}>
+          google.com/maps · dentist in Koramangala
+        </div>
+      </div>
+
+      <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
+
+        {/* Maps ranking */}
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#9CA3AF', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 8 }}>
+            📍 Google Maps — Top 3
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {sorted.map((clinic, i) => (
+              <div key={clinic.name} style={{
+                display: 'flex', alignItems: 'center', gap: 10,
+                background: clinic.badge ? '#FFFBF8' : '#F9FAFB',
+                border: `1.5px solid ${clinic.badge ? '#FDDCBF' : '#F0F0F0'}`,
+                borderRadius: 10, padding: '10px 12px',
+                transition: 'all 0.5s ease',
+              }}>
+                <div style={{
+                  width: 24, height: 24, borderRadius: '50%', flexShrink: 0,
+                  background: i === 0 ? '#E86C2F' : '#E5E7EB',
+                  color: i === 0 ? '#fff' : '#6B7280',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 11, fontWeight: 800,
+                }}>
+                  {i + 1}
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: 12, fontWeight: clinic.badge ? 700 : 500, color: clinic.badge ? '#1A1A2E' : '#374151', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    {clinic.name}
+                    {clinic.badge && (
+                      <span style={{ background: '#E86C2F', color: '#fff', fontSize: 9, fontWeight: 800, padding: '1px 6px', borderRadius: 999 }}>YOU</span>
+                    )}
+                  </div>
+                  <div style={{ fontSize: 11, color: '#F59E0B', marginTop: 2 }}>
+                    {'★'.repeat(Math.floor(clinic.rating))} <span style={{ color: '#9CA3AF' }}>{clinic.reviews} reviews</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div style={{ height: 1, background: '#F0F0F0' }} />
+
+        {/* Checklist */}
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#9CA3AF', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 8 }}>
+            ⚡ AgastyaOne SEO in progress
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+            {tasks.map(task => (
+              <div key={task.label} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div style={{
+                  width: 16, height: 16, borderRadius: '50%', flexShrink: 0,
+                  background: task.done ? '#E86C2F' : '#F3F4F6',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  transition: 'background 0.4s ease',
+                }}>
+                  {task.done && (
+                    <svg width="8" height="8" viewBox="0 0 10 10" fill="none">
+                      <polyline points="1.5,5 4,7.5 8.5,2" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  )}
+                </div>
+                <span style={{ fontSize: 11, color: task.done ? '#1A1A2E' : '#9CA3AF', fontWeight: task.done ? 500 : 400, transition: 'color 0.4s ease' }}>
+                  {task.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Rank badge */}
+        {step >= 7 && (
+          <div style={{
+            background: 'linear-gradient(135deg, #1A1A2E, #2d3561)',
+            borderRadius: 12, padding: '12px 16px',
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            animation: 'fadeUp 0.4s ease',
+          }}>
+            <div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', marginBottom: 2 }}>Your clinic now ranks</div>
+              <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 20, fontWeight: 800, color: '#E86C2F' }}>#1 in Koramangala</div>
+            </div>
+            <div style={{ fontSize: 28 }}>🏆</div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
 
