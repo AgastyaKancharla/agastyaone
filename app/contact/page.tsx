@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { ContactForm } from './ContactForm';
+import { Section, Steps, InfoPills } from '@/components/Sections';
 
 export const metadata: Metadata = {
   title: 'Contact AgastyaOne | Book a Free 30 Min Call — Bangalore',
@@ -33,7 +34,20 @@ const REASSURANCES = [
 
 export default function ContactPage() {
   return (
-    <div style={{ minHeight: '100vh', background: '#F8F6F3' }}>
+    <div style={{ background: '#F8F6F3' }}>
+
+      {/* What happens on the call */}
+      <Section title="What Happens On The Call" tint>
+        <Steps steps={[
+          'You Tell Us About Your Business — We understand where you are and what is blocking growth',
+          'We Review Your Online Presence — We look at your website, Google profile and visibility before the call',
+          'We Tell You Honestly What We See — Clear observations without jargon or pressure',
+          'We Discuss Next Steps — You leave with clarity whether you become a client or not',
+        ]} />
+      </Section>
+
+      {/* Two-column booking form */}
+      <div id="booking" style={{ scrollMarginTop: 80 }}>
 
       {/* ── Full page two-column layout ── */}
       <div style={{
@@ -132,6 +146,39 @@ export default function ContactPage() {
           }
         }
       `}</style>
+      </div>{/* end booking */}
+
+      {/* Find us */}
+      <Section title="Find Us in Bengaluru">
+        <div className="motion-card overflow-hidden rounded-brand bg-white shadow-card">
+          <iframe
+            title="JP Nagar Bengaluru map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5858945508!2d77.5691!3d12.9082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15055eb5b0ed%3A0x2e9b8a4f4c1c1234!2sKumaraswamy%20Layout%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1234567890"
+            width="100%"
+            height="360"
+            style={{ border: 0, borderRadius: '12px' }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+      </Section>
+
+      {/* Other ways to reach */}
+      <Section title="Other Ways To Reach Us" tint>
+        <div id="reach">
+          <InfoPills />
+        </div>
+      </Section>
+
+      {/* What this call is not */}
+      <Section title="What This Call Is Not">
+        <div className="motion-card mx-auto max-w-3xl rounded-brand bg-white p-7 text-center leading-7 text-charcoal/75 shadow-card">
+          This is not a high pressure sales call. This is not a call with a junior account manager reading from a script.
+          You will speak directly with Agastya and get honest observations about your specific business.
+        </div>
+      </Section>
+
     </div>
   );
 }
