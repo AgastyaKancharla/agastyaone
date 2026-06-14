@@ -57,15 +57,15 @@ function ServicesDropdown({ pathname }: { pathname: string }) {
   const isActive = SERVICE_LINKS.some(l => l.href === pathname) || pathname === '/dental-solutions';
 
   return (
-    <div ref={ref} style={{ position: 'relative' }} onMouseEnter={show} onMouseLeave={hide}>
+    <div ref={ref} style={{ position: 'relative', display: 'flex', alignItems: 'center' }} onMouseEnter={show} onMouseLeave={hide}>
       {/* trigger */}
       <button
         style={{
           display: 'inline-flex', alignItems: 'center', gap: 4,
           background: 'none', border: 'none', cursor: 'pointer',
-          fontSize: 14, fontWeight: 500, padding: '4px 0',
+          fontSize: 14, fontWeight: 500, padding: 0, lineHeight: 1,
           color: isActive ? '#E86C2F' : '#1A1A2E',
-          fontFamily: 'inherit',
+          fontFamily: 'inherit', verticalAlign: 'middle',
         }}
       >
         Dental Solutions
