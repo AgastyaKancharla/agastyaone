@@ -128,9 +128,9 @@ function ReviewsPreview() {
           <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', marginTop: 4 }}>Goal: 50 reviews</div>
         </div>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, height: 72, overflow: 'hidden', justifyContent: 'flex-end' }}>
         {messages.map((m, i) => (
-          <div key={i} style={{ background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.2)', borderRadius: 8, padding: '7px 12px', fontSize: 11, color: 'rgba(255,255,255,0.6)', animation: 'fadeUp 0.3s ease' }}>{m}</div>
+          <div key={i} style={{ background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.2)', borderRadius: 8, padding: '7px 12px', fontSize: 11, color: 'rgba(255,255,255,0.6)', animation: 'fadeUp 0.3s ease', flexShrink: 0 }}>{m}</div>
         ))}
       </div>
     </div>
