@@ -230,15 +230,19 @@ export const pages: SitePage[] = [
       trust: ['Dental Websites Built and Live in Bengaluru', 'Built Our Own Dental Leads Management System', 'Active Across 5 Bengaluru Neighbourhoods', 'Specialists in Dental Digital Growth'],
       intro: [
         {
-          title: 'Most Dental Clinics in Bengaluru Are Invisible Online',
+          title: 'DARK:Most Dental Clinics in Bengaluru Are Invisible Online',
           body:
-            'Patients search, compare and choose the clinic with the best website, strongest reviews and strongest Google presence. If your clinic does not show up, your competitor gets that patient.'
+            '78% of patients pick a clinic from the first 3 Google results. Most Bengaluru clinics don\'t appear in the top 10. If your clinic isn\'t showing up, your competitor is getting that patient — right now, today.'
         },
         {
-          title: 'We Know What Dental Clinics Actually Need',
+          title: 'We Built a Dental CRM Before We Sold One',
           body:
-            'We have spoken to clinic owners across Bengaluru and built our own dental leads management system because the tools available did not work for how Indian clinics operate.',
-          items: ['We understand dental clinic operations', 'We know Bengaluru\'s neighbourhoods and patients', 'We measure success by filled appointments']
+            'We have spoken to clinic owners across Bengaluru and built our own dental leads management system from scratch — because the tools available did not work for how Indian clinics actually operate.',
+          items: [
+            'Built a real dental leads system — not a theory, an actual product',
+            'Served clinics across Koramangala, Indiranagar, Jayanagar and JP Nagar',
+            'We measure success by filled appointments — not impressions or clicks'
+          ]
         }
       ],
       offerTitle: 'Everything Your Dental Clinic Needs to Grow Online',
