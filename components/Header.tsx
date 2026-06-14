@@ -150,8 +150,8 @@ export function Header() {
             Agastya<span className="text-saffron">One</span>
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden items-center gap-7 text-sm font-medium text-charcoal lg:flex">
+          {/* Desktop nav — centered */}
+          <nav className="hidden flex-1 items-center justify-center gap-7 text-sm font-medium text-charcoal lg:flex">
             <ServicesDropdown pathname={pathname} />
             {TOP_LINKS.map(link => (
               <Link key={link.href} href={link.href}

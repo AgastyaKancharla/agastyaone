@@ -110,7 +110,7 @@ export function Hero({
 }) {
   const highlightedTitle = title.split('Dental Clinics');
   const [panelIdx, setPanelIdx] = React.useState(0);
-  const displaySubtitle = showCRM ? PANEL_SUBTITLES[panelIdx] : subtitle;
+  const displaySubtitle = subtitle;
 
   return (
     <section className="full-bleed overflow-hidden bg-gradient-to-br from-[#F8F6F3] to-white">
@@ -134,7 +134,7 @@ export function Hero({
               title
             )}
           </h1>
-          <p key={panelIdx} className="mt-6 max-w-2xl text-base leading-7 text-gray-600 md:text-lg md:leading-8" style={{ animation: showCRM ? 'subtitleFade 0.4s ease' : undefined }}>
+          <p className="mt-6 max-w-2xl text-base leading-7 text-gray-600 md:text-lg md:leading-8">
             {displaySubtitle}
           </p>
 
