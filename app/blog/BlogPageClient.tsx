@@ -63,7 +63,7 @@ export default function BlogPageClient({ posts }: { posts: { slug: string; title
                 <BookOpen size={15} /> Browse Articles
               </Link>
               <a
-                href={`https://wa.me/918328443057?text=${encodeURIComponent('Hi Agastya, I read your blog and want to discuss growing my dental clinic.')}`}
+                href={`https://wa.me/918328444057?text=${encodeURIComponent('Hi Agastya, I read your blog and want to discuss growing my dental clinic.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-semibold text-gray-500 underline-offset-4 transition hover:text-[#E86C2F] hover:underline"
@@ -147,7 +147,7 @@ export default function BlogPageClient({ posts }: { posts: { slug: string; title
                     Get honest, specific advice for your dental clinic in Bengaluru — not a sales pitch.
                   </p>
                   <a
-                    href={`https://wa.me/918328443057?text=${encodeURIComponent('Hi Agastya, I read your blog and want to discuss growing my dental clinic.')}`}
+                    href={`https://wa.me/918328444057?text=${encodeURIComponent('Hi Agastya, I read your blog and want to discuss growing my dental clinic.')}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-green-500"
