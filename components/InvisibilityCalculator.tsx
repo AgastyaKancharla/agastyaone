@@ -228,6 +228,9 @@ export function InvisibilityCalculator() {
         </div>
 
         {/* Results */}
+        <div style={{
+          overflow: 'hidden',
+        }}>
         {revealed && (
           <div key={key} style={{
             animation: 'fadeUp 0.5s cubic-bezier(0.22,1,0.36,1)',
@@ -377,12 +380,13 @@ export function InvisibilityCalculator() {
             </div>
           </div>
         )}
+        </div>
       </div>
 
       <style>{`
         @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(20px); }
-          to   { opacity: 1; transform: translateY(0); }
+          from { opacity: 0; }
+          to   { opacity: 1; }
         }
       `}</style>
     </section>

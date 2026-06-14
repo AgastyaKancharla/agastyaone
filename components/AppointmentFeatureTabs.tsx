@@ -178,6 +178,7 @@ export function AppointmentFeatureTabs() {
           animation: 'tabFadeUp 0.3s ease',
           position: 'relative',
           overflow: 'hidden',
+          minHeight: 220,
         }}
       >
         {/* Subtle saffron glow top-right */}
@@ -246,8 +247,8 @@ export function AppointmentFeatureTabs() {
 
       <style>{`
         @keyframes tabFadeUp {
-          from { opacity: 0; transform: translateY(8px); }
-          to   { opacity: 1; transform: translateY(0); }
+          from { opacity: 0; }
+          to   { opacity: 1; }
         }
         .apt-tabs-scroll::-webkit-scrollbar { display: none; }
         [data-apt-scroll]::-webkit-scrollbar { display: none; }

@@ -75,7 +75,7 @@ function CompareRow({ row, index, visible }: {
       gap: 10,
       alignItems: 'stretch',
     }}>
-      {/* Them — slides from left */}
+      {/* Them — fades in */}
       <div style={{
         display: 'flex',
         alignItems: 'flex-start',
@@ -85,8 +85,7 @@ function CompareRow({ row, index, visible }: {
         borderRadius: 14,
         padding: '14px',
         opacity: visible ? 1 : 0,
-        transform: visible ? 'translateX(0)' : 'translateX(-18px)',
-        transition: `opacity 0.45s ease ${baseDelay}ms, transform 0.45s cubic-bezier(0.22,1,0.36,1) ${baseDelay}ms`,
+        transition: `opacity 0.45s ease ${baseDelay}ms`,
       }}>
         <div style={{
           width: 22, height: 22, borderRadius: '50%',
@@ -106,7 +105,7 @@ function CompareRow({ row, index, visible }: {
         </p>
       </div>
 
-      {/* Us — punches in from right with glow */}
+      {/* Us — fades in */}
       <div style={{
         display: 'flex',
         alignItems: 'flex-start',
@@ -116,8 +115,7 @@ function CompareRow({ row, index, visible }: {
         borderRadius: 14,
         padding: '14px',
         opacity: visible ? 1 : 0,
-        transform: visible ? 'translateX(0) scale(1)' : 'translateX(18px) scale(0.97)',
-        transition: `opacity 0.45s ease ${baseDelay + 120}ms, transform 0.5s cubic-bezier(0.22,1,0.36,1) ${baseDelay + 120}ms, border-color 0.3s ease, box-shadow 0.3s ease`,
+        transition: `opacity 0.45s ease ${baseDelay + 120}ms, border-color 0.3s ease, box-shadow 0.3s ease`,
         boxShadow: glowing ? '0 0 0 3px rgba(232,108,47,0.15)' : 'none',
       }}>
         <div style={{

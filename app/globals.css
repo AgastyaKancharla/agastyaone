@@ -113,17 +113,14 @@ textarea:focus {
 
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
   transition:
-    opacity 640ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 640ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 500ms cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
+  will-change: opacity;
 }
 
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .motion-card {
@@ -237,7 +234,7 @@ textarea:focus {
 
 @media (min-width: 768px) {
   .reveal {
-    transform: translateY(30px);
+    opacity: 0;
   }
 }
 
@@ -251,11 +248,9 @@ textarea:focus {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 

@@ -208,27 +208,31 @@ export function ServicesInteractive() {
           })}
         </div>
 
-        {/* Bottom CTA */}
-        {active && (
-          <div style={{ textAlign: 'center', marginTop: 36 }}>
-            <p style={{ color: '#6B7280', fontSize: 14, marginBottom: 14 }}>
-              Not sure where to start?
-            </p>
-            <Link
-              href="/contact"
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: 8,
-                background: '#E86C2F', color: '#fff',
-                borderRadius: 999, padding: '13px 28px',
-                fontSize: 15, fontWeight: 700,
-                fontFamily: 'Poppins, sans-serif',
-                textDecoration: 'none',
-              }}
-            >
-              Book a free 30-min call <ArrowRight size={16} />
-            </Link>
-          </div>
-        )}
+        {/* Bottom CTA — always in DOM, fades in to avoid layout shift */}
+        <div style={{
+          textAlign: 'center', marginTop: 36,
+          opacity: active ? 1 : 0,
+          transition: 'opacity 0.3s ease',
+          pointerEvents: active ? 'auto' : 'none',
+          minHeight: 90,
+        }}>
+          <p style={{ color: '#6B7280', fontSize: 14, marginBottom: 14 }}>
+            Not sure where to start?
+          </p>
+          <Link
+            href="/contact"
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              background: '#E86C2F', color: '#fff',
+              borderRadius: 999, padding: '13px 28px',
+              fontSize: 15, fontWeight: 700,
+              fontFamily: 'Poppins, sans-serif',
+              textDecoration: 'none',
+            }}
+          >
+            Book a free 30-min call <ArrowRight size={16} />
+          </Link>
+        </div>
       </div>
 
       <style>{`

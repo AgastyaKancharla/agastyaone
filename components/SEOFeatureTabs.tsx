@@ -349,6 +349,7 @@ export function SEOFeatureTabs() {
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
           gap: 24,
+          minHeight: 320,
         }}
       >
         <div style={{ position: 'absolute', top: -40, right: -40, width: 140, height: 140, borderRadius: '50%', background: 'rgba(232,108,47,0.10)', pointerEvents: 'none' }} />
@@ -375,7 +376,7 @@ export function SEOFeatureTabs() {
         </div>
 
         {/* Right — animated preview */}
-        <div style={{ position: 'relative', borderLeft: '1px solid rgba(255,255,255,0.06)', paddingLeft: 'clamp(0px,4vw,24px)' }}>
+        <div style={{ position: 'relative', borderLeft: '1px solid rgba(255,255,255,0.06)', paddingLeft: 'clamp(0px,4vw,24px)', minHeight: 240, overflow: 'hidden' }}>
           <Preview />
         </div>
       </div>
@@ -388,8 +389,8 @@ export function SEOFeatureTabs() {
       </div>
 
       <style>{`
-        @keyframes tabFadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
-        @keyframes fadeUp    { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes tabFadeUp { from { opacity:0; } to { opacity:1; } }
+        @keyframes fadeUp    { from { opacity:0; } to { opacity:1; } }
       `}</style>
     </div>
   );
