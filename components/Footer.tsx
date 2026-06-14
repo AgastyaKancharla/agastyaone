@@ -5,9 +5,9 @@ import { Reveal } from './Reveal';
 
 const NAP_ADDRESS = 'Nayak Layout, 8th Phase, J. P. Nagar, Bengaluru, Karnataka 560076';
 const NAP_PHONE = '+91 83284 43057';
-const NAP_PHONE_HREF = 'tel:+918328443057';
+const NAP_PHONE_HREF = 'tel:+918328444057';
 const WA_HREF =
-  'https://wa.me/918328443057?text=' +
+  'https://wa.me/918328444057?text=' +
   encodeURIComponent(
     'Hi Agastya, I run a dental clinic in Bangalore and would like to learn more.'
   );
