@@ -31,6 +31,8 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
         ctas={ctas}
         imageAlt={`${page.h1} dashboard illustration`}
         showCRM={page.slug === '' || page.slug === 'dental-solutions' || page.slug === 'dental-crm-software'}
+        showWebsitePanel={page.slug === 'dental-website-development'}
+        showAboutPanel={page.slug === 'about'}
         slug={page.slug}
       />
       {page.trust && page.trust.length > 0 && <TrustBar items={page.trust} />}
@@ -153,4 +155,5 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
     </>
   );
 }
+
 
