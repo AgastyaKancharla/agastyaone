@@ -988,17 +988,98 @@ export function Steps({ steps }: { steps: string[] }) {
   );
 }
 
+const FAQ_CATEGORIES: { label: string; emoji: string; keys: string[] }[] = [
+  { label: 'Timeline & Process',   emoji: '⏱', keys: ['How long', 'What if I', 'setup take', 'take to build', 'When will', 'how soon'] },
+  { label: 'Pricing & Inclusions', emoji: '💰', keys: ['Do you write', 'What about ongoing', 'cost', 'price', 'Rs ', 'cancel', 'payment', 'included', 'Investment'] },
+  { label: 'Technical',            emoji: '🔧', keys: ['Will it show', 'Can I update', 'What does mobile', 'Do you build', 'WordPress', 'patient data', 'download', 'single-dentist', 'receptionist', 'safe', 'suitable'] },
+];
+
+function getFaqCategory(q: string): string {
+  const lower = q.toLowerCase();
+  for (const cat of FAQ_CATEGORIES) {
+    if (cat.keys.some(k => lower.includes(k.toLowerCase()))) return cat.label;
+  }
+  return 'General';
+}
+
+function groupFaqs(items: { q: string; a: string }[]) {
+  const groups: Record<string, { q: string; a: string }[]> = {};
+  for (const item of items) {
+    const cat = getFaqCategory(item.q);
+    if (!groups[cat]) groups[cat] = [];
+    groups[cat].push(item);
+  }
+  return groups;
+}
+
 export function FAQ({ items }: { items: { q: string; a: string }[] }) {
+  const [openKey, setOpenKey] = React.useState<string | null>(null);
+  const groups = groupFaqs(items);
+  const catOrder = FAQ_CATEGORIES.map(c => c.label).filter(l => groups[l]);
+  if (groups['General']) catOrder.push('General');
+
   return (
     <div className="mx-auto max-w-3xl">
-      {items.map((item, index) => (
-        <Reveal key={item.q} delay={index * 60}>
-          <details className="motion-card mb-4 rounded-2xl border border-gray-100 bg-white p-5 shadow-card">
-            <summary className="cursor-pointer font-heading font-semibold text-charcoal">{item.q}</summary>
-            <p className="mt-3 leading-7 text-gray-600">{item.a}</p>
-          </details>
-        </Reveal>
-      ))}
+      {catOrder.map((catLabel) => {
+        const cat = FAQ_CATEGORIES.find(c => c.label === catLabel);
+        const catItems = groups[catLabel] || [];
+        return (
+          <div key={catLabel} className="mb-8">
+            {/* Category header */}
+            <div className="mb-3 flex items-center gap-2">
+              <span className="text-base">{cat?.emoji ?? '💬'}</span>
+              <span className="font-heading text-xs font-bold uppercase tracking-widest text-gray-400">{catLabel}</span>
+              <div className="flex-1 border-t border-gray-100" />
+            </div>
+
+            <div className="grid gap-2">
+              {catItems.map((item, idx) => {
+                const key = catLabel + idx;
+                const isOpen = openKey === key;
+                const isPricing = catLabel === 'Pricing & Inclusions';
+                return (
+                  <Reveal key={item.q} delay={idx * 40}>
+                    <div className={`overflow-hidden rounded-2xl border transition-all duration-200 ${
+                      isOpen && isPricing ? 'border-[#E86C2F]/30 bg-orange-50 shadow-md' :
+                      isOpen ? 'border-gray-200 bg-white shadow-md' :
+                      'border-gray-100 bg-white shadow-card hover:border-gray-200 hover:shadow-md'
+                    }`}>
+                      <button
+                        onClick={() => setOpenKey(isOpen ? null : key)}
+                        className="flex w-full items-center justify-between gap-4 p-5 text-left"
+                      >
+                        <span className={`font-heading font-semibold leading-snug ${isOpen && isPricing ? 'text-[#E86C2F]' : 'text-[#1A1A2E]'}`}>
+                          {item.q}
+                        </span>
+                        <span
+                          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
+                            isOpen ? (isPricing ? 'bg-[#E86C2F] text-white' : 'bg-[#1A1A2E] text-white') : 'bg-gray-100 text-gray-400'
+                          }`}
+                          style={{ transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)' }}
+                        >
+                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                          </svg>
+                        </span>
+                      </button>
+                      <div style={{
+                        maxHeight: isOpen ? '400px' : '0',
+                        opacity: isOpen ? 1 : 0,
+                        transition: 'max-height 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease',
+                        overflow: 'hidden',
+                      }}>
+                        <p className={`px-5 pb-5 leading-7 text-sm ${isPricing && isOpen ? 'text-orange-900/80' : 'text-gray-600'}`}>
+                          {item.a}
+                        </p>
+                      </div>
+                    </div>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -1283,6 +1364,7 @@ export function FounderCard() {
     </div>
   );
 }
+
 
 
 
