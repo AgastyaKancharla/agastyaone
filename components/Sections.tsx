@@ -972,7 +972,7 @@ export function Steps({ steps }: { steps: string[] }) {
             Book My Free Call →
           </a>
           <a
-            href={`https://wa.me/918328443057?text=${encodeURIComponent('Hi Agastya, I want to book a free call to discuss growing my dental clinic.')}`}
+            href={`https://wa.me/918328444057?text=${encodeURIComponent('Hi Agastya, I want to book a free call to discuss growing my dental clinic.')}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-[#25D366] px-8 py-3 font-heading text-sm font-semibold text-[#25D366] transition hover:bg-[#25D366] hover:text-white"
@@ -1121,7 +1121,7 @@ export function InfoPills() {
       title: 'Call Us',
       text: '+91 83284 43057',
       sub: 'Mon–Sat, 9 AM – 7 PM',
-      href: 'tel:+918328443057',
+      href: 'tel:+918328444057',
       color: '#1A1A2E',
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
@@ -1133,7 +1133,7 @@ export function InfoPills() {
       title: 'WhatsApp',
       text: 'Message us directly',
       sub: 'Usually replies in under 1 hour',
-      href: 'https://wa.me/918328443057?text=Hi%20Agastya%2C%20I%20run%20a%20dental%20clinic%20in%20Bangalore%20and%20would%20like%20to%20learn%20more.',
+      href: 'https://wa.me/918328444057?text=Hi%20Agastya%2C%20I%20run%20a%20dental%20clinic%20in%20Bangalore%20and%20would%20like%20to%20learn%20more.',
       color: '#25D366',
       icon: (
         <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
