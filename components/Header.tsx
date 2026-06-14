@@ -65,7 +65,7 @@ function ServicesDropdown({ pathname }: { pathname: string }) {
           background: 'none', border: 'none', cursor: 'pointer',
           fontSize: 14, fontWeight: 500, padding: 0, lineHeight: 1,
           color: isActive ? '#E86C2F' : '#1A1A2E',
-          fontFamily: 'inherit', verticalAlign: 'middle',
+          fontFamily: 'inherit', height: '1.5rem',
         }}
       >
         Dental Solutions
@@ -151,10 +151,11 @@ export function Header() {
           </Link>
 
           {/* Desktop nav — perfectly centered */}
-          <nav className="hidden flex-1 items-center justify-center gap-7 text-sm font-medium text-charcoal lg:flex">
+          <nav className="hidden flex-1 items-center justify-center gap-7 text-sm font-medium text-charcoal lg:flex" style={{ alignItems: 'center' }}>
             <ServicesDropdown pathname={pathname} />
             {TOP_LINKS.map(link => (
               <Link key={link.href} href={link.href}
+                style={{ display: 'inline-flex', alignItems: 'center', lineHeight: 1 }}
                 className={`nav-link transition hover:text-saffron ${pathname === link.href ? 'is-active text-saffron' : ''}`}>
                 {link.label}
               </Link>
