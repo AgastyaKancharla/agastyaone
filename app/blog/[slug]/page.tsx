@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import React from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote/rsc';
@@ -262,3 +263,4 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     </div>
   );
 }
+
