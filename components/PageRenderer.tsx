@@ -101,7 +101,7 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
       )}
       {page.slug === 'dental-website-development' && <WebsitePagesTabs />}
       {page.offers && (
-        page.slug === '' ? (
+        page.slug === '' || page.slug === 'dental-solutions' ? (
           <ServicesInteractive />
         ) : page.slug === 'dental-seo-services' ? (
           <Section title="What We Do" body="Tap any area to see exactly what's included and what it does.">
@@ -123,7 +123,7 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
           </Section>
         )
       )}
-      {page.slug === '' && <AgencyVsUs />}
+      {(page.slug === '' || page.slug === 'dental-solutions') && <AgencyVsUs />}
       {page.steps && (
         <Section title="Getting Started Is Simple" tint>
           <Steps steps={page.steps} />
