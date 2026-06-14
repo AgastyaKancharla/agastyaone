@@ -145,19 +145,19 @@ export function Header() {
         boxShadow: scrolled ? '0 2px 16px rgba(26,26,46,0.07)' : 'none',
       }}>
         <div style={{ 
-          display: 'flex',
+          display: 'grid',
+          gridTemplateColumns: '1fr auto 1fr',
           alignItems: 'center',
-          justifyContent: 'space-between',
           padding: '0 clamp(1rem,4vw,2.5rem)',
           height: 72,
         }}>
-          {/* Logo — left, vertically centred */}
+          {/* Logo — left */}
           <Link href="/" className="font-heading font-black text-charcoal shrink-0" style={{ fontSize: 24, lineHeight: 1, display: 'flex', alignItems: 'center' }}>
             Agastya<span className="text-saffron">One</span>
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden flex-1 items-center justify-center gap-7 text-sm font-medium text-charcoal lg:flex" style={{ alignItems: 'center' }}>
+          {/* Desktop nav — perfectly centered */}
+          <nav className="hidden items-center gap-7 text-sm font-medium text-charcoal lg:flex" style={{ alignItems: 'center' }}>
             <ServicesDropdown pathname={pathname} />
             {TOP_LINKS.map(link => (
               <Link key={link.href} href={link.href}
@@ -168,21 +168,19 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center shrink-0">
+          {/* Right — CTA + mobile controls */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8 }}>
             <Link href="/contact"
-              className="inline-flex items-center justify-center rounded-full bg-[#E86C2F] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-600">
+              className="hidden lg:inline-flex items-center justify-center rounded-full bg-[#E86C2F] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-600">
               Book a Free Call
             </Link>
-          </div>
-
-          {/* Mobile controls */}
-          <div className="flex items-center gap-1 lg:hidden">
             <a href="tel:+918328444057" aria-label="Call AgastyaOne"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-charcoal transition hover:border-saffron hover:text-saffron">
+              className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-charcoal transition hover:border-saffron hover:text-saffron">
               <Phone size={17} />
             </a>
-            <HamburgerButton open={menuOpen} onClick={() => setMenuOpen(p => !p)} />
+            <div className="lg:hidden">
+              <HamburgerButton open={menuOpen} onClick={() => setMenuOpen(p => !p)} />
+            </div>
           </div>
         </div>
       </header>
