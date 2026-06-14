@@ -382,7 +382,7 @@ export function AutomationHeroVisual() {
         <div style={{ marginLeft: 'auto', background: 'rgba(255,255,255,0.15)', borderRadius: 99, padding: '3px 9px', color: '#fff', fontSize: 9, fontWeight: 700 }}>● LIVE</div>
       </div>
       {/* messages */}
-      <div style={{ padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: 8, minHeight: 240 }}>
+      <div style={{ padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: 8, height: 240, overflow: 'hidden', justifyContent: 'flex-end' }}>
         {msgs.length === 0 && (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 100, color: '#9CA3AF', fontSize: 12 }}>
             Automation starting…
