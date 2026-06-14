@@ -184,7 +184,7 @@ export const homePage = page(
   '',
   'AgastyaOne | Dental Digital Solutions in Bangalore',
   'Websites, CRM, SEO and automation for dental clinics in Bangalore. Built by someone who has built real dental systems. Book a free 30 min call.',
-  'We Help Dental Clinics in Bengaluru Grow With Technology That Actually Works',
+  'We Help Bengaluru Dental Clinics Rank Higher, Get More Reviews & Book More Patients',
   'Websites, CRM software, automation and SEO — built by someone who has built real dental systems, not just read about them',
   {
     secondaryLabel: 'See Our Work',
