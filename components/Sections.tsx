@@ -549,33 +549,30 @@ function DashboardHeroPanel({ alt }: { alt: string }) {
 
 function WhatsAppBookingPanel() {
   const [visibleCount, setVisibleCount] = React.useState(0);
+  const loopRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const timersRef = React.useRef<ReturnType<typeof setTimeout>[]>([]);
 
-  React.useEffect(() => {
+  const startSequence = React.useCallback(() => {
+    timersRef.current.forEach(clearTimeout);
+    if (loopRef.current) clearTimeout(loopRef.current);
     setVisibleCount(0);
-    const timers = [
-      setTimeout(() => setVisibleCount(1), 600),
-      setTimeout(() => setVisibleCount(2), 1600),
-      setTimeout(() => setVisibleCount(3), 2800),
-      setTimeout(() => setVisibleCount(4), 4200),
-    ];
-    // Loop: restart after full sequence
-    const loop = setTimeout(() => setVisibleCount(0), 7000);
-    return () => { timers.forEach(clearTimeout); clearTimeout(loop); };
+    const t1 = setTimeout(() => setVisibleCount(1), 600);
+    const t2 = setTimeout(() => setVisibleCount(2), 1600);
+    const t3 = setTimeout(() => setVisibleCount(3), 2800);
+    const t4 = setTimeout(() => setVisibleCount(4), 4200);
+    const loop = setTimeout(() => startSequence(), 7500);
+    timersRef.current = [t1, t2, t3, t4];
+    loopRef.current = loop;
   }, []);
 
-  // Restart loop when reset
   React.useEffect(() => {
-    if (visibleCount === 0) {
-      const timers = [
-        setTimeout(() => setVisibleCount(1), 600),
-        setTimeout(() => setVisibleCount(2), 1600),
-        setTimeout(() => setVisibleCount(3), 2800),
-        setTimeout(() => setVisibleCount(4), 4200),
-      ];
-      const loop = setTimeout(() => setVisibleCount(0), 7000);
-      return () => { timers.forEach(clearTimeout); clearTimeout(loop); };
-    }
-  }, [visibleCount]);
+    startSequence();
+    return () => {
+      timersRef.current.forEach(clearTimeout);
+      if (loopRef.current) clearTimeout(loopRef.current);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const messages = [
     {
