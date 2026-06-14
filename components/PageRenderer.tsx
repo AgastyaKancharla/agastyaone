@@ -5,6 +5,10 @@ import { ServicesInteractive } from './ServicesInteractive';
 import { AgencyVsUs } from './AgencyVsUs';
 import { BookingWidget } from './BookingWidget';
 import { AppointmentFeatureTabs } from './AppointmentFeatureTabs';
+import { InvisibilityCalculator } from './InvisibilityCalculator';
+import { SEOProofStrip, TwoTrackSection, TimelineSection, SEOFaq } from './SEOPageContent';
+import { SEOFeatureTabs } from './SEOFeatureTabs';
+import { CRMFeaturesSection } from './CRMFeaturesSection';
 import { MarketingFeatureTabs } from './MarketingFeatureTabs';
 import { faqSchemaForPage, getLocationContent, type SitePage } from '@/lib/site-data';
 
@@ -25,14 +29,66 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
         subtitle={page.subtitle}
         ctas={ctas}
         imageAlt={`${page.h1} dashboard illustration`}
-        showCRM={page.slug === '' || page.slug === 'dental-solutions'}
-        lightPanel={page.slug === 'dental-solutions'}
-        showWebsitePanel={page.slug === 'dental-website-development'}
+        showCRM={page.slug === '' || page.slug === 'dental-solutions' || page.slug === 'dental-crm-software'}
         slug={page.slug}
       />
       {page.trust && page.trust.length > 0 && <TrustBar items={page.trust} />}
       {page.slug === '' ? (
         <CRMDemo />
+      ) : page.slug === 'dental-seo-services' ? (
+        <>
+          <SEOProofStrip />
+          <InvisibilityCalculator />
+          <TwoTrackSection />
+          <TimelineSection />
+        </>
+      ) : page.slug === 'dental-crm-software' ? (
+        page.intro && (
+          <section style={{ background: '#F8F6F3', padding: '40px 0 48px' }}>
+            <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 clamp(1rem,5vw,2rem)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 16 }}>
+              <div style={{ background: '#1A1A2E', borderRadius: 18, padding: '24px 24px 20px', boxShadow: '0 12px 40px rgba(26,26,46,0.12)' }}>
+                <div style={{ marginBottom: 16 }}>
+                  <div style={{ fontFamily: 'Poppins,sans-serif', fontWeight: 800, fontSize: 42, color: '#E86C2F', lineHeight: 1 }}>₹3.75L</div>
+                  <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 11, marginTop: 4, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600 }}>Lost per year · avg clinic</div>
+                </div>
+                <h3 style={{ fontFamily: 'Poppins,sans-serif', fontSize: 16, fontWeight: 700, color: '#fff', margin: '0 0 10px', lineHeight: 1.3 }}>{page.intro[0].title}</h3>
+                <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 13, lineHeight: 1.75, margin: 0 }}>{page.intro[0].body}</p>
+              </div>
+              <div style={{ background: '#fff', borderRadius: 18, padding: '24px 24px 20px', borderLeft: '4px solid #E86C2F', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(232,108,47,0.08)', border: '1px solid rgba(232,108,47,0.15)', borderRadius: 99, padding: '3px 12px', fontSize: 11, fontWeight: 700, color: '#E86C2F', marginBottom: 14, width: 'fit-content' }}>WHY THIS HAPPENS</div>
+                <h3 style={{ fontFamily: 'Poppins,sans-serif', fontSize: 16, fontWeight: 700, color: '#1A1A2E', margin: '0 0 10px', lineHeight: 1.3 }}>{page.intro[1].title}</h3>
+                <p style={{ color: '#6B7280', fontSize: 13, lineHeight: 1.75, margin: 0 }}>{page.intro[1].body}</p>
+              </div>
+            </div>
+          </section>
+        )
+      ) : page.slug === 'dental-marketing-services' ? (
+        page.intro && (
+          <section style={{ background: '#F8F6F3', padding: '40px 0 48px' }}>
+            <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 clamp(1rem,5vw,2rem)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 16 }}>
+              <div style={{ background: '#1A1A2E', borderRadius: 18, padding: '24px 24px 20px', boxShadow: '0 12px 40px rgba(26,26,46,0.12)' }}>
+                <div style={{ marginBottom: 16 }}>
+                  <div style={{ fontFamily: 'Poppins,sans-serif', fontWeight: 800, fontSize: 38, color: '#E86C2F', lineHeight: 1 }}>Word of Mouth</div>
+                  <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 11, marginTop: 4, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600 }}>is not a growth strategy</div>
+                </div>
+                <h3 style={{ fontFamily: 'Poppins,sans-serif', fontSize: 16, fontWeight: 700, color: '#fff', margin: '0 0 10px', lineHeight: 1.3 }}>{page.intro[0].title}</h3>
+                <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 13, lineHeight: 1.75, margin: 0 }}>{page.intro[0].body}</p>
+              </div>
+              <div style={{ background: '#fff', borderRadius: 18, padding: '24px 24px 20px', borderLeft: '4px solid #E86C2F', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(232,108,47,0.08)', border: '1px solid rgba(232,108,47,0.15)', borderRadius: 99, padding: '3px 12px', fontSize: 11, fontWeight: 700, color: '#E86C2F', marginBottom: 14, width: 'fit-content' }}>IS THIS YOU?</div>
+                <h3 style={{ fontFamily: 'Poppins,sans-serif', fontSize: 16, fontWeight: 700, color: '#1A1A2E', margin: '0 0 12px', lineHeight: 1.3 }}>{page.intro[1].title}</h3>
+                {page.intro[1].items?.map((item, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, padding: '6px 0', borderBottom: i < (page.intro![1].items?.length ?? 0) - 1 ? '1px solid #F3F4F6' : 'none' }}>
+                    <div style={{ width: 18, height: 18, borderRadius: '50%', background: 'rgba(232,108,47,0.1)', border: '1px solid rgba(232,108,47,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 1 }}>
+                      <span style={{ color: '#E86C2F', fontSize: 9, fontWeight: 700 }}>✓</span>
+                    </div>
+                    <span style={{ color: '#374151', fontSize: 13, lineHeight: 1.5 }}>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )
       ) : page.intro && (
         <Section tint>
           <TextSections sections={page.intro} />
@@ -47,12 +103,18 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
       {page.offers && (
         page.slug === '' ? (
           <ServicesInteractive />
+        ) : page.slug === 'dental-seo-services' ? (
+          <Section title="What We Do" body="Tap any area to see exactly what's included and what it does.">
+            <SEOFeatureTabs />
+          </Section>
         ) : isAppointmentPage ? (
           <Section title={page.offerTitle ?? 'What We Offer'} body="Tap any feature to see how it works. Auto-cycles through all 7.">
             <AppointmentFeatureTabs />
           </Section>
+        ) : page.slug === 'dental-crm-software' ? (
+          <CRMFeaturesSection />
         ) : page.slug === 'dental-marketing-services' ? (
-          <Section title={page.offerTitle ?? 'What We Do'} body="Tap any channel to see what we do and what results to expect.">
+          <Section title="What We Do" body="Tap any service — see exactly what we do and what it produces.">
             <MarketingFeatureTabs />
           </Section>
         ) : (
@@ -67,11 +129,12 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
           <Steps steps={page.steps} />
         </Section>
       )}
-      {page.faq && (
+      {page.faq && page.slug !== 'dental-seo-services' && (
         <Section title="FAQ">
           <FAQ items={page.faq} />
         </Section>
       )}
+      {page.slug === 'dental-seo-services' && <SEOFaq />}
       {locationContent && (
         <>
           <Section title={locationContent.problemTitle} body={locationContent.problemBody} tint />

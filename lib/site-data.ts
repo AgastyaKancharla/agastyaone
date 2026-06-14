@@ -344,31 +344,26 @@ export const pages: SitePage[] = [
   }),
   page('dental-marketing-services', 'Dental Marketing Services in Bangalore | AgastyaOne', 'Dental marketing services for clinics in Bengaluru. SEO, Google reviews, WhatsApp marketing and online reputation management for dental practices.', 'Dental Marketing Services in Bengaluru That Bring New Patients to Your Clinic Every Month', 'A complete digital marketing system for dental clinics — SEO, WhatsApp, Google reviews and online presence — built to grow your patient base consistently and affordably', {
     primaryLabel: 'Book a Free Consultation',
+    secondaryLabel: 'See What We Do',
     parent: '/dental-solutions',
     intro: [
-      {
-        title: 'Word of Mouth Is Not a Growth Strategy',
-        body: 'Most Bengaluru dental clinics rely on referrals and hope. That worked in 2015. Today, 78% of patients search Google before calling a clinic — and if you are not ranking, that patient books with someone who is. You need a system, not luck.'
-      },
-      {
-        title: 'This Is Built For You If',
-        items: [
-          'You rely mainly on word of mouth and walk-ins',
-          'Your Google Business Profile has fewer than 50 reviews',
-          'You have a website that gets fewer than 200 visitors a month',
-          'You want consistent new patients without spending a fortune on ads',
-          'You have tried marketing before but saw no measurable results'
-        ]
-      }
+      { title: 'Word of Mouth Is Not a Growth Strategy', body: 'Referrals are great when they come. But you cannot predict them, scale them or turn them on when you need more patients. You need a system that brings new patients consistently — every month, whether or not someone recommends you.' },
+      { title: 'Who This Is For', items: ['You rely mainly on word of mouth and walk-ins', 'Your Google Business Profile has fewer than 50 reviews', 'Your website exists but gets no traffic', 'You want to grow without spending a fortune on paid ads', 'You have tried agencies before and felt nothing changed'] }
     ],
     offerTitle: 'What We Do',
-    offers: featureCards(['Google Business Profile Management', 'Google Review Generation', 'Local SEO', 'WhatsApp Marketing', 'Website Optimisation', 'Online Reputation Management', 'Monthly Strategy and Reporting']),
+    offers: featureCards(['Google Business Profile Management', 'Google Review Generation', 'Local SEO', 'WhatsApp Marketing', 'Online Reputation Management', 'Monthly Strategy and Reporting']),
+    steps: [
+      'Free Audit — We review your current Google presence, reviews and website in 30 minutes',
+      'We Build Your Plan — A clear monthly action plan specific to your clinic and neighbourhood',
+      'We Execute Every Month — GBP updates, review campaigns, SEO work, WhatsApp campaigns',
+      'You See the Numbers — Monthly report showing what changed and what we do next'
+    ],
     faq: [
-      { q: 'Do I need a big advertising budget?', a: 'No. Most of our highest-impact strategies require zero ad spend — Google Business Profile, local SEO and review generation are all organic. Paid ads are optional and only recommended once the organic foundation is solid.' },
-      { q: 'How long before I see results?', a: 'Google Business Profile improvements often show results within 2 to 4 weeks. SEO and review generation build over 60 to 90 days. We set honest expectations from day one — no overnight promises.' },
-      { q: 'Can you help a brand new clinic?', a: 'Absolutely. Starting from scratch is often easier because there are no bad habits to undo. A new clinic with a strong digital setup from day one grows faster than an established clinic trying to catch up.' },
-      { q: 'We already tried a marketing agency and it didn\'t work. Why would this be different?', a: 'Most agencies are generalists who apply the same strategy to every client. We work exclusively with dental clinics, which means every tactic is specific to how dental patients search, compare and decide in Bengaluru.' },
-      { q: 'What do I actually get each month?', a: 'A clear monthly report showing ranking movements, new patient attribution, review count growth and what we are doing next. You always know exactly what your money is doing.' },
+      { q: 'Do I need a big budget for paid ads?', a: 'No. Most of what we do requires zero ad spend — GBP, SEO, reviews and WhatsApp are all organic.' },
+      { q: 'Can you help a brand new clinic with no reviews?', a: 'Absolutely. Starting from zero is often easier — no bad habits to undo. We build the foundation correctly from day one.' },
+      { q: 'I tried an agency before and saw no results. Why would this be different?', a: 'Most agencies report on vanity metrics — impressions, reach, clicks. We report on patient enquiries, calls and appointments. If those numbers do not grow, we have not done our job.' },
+      { q: 'How long before I see results?', a: 'Google Business Profile improvements show in 30 to 60 days. SEO builds over 3 to 6 months. Review growth is visible within the first month.' },
+      { q: 'Do I need to sign a long contract?', a: 'No. Monthly plans only. We earn your business every month.' }
     ],
     internalLinks: [{ label: 'Dental Solutions', href: '/dental-solutions' }, { label: 'Dental SEO Services', href: '/dental-seo-services' }]
   }),
