@@ -136,15 +136,6 @@ const mdxComponents = {
   ),
 };
 
-/* ── Stat callout extracted from text ──────────────── */
-function StatCallout({ stat, label }: { stat: string; label: string }) {
-  return (
-    <div className="my-8 flex items-center gap-5 rounded-2xl border border-orange-100 bg-orange-50 px-6 py-5">
-      <span className="font-heading text-5xl font-black text-[#E86C2F]">{stat}</span>
-      <p className="text-sm font-medium leading-6 text-orange-900">{label}</p>
-    </div>
-  );
-}
 
 /* ── Category emoji map ────────────────────────────── */
 const CATEGORY_EMOJI: Record<string, string> = {
@@ -225,7 +216,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               Book a Free Call →
             </Link>
             <a
-              href={`https://wa.me/918328443057?text=${encodeURIComponent(`Hi Agastya, I read your article on "${post.title}" and want to discuss this for my clinic.`)}`}
+              href={'https://wa.me/918328443057?text=' + encodeURIComponent('Hi Agastya, I read your article on ' + post.title + ' and want to discuss this for my clinic.')}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full border-2 border-[#25D366] px-5 py-2.5 text-sm font-semibold text-[#25D366] transition hover:bg-[#25D366] hover:text-white"
@@ -263,4 +254,5 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     </div>
   );
 }
+
 
