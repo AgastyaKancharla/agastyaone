@@ -393,9 +393,9 @@ function WhatsAppPanel({ active, light = false }: { active: boolean; light?: boo
         <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: 9.5 }}>AgastyaOne Automation · Sending now</span>
         <span style={{ marginLeft: 'auto', background: 'rgba(37,211,102,0.15)', color: '#25D366', fontSize: 8.5, fontWeight: 700, padding: '2px 7px', borderRadius: 99 }}>● LIVE</span>
       </div>
-      <div style={{ padding: '0 10px 8px', display: 'flex', flexDirection: 'column', gap: 6 }}>
+      <div style={{ height: 176, overflow: 'hidden', padding: '0 10px 8px', display: 'flex', flexDirection: 'column', gap: 6, justifyContent: 'flex-end' }}>
         {msgs.map((m, i) => (
-          <div key={m.id} style={{ background: 'rgba(37,211,102,0.06)', border: '1px solid rgba(37,211,102,0.15)', borderRadius: 9, padding: '8px 10px', animation: i === msgs.length - 1 && msgs.length > 1 ? 'toastIn 0.3s ease' : undefined }}>
+          <div key={m.id} style={{ background: 'rgba(37,211,102,0.06)', border: '1px solid rgba(37,211,102,0.15)', borderRadius: 9, padding: '8px 10px', animation: i === msgs.length - 1 && msgs.length > 1 ? 'toastIn 0.3s ease' : undefined, flexShrink: 0 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
               <span style={{ color: '#fff', fontSize: 10.5, fontWeight: 700 }}>{m.name}</span>
               <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: 9 }}>{m.time}</span>
@@ -524,8 +524,8 @@ export function HeroCRMPanel({ onPanelChange, light = false }: { onPanelChange?:
           <div style={{ height: '100%', width: `${progress}%`, background: 'linear-gradient(90deg,#E86C2F,#f59e0b)', transition: 'width 0.08s linear' }} />
         </div>
 
-        {/* panel content — no key={active} to avoid remount flash; use opacity transition */}
-        <div style={{ position: 'relative', minHeight: 260 }}>
+        {/* panel content — all panels rendered, opacity controls visibility, NO layout shift */}
+        <div style={{ position: 'relative', height: 300, overflow: 'hidden' }}>
           {[CRMPanel, SEOPanel, WebsitePanel, BookingPanel, WhatsAppPanel].map((Panel, i) => (
             <div
               key={i}
