@@ -986,66 +986,10 @@ export function FAQ({ items }: { items: { q: string; a: string }[] }) {
   );
 }
 
-const TICKER_ITEMS = [
-  '🦷 Smile Studio · 31 new patients in 30 days',
-  '⭐ WhitePearl Dental · 4.9 Google rating',
-  '📅 Dr. Priya\'s Clinic · Booked out 3 weeks ahead',
-  '📈 BrightSmile Bengaluru · 2× website traffic in 60 days',
-  '💬 Nayak Dental · WhatsApp inquiries up 180%',
-  '🏆 ClearBite Clinic · #1 on Google Maps in their area',
-];
-
 export function ContactStrip() {
-  const repeated = [...TICKER_ITEMS, ...TICKER_ITEMS];
   return (
     <section className="full-bleed" id="contact-strip">
-      {/* Ticker strip */}
-      <div
-        style={{
-          background: '#1a1a2e',
-          overflow: 'hidden',
-          padding: '10px 0',
-          borderBottom: '1px solid rgba(232,108,47,0.18)',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            gap: '3rem',
-            width: 'max-content',
-            animation: 'tickerScroll 28s linear infinite',
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.animationPlayState = 'paused')}
-          onMouseLeave={(e) => (e.currentTarget.style.animationPlayState = 'running')}
-        >
-          {repeated.map((item, i) => (
-            <span
-              key={i}
-              style={{
-                whiteSpace: 'nowrap',
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                color: '#E86C2F',
-                letterSpacing: '0.01em',
-              }}
-            >
-              {item}
-              <span style={{ marginLeft: '3rem', color: 'rgba(232,108,47,0.3)' }}>·</span>
-            </span>
-          ))}
-        </div>
-        <style>{`
-          @keyframes tickerScroll {
-            0%   { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-          }
-          @media (prefers-reduced-motion: reduce) {
-            @keyframes tickerScroll { 0%,100% { transform: none; } }
-          }
-        `}</style>
-      </div>
-
-      {/* Main CTA */}
+            {/* Main CTA */}
       <div className="gradient-pattern text-white">
         <div className="site-container py-20 md:py-28">
           <Reveal>

@@ -406,12 +406,24 @@ export const pages: SitePage[] = [
     faq: [{ q: 'How long to build?', a: '7 to 14 days.' }, { q: 'My clinic is newly opened. Is it too early?', a: 'The opposite. A new clinic needs a strong website from day one.' }],
     internalLinks: [{ label: 'Dental Website Development', href: '/dental-website-development' }, { label: 'Dental Solutions Bangalore', href: '/dental-solutions-bangalore' }]
   }),
-  page('about', 'About AgastyaOne | Dental Digital Solutions Bengaluru', 'AgastyaOne is a Bengaluru based dental digital solutions company built by an entrepreneur who has built a dental leads management system and served clinics across Koramangala, Indiranagar and Jayanagar.', 'Built By an Entrepreneur. For Dental Clinics.', 'AgastyaOne exists because I could not find a technology partner who actually understood what it means to run a dental practice. So I became one.', {
+  page('about', 'About AgastyaOne | Dental Digital Solutions Bengaluru', 'AgastyaOne is a Bengaluru based dental technology company building end-to-end digital solutions for dental clinics — websites, CRM, SEO and automation — starting with Bengaluru.', 'Building the Technology Layer That Dental Clinics in India Are Missing', 'Most technology built for dental clinics was designed for the US market, sold by agencies that have never sat inside a clinic and built by teams that do not understand how Indian dental practices actually operate. AgastyaOne is fixing that.', {
     intro: [
-      { title: 'The Person Behind AgastyaOne', body: 'My name is Agastya. I am based in Bengaluru and have spent the last several years doing something most digital agency founders have never done: actually building systems for real dental clinics. I built a dental leads management system from scratch and have worked with clinic owners across Bengaluru to understand what actually moves the needle.' },
-      { title: 'The Problem We Set Out to Solve', body: 'Most digital agencies build things that look good in a portfolio and disappear when the invoice is paid. AgastyaOne was built to be the opposite: a growth partner for dental clinics, not a vendor.' },
-      { title: 'What We Believe', items: ['Real Experience Over Theory', 'Results Over Aesthetics', 'Simple Over Complicated', 'Transparency Over Promises', 'Long Term Over Transactional'] },
-      { title: 'The Numbers', items: ['Dental Leads CRM Built and Live', '8+ Dental Clinic Demo Websites Built', '2 Websites Live For Bengaluru Clinics', '5 Bengaluru Neighbourhoods Served', '100% Dental Focused'] }
+      {
+        title: 'Why We Started With Dental',
+        body: 'AgastyaOne was built with a clear long-term goal — to become a technology company that solves every digital problem a business has. We started with dental clinics because the gap here is enormous. Dental clinics in Bengaluru are running on WhatsApp groups, paper registers and generic tools built for completely different markets. The opportunity to build something purpose-built and genuinely useful was obvious.'
+      },
+      {
+        title: 'What We Actually Built',
+        body: 'We did not start by selling services. We started by building. A dental leads management CRM from scratch — designed around how Indian clinic receptionists actually work, not how US software assumes they work. Then websites. Then SEO. Then automation. Everything we sell we built and tested ourselves first.'
+      },
+      {
+        title: 'What Makes Us Different',
+        body: 'We are not a generic digital agency that added dental to our service list. We are not a software company that hired salespeople. We are a small focused team building end-to-end technology for one industry — dental — in one city first — Bengaluru — with the intention of getting it right before getting it big.'
+      },
+      {
+        title: 'Where We Are Right Now',
+        body: 'We are early. We are building. We are selective about the clinics we work with because every early client shapes what AgastyaOne becomes. If you want to be part of building something from the ground up — not buying an off-the-shelf product — this is for you.'
+      }
     ],
     internalLinks: [{ label: 'Dental Solutions', href: '/dental-solutions' }, { label: 'Contact', href: '/contact' }]
   })

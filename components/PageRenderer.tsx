@@ -10,6 +10,7 @@ import { SEOProofStrip, TwoTrackSection, TimelineSection, SEOFaq } from './SEOPa
 import { SEOFeatureTabs } from './SEOFeatureTabs';
 import { CRMFeaturesSection } from './CRMFeaturesSection';
 import { MarketingFeatureTabs } from './MarketingFeatureTabs';
+import { AboutPage } from './AboutPage';
 import { faqSchemaForPage, getLocationContent, type SitePage } from '@/lib/site-data';
 
 export function PageRenderer({ page, schema = false }: { page: SitePage; schema?: boolean }) {
@@ -33,7 +34,11 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
         slug={page.slug}
       />
       {page.trust && page.trust.length > 0 && <TrustBar items={page.trust} />}
-      {page.slug === '' ? (
+
+      {/* About page — completely custom, skip all generic sections */}
+      {page.slug === 'about' ? (
+        <AboutPage />
+      ) : page.slug === '' ? (
         <CRMDemo />
       ) : page.slug === 'dental-seo-services' ? (
         <>
@@ -144,7 +149,7 @@ export function PageRenderer({ page, schema = false }: { page: SitePage; schema?
           </Section>
         </>
       )}
-      <ContactStrip />
+      {page.slug !== 'about' && <ContactStrip />}
     </>
   );
 }
