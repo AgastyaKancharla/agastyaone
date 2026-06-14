@@ -144,14 +144,14 @@ export function Header() {
         borderBottom: scrolled ? '1.5px solid rgba(232,108,47,0.28)' : '1.5px solid transparent',
         boxShadow: scrolled ? '0 2px 16px rgba(26,26,46,0.07)' : 'none',
       }}>
-        <div className="site-container flex items-center py-3" style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', gap: '1rem' }}>
+        <div className="site-container flex items-center justify-between gap-4 py-3" style={{ minHeight: 56 }}>
           {/* Logo — left */}
           <Link href="/" className="font-heading text-xl font-black text-charcoal shrink-0">
             Agastya<span className="text-saffron">One</span>
           </Link>
 
           {/* Desktop nav — perfectly centered */}
-          <nav className="hidden items-center gap-7 text-sm font-medium text-charcoal lg:flex">
+          <nav className="hidden flex-1 items-center justify-center gap-7 text-sm font-medium text-charcoal lg:flex">
             <ServicesDropdown pathname={pathname} />
             {TOP_LINKS.map(link => (
               <Link key={link.href} href={link.href}
