@@ -144,14 +144,21 @@ export function Header() {
         borderBottom: scrolled ? '1.5px solid rgba(232,108,47,0.28)' : '1.5px solid transparent',
         boxShadow: scrolled ? '0 2px 16px rgba(26,26,46,0.07)' : 'none',
       }}>
-        <div className="site-container flex items-center justify-between gap-4 py-3" style={{ minHeight: 56 }}>
-          {/* Logo — left */}
-          <Link href="/" className="font-heading text-xl font-black text-charcoal shrink-0">
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: '1fr auto 1fr',
+          alignItems: 'center',
+          padding: '0 clamp(1rem,4vw,2.5rem)',
+          height: 72,
+        }}>
+          {/* Logo — truly centered */}
+          <div className="hidden lg:block" />{/* spacer left */}
+          <Link href="/" className="font-heading text-xl font-black text-charcoal" style={{ justifySelf: 'center' }}>
             Agastya<span className="text-saffron">One</span>
           </Link>
 
-          {/* Desktop nav — perfectly centered */}
-          <nav className="hidden flex-1 items-center justify-center gap-7 text-sm font-medium text-charcoal lg:flex" style={{ alignItems: 'center' }}>
+          {/* Desktop nav — right of center, left of CTA */}
+          <nav className="hidden items-center justify-end gap-7 text-sm font-medium text-charcoal lg:flex" style={{ alignItems: 'center' }}>
             <ServicesDropdown pathname={pathname} />
             {TOP_LINKS.map(link => (
               <Link key={link.href} href={link.href}
@@ -160,17 +167,16 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
-          </nav>
-
-          {/* Desktop CTA — right aligned */}
-          <div className="hidden lg:flex justify-end shrink-0">
             <Link href="/contact"
               className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#E86C2F] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-600">
               Book a Free Call
             </Link>
-          </div>
+          </nav>
 
-          {/* Mobile: phone + hamburger — right column */}
+          {/* Mobile: logo left, controls right */}
+          <Link href="/" className="font-heading text-xl font-black text-charcoal lg:hidden">
+            Agastya<span className="text-saffron">One</span>
+          </Link>
           <div className="flex items-center gap-1 justify-end lg:hidden">
             <a href="tel:+918328443057" aria-label="Call AgastyaOne"
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-charcoal transition hover:border-saffron hover:text-saffron">
@@ -182,12 +188,12 @@ export function Header() {
       </header>
 
       {/* Header spacer */}
-      <div style={{ height: 56 }} aria-hidden="true" />
+      <div style={{ height: 72 }} aria-hidden="true" />
 
       {/* Mobile menu */}
       <div id="mobile-menu"
         className={`fixed inset-0 z-40 flex flex-col bg-white lg:hidden transition-all duration-300 ${menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
-        style={{ paddingTop: 56, overflowY: 'auto' }}>
+        style={{ paddingTop: 72, overflowY: 'auto' }}>
 
         <nav className="flex flex-col gap-1 px-5 py-4">
           {/* Dental Solutions — expandable */}
