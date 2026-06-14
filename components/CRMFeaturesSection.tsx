@@ -296,8 +296,8 @@ export function CRMFeaturesSection() {
   };
 
   return (
-    <section style={{ background: '#F8F6F3', padding: '72px 0' }}>
-      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 clamp(1rem,5vw,2rem)' }}>
+    <section style={{ background: '#F8F6F3', padding: '72px 0', width: '100%' }}>
+      <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 clamp(1rem,5vw,3rem)' }}>
 
         {/* heading */}
         <div style={{ textAlign: 'center', marginBottom: 40 }}>
@@ -360,7 +360,7 @@ export function CRMFeaturesSection() {
         </div>
 
         {/* ── DESKTOP: list left, preview right ── */}
-        <div className="crm-desktop-layout" style={{ display: 'none', gridTemplateColumns: '1fr 1.2fr', gap: 20, alignItems: 'start' }}>
+        <div className="crm-desktop-layout" style={{ display: 'none', gridTemplateColumns: '340px 1fr', gap: 24, alignItems: 'start' }}>
           {/* feature list */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             {FEATURES.map(f => {
@@ -393,7 +393,7 @@ export function CRMFeaturesSection() {
             })}
           </div>
           {/* preview panel */}
-          <div style={{ background: '#fff', borderRadius: 18, padding: '20px', boxShadow: '0 8px 40px rgba(0,0,0,0.08)', border: `1.5px solid ${feat.tagColor}25`, minHeight: 280 }}>
+          <div style={{ background: '#fff', borderRadius: 18, padding: '28px', boxShadow: '0 8px 40px rgba(0,0,0,0.08)', border: `1.5px solid ${feat.tagColor}25`, minHeight: 420 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16, paddingBottom: 12, borderBottom: '1px solid #F3F4F6' }}>
               <span style={{ fontSize: 18 }}>{feat.icon}</span>
               <div>
