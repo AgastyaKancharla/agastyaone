@@ -15,6 +15,11 @@ const HeroDentalWebsitePanelClient = dynamic(
   () => import('./HeroDentalWebsitePanel').then(m => m.HeroDentalWebsitePanelClient),
   { ssr: false }
 );
+
+const HeroAboutPanelClient = dynamic(
+  () => import('./HeroAboutPanel').then(m => m.HeroAboutPanelClient),
+  { ssr: false }
+);
 import {
   ArrowRight,
   BarChart3,
@@ -97,6 +102,7 @@ export function Hero({
   showCRM = false,
   lightPanel = false,
   showWebsitePanel = false,
+  showAboutPanel = false,
   slug = '',
 }: {
   title: string;
@@ -106,6 +112,7 @@ export function Hero({
   showCRM?: boolean;
   lightPanel?: boolean;
   showWebsitePanel?: boolean;
+  showAboutPanel?: boolean;
   slug?: string;
 }) {
   const highlightedTitle = title.split('Dental Clinics');
@@ -158,6 +165,11 @@ export function Hero({
               <HeroDentalWebsitePanelClient />
             </div>
           )}
+          {showAboutPanel && (
+            <div className="my-8 lg:hidden">
+              <HeroAboutPanelClient />
+            </div>
+          )}
 
           <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
             <Button href={ctas[0].href} variant="primary">
@@ -197,6 +209,11 @@ export function Hero({
             <HeroDentalWebsitePanelClient />
           </Reveal>
         )}
+        {showAboutPanel && (
+          <Reveal delay={160} className="hidden lg:block">
+            <HeroAboutPanelClient />
+          </Reveal>
+        )}
 
         {!showCRM && !showWebsitePanel && slug === 'dentist-appointment-software' && (
           <Reveal delay={160}>
@@ -204,7 +221,7 @@ export function Hero({
           </Reveal>
         )}
 
-        {!showCRM && !showWebsitePanel && slug !== 'dental-seo-services' && slug !== 'dentist-appointment-software' && slug !== 'dental-marketing-services' && (
+        {!showCRM && !showWebsitePanel && !showAboutPanel && slug !== 'dental-seo-services' && slug !== 'dentist-appointment-software' && slug !== 'dental-marketing-services' && (
           <Reveal delay={160}>
             <DashboardHeroPanel alt={imageAlt} />
           </Reveal>
@@ -1266,6 +1283,7 @@ export function FounderCard() {
     </div>
   );
 }
+
 
 
 
