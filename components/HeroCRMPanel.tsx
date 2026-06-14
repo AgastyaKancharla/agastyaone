@@ -76,29 +76,32 @@ function CRMPanel({ active, light = false }: { active: boolean; light?: boolean 
 
   useEffect(() => {
     if (!active) { reset(); return; }
+    let mounted = true;
     const show = (text: string, color: string, icon: 'wa'|'star'|'bell', delay: number) => {
       const t = setTimeout(() => {
+        if (!mounted) return;
         setToast({ text, color, icon });
-        setTimeout(() => setToast(null), 2400);
+        setTimeout(() => { if (mounted) setToast(null); }, 2400);
       }, delay);
       ts.current.push(t);
     };
     const highlight = (id: number, delay: number, newSt?: P['st']) => {
       const t = setTimeout(() => {
+        if (!mounted) return;
         if (newSt) setRows(prev => prev.map(p => p.id === id ? { ...p, st: newSt } : p));
         setLit(id);
-        setTimeout(() => setLit(null), 1400);
+        setTimeout(() => { if (mounted) setLit(null); }, 1400);
       }, delay);
       ts.current.push(t);
     };
     show('Reminder sent → Rahul Mehta, 3 PM tomorrow', '#25D366', 'wa',   800);
     highlight(2, 1000);
     show('Review request → Priya Sharma ⭐⭐⭐⭐⭐',     '#f59e0b', 'star', 2800);
-    const rv = setTimeout(() => setReviews(r => r + 1), 3600);
+    const rv = setTimeout(() => { if (mounted) setReviews(r => r + 1); }, 3600);
     show('Recall sent → Arjun Nair (6 months gap)',    '#60a5fa', 'bell', 4400);
     highlight(4, 4600, 'confirmed');
     ts.current.push(rv);
-    return () => ts.current.forEach(clearTimeout);
+    return () => { mounted = false; ts.current.forEach(clearTimeout); };
   }, [active, reset]);
 
   const toastBg   = toast?.icon === 'wa' ? 'rgba(37,211,102,0.12)' : toast?.icon === 'star' ? 'rgba(245,158,11,0.12)' : 'rgba(96,165,250,0.12)';
@@ -157,14 +160,15 @@ function SEOPanel({ active, light = false }: { active: boolean; light?: boolean 
 
   useEffect(() => {
     if (!active) { ts.current.forEach(clearTimeout); setRank(4); setReviews(31); setLit(null); return; }
-    const t1 = setTimeout(() => setRank(3),      900);
-    const t2 = setTimeout(() => setRank(2),      2000);
-    const t3 = setTimeout(() => { setRank(1); setLit(1); setTimeout(() => setLit(null), 1200); }, 3200);
-    const t4 = setTimeout(() => setReviews(r => r + 1), 1400);
-    const t5 = setTimeout(() => setReviews(r => r + 1), 3000);
-    const t6 = setTimeout(() => setReviews(r => r + 1), 4600);
+    let mounted = true;
+    const t1 = setTimeout(() => { if (mounted) setRank(3); },      900);
+    const t2 = setTimeout(() => { if (mounted) setRank(2); },      2000);
+    const t3 = setTimeout(() => { if (!mounted) return; setRank(1); setLit(1); setTimeout(() => { if (mounted) setLit(null); }, 1200); }, 3200);
+    const t4 = setTimeout(() => { if (mounted) setReviews(r => r + 1); }, 1400);
+    const t5 = setTimeout(() => { if (mounted) setReviews(r => r + 1); }, 3000);
+    const t6 = setTimeout(() => { if (mounted) setReviews(r => r + 1); }, 4600);
     ts.current = [t1,t2,t3,t4,t5,t6];
-    return () => ts.current.forEach(clearTimeout);
+    return () => { mounted = false; ts.current.forEach(clearTimeout); };
   }, [active]);
 
   const results = [
@@ -227,14 +231,15 @@ function WebsitePanel({ active, light = false }: { active: boolean; light?: bool
 
   useEffect(() => {
     if (!active) { ts.current.forEach(clearTimeout); setLoaded(false); setBarW(0); setVisits(124); return; }
-    const t1 = setTimeout(() => setBarW(60),   400);
-    const t2 = setTimeout(() => setBarW(85),   900);
-    const t3 = setTimeout(() => { setBarW(100); setLoaded(true); }, 1500);
-    const t4 = setTimeout(() => setVisits(v => v + 3),  2200);
-    const t5 = setTimeout(() => setVisits(v => v + 5),  3400);
-    const t6 = setTimeout(() => setVisits(v => v + 4),  4600);
+    let mounted = true;
+    const t1 = setTimeout(() => { if (mounted) setBarW(60); },   400);
+    const t2 = setTimeout(() => { if (mounted) setBarW(85); },   900);
+    const t3 = setTimeout(() => { if (!mounted) return; setBarW(100); setLoaded(true); }, 1500);
+    const t4 = setTimeout(() => { if (mounted) setVisits(v => v + 3); },  2200);
+    const t5 = setTimeout(() => { if (mounted) setVisits(v => v + 5); },  3400);
+    const t6 = setTimeout(() => { if (mounted) setVisits(v => v + 4); },  4600);
     ts.current = [t1,t2,t3,t4,t5,t6];
-    return () => ts.current.forEach(clearTimeout);
+    return () => { mounted = false; ts.current.forEach(clearTimeout); };
   }, [active]);
 
   const trust = ['⭐ 4.9 Google Rating','🦷 10+ Years Experience','✓ Same-Day Appointments'];
@@ -302,19 +307,21 @@ function BookingPanel({ active, light = false }: { active: boolean; light?: bool
 
   useEffect(() => {
     if (!active) { ts.current.forEach(clearTimeout); setSlots(SLOTS); setFlash(null); setNoShows(3); return; }
+    let mounted = true;
     const fill = (time: string, name: string, tx: string, delay: number) => {
       const t = setTimeout(() => {
+        if (!mounted) return;
         setSlots(prev => prev.map(s => s.time === time ? { ...s, name, tx, filled: true } : s));
         setFlash(time);
-        setTimeout(() => setFlash(null), 1200);
+        setTimeout(() => { if (mounted) setFlash(null); }, 1200);
       }, delay);
       ts.current.push(t);
     };
     fill('12:00 PM', 'Arjun N.', 'Implant', 1200);
     fill('3:30 PM',  'Kavya R.', 'Whitening', 3000);
-    const t = setTimeout(() => setNoShows(0), 4000);
+    const t = setTimeout(() => { if (mounted) setNoShows(0); }, 4000);
     ts.current.push(t);
-    return () => ts.current.forEach(clearTimeout);
+    return () => { mounted = false; ts.current.forEach(clearTimeout); };
   }, [active]);
 
   return (
@@ -367,14 +374,16 @@ function WhatsAppPanel({ active, light = false }: { active: boolean; light?: boo
 
   useEffect(() => {
     if (!active) { ts.current.forEach(clearTimeout); setMsgs([WA_MSGS[0]]); setSent(1); return; }
+    let mounted = true;
     WA_MSGS.slice(1).forEach((m) => {
       const t = setTimeout(() => {
+        if (!mounted) return;
         setMsgs(prev => [...prev, { ...m, status: 'delivered' as const }].slice(-4));
         setSent(s => s + 1);
       }, m.delay);
       ts.current.push(t);
     });
-    return () => ts.current.forEach(clearTimeout);
+    return () => { mounted = false; ts.current.forEach(clearTimeout); };
   }, [active]);
 
   return (
@@ -441,28 +450,25 @@ export function HeroCRMPanel({ onPanelChange, light = false }: { onPanelChange?:
   }, [onPanelChange]);
 
   useEffect(() => {
-    // progress bar
-    setProgress(0);
+    // progress bar ticks independently
     progRef.current = setInterval(() => {
-      setProgress(p => {
-        if (p >= 100) return 0;
-        return p + (100 / (PANEL_DURATION / 80));
-      });
+      setProgress(p => (p >= 100 ? 0 : p + (100 / (PANEL_DURATION / 80))));
     }, 80);
-    // auto-advance
+    // auto-advance panels
     autoRef.current = setInterval(() => {
       setActive(a => {
         const next = (a + 1) % TABS.length;
         onPanelChange?.(next);
+        setProgress(0);
         return next;
       });
-      setProgress(0);
     }, PANEL_DURATION);
     return () => {
       if (autoRef.current)  clearInterval(autoRef.current);
       if (progRef.current) clearInterval(progRef.current);
     };
-  }, [active, onPanelChange]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const bg = light
     ? 'linear-gradient(135deg,#F8F6F3 0%,#fff 60%,#f0ede8 100%)'
@@ -492,7 +498,7 @@ export function HeroCRMPanel({ onPanelChange, light = false }: { onPanelChange?:
         </div>
 
         {/* tabs */}
-        <div style={{ display: 'flex', gap: 0, borderBottom: light ? '1px solid #E5E7EB' : '1px solid rgba(255,255,255,0.06)', overflowX: 'auto', scrollbarWidth: 'none' }}>
+        <div style={{ display: 'flex', gap: 0, borderBottom: light ? '1px solid #E5E7EB' : '1px solid rgba(255,255,255,0.06)', overflowX: 'auto', scrollbarWidth: 'none' }} className="hero-crm-panel">
           {TABS.map((t, i) => (
             <button
               key={t.label}
@@ -518,20 +524,30 @@ export function HeroCRMPanel({ onPanelChange, light = false }: { onPanelChange?:
           <div style={{ height: '100%', width: `${progress}%`, background: 'linear-gradient(90deg,#E86C2F,#f59e0b)', transition: 'width 0.08s linear' }} />
         </div>
 
-        {/* panel content */}
-        <div key={active} style={{ animation: 'panelFade 0.35s ease' }}>
-          {active === 0 && <CRMPanel      active={active === 0} />}
-          {active === 1 && <SEOPanel      active={active === 1} />}
-          {active === 2 && <WebsitePanel  active={active === 2} />}
-          {active === 3 && <BookingPanel  active={active === 3} />}
-          {active === 4 && <WhatsAppPanel active={active === 4} />}
+        {/* panel content — no key={active} to avoid remount flash; use opacity transition */}
+        <div style={{ position: 'relative', minHeight: 260 }}>
+          {[CRMPanel, SEOPanel, WebsitePanel, BookingPanel, WhatsAppPanel].map((Panel, i) => (
+            <div
+              key={i}
+              style={{
+                position: i === active ? 'relative' : 'absolute',
+                top: 0, left: 0, right: 0,
+                opacity: i === active ? 1 : 0,
+                pointerEvents: i === active ? 'auto' : 'none',
+                transition: 'opacity 0.3s ease',
+                zIndex: i === active ? 1 : 0,
+              }}
+            >
+              <Panel active={i === active} light={light} />
+            </div>
+          ))}
         </div>
       </div>
 
       <style>{`
         @keyframes toastIn  { from { opacity:0; transform:translateY(-5px) scale(.97); } to { opacity:1; transform:none; } }
         @keyframes panelFade { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:none; } }
-        ::-webkit-scrollbar { display: none; }
+        .hero-crm-panel::-webkit-scrollbar { display: none; }
       `}</style>
     </div>
   );
