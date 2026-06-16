@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Reveal } from './Reveal';
+import { Boxes } from './ui/background-boxes';
 
 const NAP_ADDRESS = 'Nayak Layout, 8th Phase, J. P. Nagar, Bengaluru, Karnataka 560076';
 const NAP_PHONE = '+91 83284 43057';
@@ -64,13 +65,26 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="full-bleed" style={{ background: '#111122' }}>
+    <footer className="full-bleed" style={{ background: '#111122', position: 'relative', overflow: 'hidden' }}>
+
+      {/* Animated background boxes — subtle, masked to fade at edges */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <Boxes className="opacity-40" />
+      </div>
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background: '#111122',
+          maskImage: 'radial-gradient(ellipse 80% 60% at 50% 0%, transparent 20%, white 75%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 80% 60% at 50% 0%, transparent 20%, white 75%)',
+        }}
+      />
 
       {/* Saffron top accent border */}
-      <div style={{ height: 2, background: 'linear-gradient(90deg, #E86C2F 0%, #f59e0b 60%, transparent 100%)' }} />
+      <div style={{ height: 2, background: 'linear-gradient(90deg, #E86C2F 0%, #f59e0b 60%, transparent 100%)', position: 'relative', zIndex: 2 }} />
 
       {/* Micro-CTA strip — tightened copy */}
-      <div style={{ background: 'rgba(232,108,47,0.07)', borderBottom: '1px solid rgba(232,108,47,0.12)' }}>
+      <div style={{ background: 'rgba(232,108,47,0.07)', borderBottom: '1px solid rgba(232,108,47,0.12)', position: 'relative', zIndex: 2 }}>
         <div className="site-container" style={{ padding: '13px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
           <p style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.55)', margin: 0 }}>
             💬 Still deciding? See the CRM live first.
@@ -87,7 +101,7 @@ export function Footer() {
       </div>
 
       {/* Main footer grid */}
-      <div className="site-container" style={{ paddingTop: '3.5rem', paddingBottom: '3rem' }}>
+      <div className="site-container" style={{ paddingTop: '3.5rem', paddingBottom: '3rem', position: 'relative', zIndex: 2 }}>
         <div style={{ display: 'grid', gap: '2.5rem', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))' }}>
 
           {/* Col 1 — Brand + contact + CTA */}
@@ -235,7 +249,7 @@ export function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+      <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', position: 'relative', zIndex: 2, background: '#111122' }}>
         <div className="site-container" style={{ padding: '1rem 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
           <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)', margin: 0 }}>
             © 2026 AgastyaOne · Built in Bengaluru 🦷
