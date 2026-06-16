@@ -145,27 +145,27 @@ export function Hero({
           </p>
 
           {showCRM && (
-            <div className="my-8 lg:hidden">
+            <div className="my-8 lg:hidden" style={{ minHeight: 420 }}>
               <HeroCRMPanelClient onPanelChange={setPanelIdx} light={lightPanel} />
             </div>
           )}
           {!showCRM && slug === 'dental-seo-services' && (
-            <div className="my-8 lg:hidden">
+            <div className="my-8 lg:hidden" style={{ minHeight: 420 }}>
               <SEOHeroPanel />
             </div>
           )}
           {!showCRM && slug === 'dental-marketing-services' && (
-            <div className="my-8 lg:hidden">
+            <div className="my-8 lg:hidden" style={{ minHeight: 420 }}>
               <MarketingHeroPanel />
             </div>
           )}
           {showWebsitePanel && (
-            <div className="my-8 lg:hidden">
+            <div className="my-8 lg:hidden" style={{ minHeight: 420 }}>
               <HeroDentalWebsitePanelClient />
             </div>
           )}
           {showAboutPanel && (
-            <div className="my-8 lg:hidden">
+            <div className="my-8 lg:hidden" style={{ minHeight: 420 }}>
               <HeroAboutPanelClient />
             </div>
           )}
