@@ -1,10 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import { Reveal } from './Reveal';
-
-const Boxes = dynamic(() => import('./ui/background-boxes').then(m => m.Boxes), { ssr: false });
 
 const NAP_ADDRESS = 'Nayak Layout, 8th Phase, J. P. Nagar, Bengaluru, Karnataka 560076';
 const NAP_PHONE = '+91 83284 43057';
@@ -69,16 +66,14 @@ export function Footer() {
   return (
     <footer className="full-bleed" style={{ background: '#111122', position: 'relative', overflow: 'hidden' }}>
 
-      {/* Animated background boxes — subtle, masked to fade at edges */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <Boxes className="opacity-40" />
-      </div>
+      {/* Subtle dot grid texture — pure CSS, zero JS cost */}
       <div
-        className="absolute inset-0 z-[1] pointer-events-none"
+        className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          background: '#111122',
-          maskImage: 'radial-gradient(ellipse 80% 60% at 50% 0%, transparent 20%, white 75%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 80% 60% at 50% 0%, transparent 20%, white 75%)',
+          backgroundImage: 'radial-gradient(rgba(232,108,47,0.10) 1px, transparent 1px)',
+          backgroundSize: '24px 24px',
+          maskImage: 'radial-gradient(ellipse 80% 60% at 50% 0%, white 20%, transparent 75%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 80% 60% at 50% 0%, white 20%, transparent 75%)',
         }}
       />
 
