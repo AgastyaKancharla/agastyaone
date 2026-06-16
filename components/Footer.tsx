@@ -1,8 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { Reveal } from './Reveal';
-import { Boxes } from './ui/background-boxes';
+
+const Boxes = dynamic(() => import('./ui/background-boxes').then(m => m.Boxes), { ssr: false });
 
 const NAP_ADDRESS = 'Nayak Layout, 8th Phase, J. P. Nagar, Bengaluru, Karnataka 560076';
 const NAP_PHONE = '+91 83284 43057';

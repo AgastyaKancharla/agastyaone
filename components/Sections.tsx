@@ -4,7 +4,6 @@ import React from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import type { CSSProperties } from 'react';
-import { PANEL_SUBTITLES } from './HeroCRMPanel';
 
 const HeroCRMPanelClient = dynamic(
   () => import('./HeroCRMPanel').then(m => m.HeroCRMPanel),

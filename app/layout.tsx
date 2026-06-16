@@ -4,6 +4,21 @@ import { Footer } from '@/components/Footer';
 import { GlobalActions } from '@/components/GlobalActions';
 import { Header } from '@/components/Header';
 import Script from 'next/script';
+import { Inter, Poppins } from 'next/font/google';
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-body',
+  display: 'swap',
+});
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['500', '700', '800'],
+  variable: '--font-heading',
+  display: 'swap',
+});
 
 const GA_ID = 'G-541227762';
 
@@ -42,18 +57,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <head>
         <meta name="google-site-verification" content="W05c83XlGJch8hKnLcEltxSbYEgYAcSBtuE29jGqjNs" />
 
-        {/* Preconnect to font origins */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;700;800&display=swap"
-          rel="stylesheet"
-        />
 
         <script
           type="application/ld+json"

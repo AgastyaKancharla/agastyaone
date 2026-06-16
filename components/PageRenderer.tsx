@@ -1,17 +1,23 @@
+import dynamic from 'next/dynamic';
 import { CardGrid, ContactStrip, FAQ, Hero, Section, Steps, TextSections, TrustBar } from './Sections';
-import { WebsitePagesTabs } from './WebsitePagesTabs';
-import { CRMDemo } from './CRMDemo';
-import { ServicesInteractive } from './ServicesInteractive';
-import { AgencyVsUs } from './AgencyVsUs';
-import { BookingWidget } from './BookingWidget';
-import { AppointmentFeatureTabs } from './AppointmentFeatureTabs';
-import { InvisibilityCalculator } from './InvisibilityCalculator';
-import { SEOProofStrip, TwoTrackSection, TimelineSection, SEOFaq } from './SEOPageContent';
-import { SEOFeatureTabs } from './SEOFeatureTabs';
-import { CRMFeaturesSection } from './CRMFeaturesSection';
-import { MarketingFeatureTabs } from './MarketingFeatureTabs';
-import { AboutPage } from './AboutPage';
 import { faqSchemaForPage, getLocationContent, type SitePage } from '@/lib/site-data';
+
+// Heavy, page-specific components — loaded only when the relevant page renders
+const WebsitePagesTabs = dynamic(() => import('./WebsitePagesTabs').then(m => m.WebsitePagesTabs));
+const CRMDemo = dynamic(() => import('./CRMDemo').then(m => m.CRMDemo));
+const ServicesInteractive = dynamic(() => import('./ServicesInteractive').then(m => m.ServicesInteractive));
+const AgencyVsUs = dynamic(() => import('./AgencyVsUs').then(m => m.AgencyVsUs));
+const BookingWidget = dynamic(() => import('./BookingWidget').then(m => m.BookingWidget));
+const AppointmentFeatureTabs = dynamic(() => import('./AppointmentFeatureTabs').then(m => m.AppointmentFeatureTabs));
+const InvisibilityCalculator = dynamic(() => import('./InvisibilityCalculator').then(m => m.InvisibilityCalculator));
+const SEOProofStrip = dynamic(() => import('./SEOPageContent').then(m => m.SEOProofStrip));
+const TwoTrackSection = dynamic(() => import('./SEOPageContent').then(m => m.TwoTrackSection));
+const TimelineSection = dynamic(() => import('./SEOPageContent').then(m => m.TimelineSection));
+const SEOFaq = dynamic(() => import('./SEOPageContent').then(m => m.SEOFaq));
+const SEOFeatureTabs = dynamic(() => import('./SEOFeatureTabs').then(m => m.SEOFeatureTabs));
+const CRMFeaturesSection = dynamic(() => import('./CRMFeaturesSection').then(m => m.CRMFeaturesSection));
+const MarketingFeatureTabs = dynamic(() => import('./MarketingFeatureTabs').then(m => m.MarketingFeatureTabs));
+const AboutPage = dynamic(() => import('./AboutPage').then(m => m.AboutPage));
 
 export function PageRenderer({ page, schema = false }: { page: SitePage; schema?: boolean }) {
   const isAppointmentPage = page.slug === 'dentist-appointment-software';
