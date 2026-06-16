@@ -146,18 +146,19 @@ export function Header() {
       }}>
         <div style={{ 
           display: 'grid',
-          gridTemplateColumns: '1fr auto 1fr',
+          gridTemplateColumns: 'auto 1fr auto',
           alignItems: 'center',
           padding: '0 clamp(1rem,4vw,2.5rem)',
           height: 72,
+          gap: 8,
         }}>
-          {/* Logo — left */}
-          <Link href="/" className="font-heading font-black text-charcoal shrink-0" style={{ fontSize: 24, lineHeight: 1, display: 'flex', alignItems: 'center' }}>
+          {/* Logo — left, responsive size to prevent mobile overlap */}
+          <Link href="/" className="font-heading font-black text-charcoal shrink-0" style={{ fontSize: 'clamp(18px, 5vw, 24px)', lineHeight: 1, display: 'flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
             Agastya<span className="text-saffron">One</span>
           </Link>
 
           {/* Desktop nav — perfectly centered */}
-          <nav className="hidden items-center gap-7 text-sm font-medium text-charcoal lg:flex" style={{ alignItems: 'center' }}>
+          <nav className="hidden items-center justify-center gap-7 text-sm font-medium text-charcoal lg:flex" style={{ alignItems: 'center' }}>
             <ServicesDropdown pathname={pathname} />
             {TOP_LINKS.map(link => (
               <Link key={link.href} href={link.href}
@@ -169,7 +170,7 @@ export function Header() {
           </nav>
 
           {/* Right — CTA + mobile controls */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8, flexShrink: 0 }}>
             <Link href="/contact"
               className="hidden lg:inline-flex items-center justify-center rounded-full bg-[#E86C2F] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-600">
               Book a Free Call
