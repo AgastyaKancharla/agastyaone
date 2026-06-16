@@ -23,20 +23,28 @@ const poppins = Poppins({
 const GA_ID = 'G-541227762';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://agastyaone.com'),
+  metadataBase: new URL('https://agastyaone.vercel.app'),
   title: {
     default: 'AgastyaOne | Dental Digital Solutions in Bengaluru',
     template: '%s'
   },
   description:
     'Websites, CRM, SEO and automation for dental clinics in Bengaluru. Built by someone who has built real dental systems. Book a free 30 min call.',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '16x16', type: 'image/x-icon' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
   openGraph: {
     type: 'website',
     siteName: 'AgastyaOne',
     title: 'AgastyaOne | Dental Digital Solutions in Bengaluru',
     description:
       'Websites, CRM, SEO and automation for dental clinics in Bengaluru. Built by someone who has built real dental systems.',
-    url: 'https://agastyaone.com',
+    url: 'https://agastyaone.vercel.app',
     images: [
       {
         url: '/og-image.png',
@@ -70,7 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@type': 'LocalBusiness',
               name: 'AgastyaOne',
               description: 'Dental digital solutions in Bengaluru — websites, CRM, SEO and automation for dental clinics',
-              url: 'https://agastyaone.com',
+              url: 'https://agastyaone.vercel.app',
               email: 'hello@agastyaone.com',
               telephone: '+91-8328444057',
               address: {
@@ -95,7 +103,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 'J. P. Nagar',
                 'Bengaluru'
               ],
-              sameAs: ['https://agastyaone.com']
+              sameAs: ['https://agastyaone.vercel.app']
             })
           }}
         />

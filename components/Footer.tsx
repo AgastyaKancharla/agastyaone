@@ -57,8 +57,6 @@ function WhatsAppIcon() {
 }
 
 const socialLinks = [
-  { href: 'https://instagram.com/agastyaone', label: 'Instagram', Icon: InstagramIcon },
-  { href: 'https://linkedin.com/company/agastyaone', label: 'LinkedIn', Icon: LinkedInIcon },
   { href: WA_HREF, label: 'WhatsApp', Icon: WhatsAppIcon },
 ];
 
