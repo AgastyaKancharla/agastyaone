@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import { Phone, X } from 'lucide-react';
 
-const WA_NUMBER = '918328444057';
-const PHONE_NUMBER = '+918328444057';
+const WA_NUMBER = '918951553531';
+const PHONE_NUMBER = '+918951553531';
 const WA_MESSAGE = encodeURIComponent(
   'Hi Agastya, I run a dental clinic in Bangalore and would like to learn more about your services.'
 );
