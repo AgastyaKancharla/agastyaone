@@ -122,7 +122,7 @@ export function Hero({
     <section className="full-bleed overflow-hidden bg-gradient-to-br from-[#F8F6F3] to-white">
       <div className="dot-grid absolute inset-0 opacity-70" aria-hidden="true" />
       <div className={"site-container relative grid items-center gap-8 py-10 md:py-16 lg:py-20 " + (showCRM || ['dental-website-development','dental-seo-services','dentist-appointment-software','dental-marketing-services','dental-practice-automation'].includes(slug) ? "lg:grid-cols-[1fr_.95fr]" : "lg:grid-cols-[1.05fr_.95fr]")}>
-        <Reveal>
+        <div>
           <p className="mb-4 inline-flex items-center rounded-full bg-orange-100 px-4 py-1 text-sm font-medium text-orange-700">
             ✨ Bengaluru growth systems
           </p>
@@ -183,7 +183,7 @@ export function Hero({
               </a>
             )}
           </div>
-        </Reveal>
+        </div>
 
         {showCRM && (
           <Reveal delay={160} className="hidden lg:block">

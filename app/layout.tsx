@@ -106,17 +106,31 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <GlobalActions />
 
-        {/* Google Analytics GA4 — deferred until browser is idle, doesn't compete with rendering */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          strategy="lazyOnload"
-        />
-        <Script id="ga4-init" strategy="lazyOnload">
+        {/* Google Analytics GA4 — loaded only after first user interaction or 4s idle,
+            whichever comes first, so it never competes with LCP/initial render */}
+        <Script id="ga4-delayed-load" strategy="afterInteractive">
           {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_ID}');
+            (function() {
+              var loaded = false;
+              function loadGA() {
+                if (loaded) return;
+                loaded = true;
+                var s = document.createElement('script');
+                s.src = 'https://www.googletagmanager.com/gtag/js?id=${GA_ID}';
+                s.async = true;
+                document.head.appendChild(s);
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){window.dataLayer.push(arguments);}
+                window.gtag = gtag;
+                gtag('js', new Date());
+                gtag('config', '${GA_ID}');
+              }
+              var events = ['scroll', 'mousemove', 'touchstart', 'keydown', 'click'];
+              events.forEach(function(e) {
+                window.addEventListener(e, loadGA, { once: true, passive: true });
+              });
+              setTimeout(loadGA, 4000);
+            })();
           `}
         </Script>
       </body>
