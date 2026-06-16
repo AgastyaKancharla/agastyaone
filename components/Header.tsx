@@ -5,7 +5,7 @@ import { Phone, ChevronDown } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
-const WA_NUMBER  = '918328444057';
+const WA_NUMBER  = '918951553531';
 const WA_MESSAGE = encodeURIComponent('Hi Agastya, I run a dental clinic and would like to learn more about your services.');
 
 const SERVICE_LINKS = [
@@ -175,7 +175,7 @@ export function Header() {
               className="hidden lg:inline-flex items-center justify-center rounded-full bg-[#E86C2F] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-600">
               Book a Free Call
             </Link>
-            <a href="tel:+918328444057" aria-label="Call AgastyaOne"
+            <a href="tel:+918951553531" aria-label="Call AgastyaOne"
               className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-charcoal transition hover:border-saffron hover:text-saffron">
               <Phone size={17} />
             </a>
@@ -250,7 +250,7 @@ export function Header() {
 
         <div className="px-5 py-5 flex flex-col gap-3">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted">Get in touch</p>
-          <a href="tel:+918328444057"
+          <a href="tel:+918951553531"
             className="flex items-center gap-3 rounded-xl border border-gray-200 px-4 py-3.5 text-sm font-medium text-charcoal transition hover:border-saffron hover:text-saffron">
             <Phone size={17} className="shrink-0 text-saffron" />
             +91 83284 43057
