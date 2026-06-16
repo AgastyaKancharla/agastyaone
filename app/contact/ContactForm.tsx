@@ -68,7 +68,7 @@ export function ContactForm() {
         <p style={{ color: '#6B7280', fontSize: 14, lineHeight: 1.7, marginBottom: 20 }}>
           We will WhatsApp you within 2 hours to confirm your call on <strong>{selectedDate}</strong> between <strong>{selectedSlot}</strong>.
         </p>
-        <a href={`https://wa.me/918328444057?text=${encodeURIComponent('Hi Agastya, I just booked a call on your website!')}`}
+        <a href={`https://wa.me/918951553531?text=${encodeURIComponent('Hi Agastya, I just booked a call on your website!')}`}
           target="_blank" rel="noopener noreferrer"
           style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#25D366', color: '#fff', borderRadius: 999, padding: '10px 20px', fontSize: 13, fontWeight: 700, textDecoration: 'none' }}>
           💬 Message us on WhatsApp now →
@@ -163,12 +163,12 @@ export function ContactForm() {
 
       <p style={{ textAlign: 'center', fontSize: 11, color: '#9CA3AF', margin: 0 }}>
         We confirm on WhatsApp within 2 hours ·{' '}
-        <a href="tel:+918328444057" style={{ color: '#E86C2F' }}>Or call us directly</a>
+        <a href="tel:+918951553531" style={{ color: '#E86C2F' }}>Or call us directly</a>
       </p>
 
       {status === 'error' && (
         <p style={{ background: '#FEF2F2', borderRadius: 8, padding: '12px', fontSize: 13, color: '#DC2626' }}>
-          Something went wrong. WhatsApp us at <a href="https://wa.me/918328444057" style={{ fontWeight: 700 }}>+91 83284 43057</a>
+          Something went wrong. WhatsApp us at <a href="https://wa.me/918951553531" style={{ fontWeight: 700 }}>+91 83284 43057</a>
         </p>
       )}
     </form>
