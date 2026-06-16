@@ -109,7 +109,7 @@ export default function ContactPage() {
               <span style={{ fontSize: 20 }}>💬</span>
               <div>
                 <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 11 }}>Prefer to message directly?</div>
-                <a href="https://wa.me/918328444057" target="_blank" rel="noopener noreferrer" style={{ color: '#25D366', fontSize: 13, fontWeight: 700, textDecoration: 'none' }}>
+                <a href="https://wa.me/918951553531" target="_blank" rel="noopener noreferrer" style={{ color: '#25D366', fontSize: 13, fontWeight: 700, textDecoration: 'none' }}>
                   WhatsApp +91 83284 43057 →
                 </a>
               </div>
