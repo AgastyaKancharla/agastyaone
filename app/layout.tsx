@@ -80,7 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               description: 'Dental digital solutions in Bengaluru — websites, CRM, SEO and automation for dental clinics',
               url: 'https://agastyaone.vercel.app',
               email: 'hello@agastyaone.com',
-              telephone: '+91-8328444057',
+              telephone: '+91-8951553531',
               address: {
                 '@type': 'PostalAddress',
                 streetAddress: 'Nayak Layout, 8th Phase, J. P. Nagar',
