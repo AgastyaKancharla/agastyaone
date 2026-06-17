@@ -27,15 +27,24 @@ export function GlobalActions() {
     return () => clearTimeout(t);
   }, []);
 
-  // Open external links in new tab
+  // Open external links in new tab — deferred to idle so it never competes with LCP
   useEffect(() => {
-    const links = document.querySelectorAll<HTMLAnchorElement>('a[href^="http"]');
-    links.forEach((link) => {
-      if (link.hostname && link.hostname !== window.location.hostname) {
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-      }
-    });
+    const patchLinks = () => {
+      const links = document.querySelectorAll<HTMLAnchorElement>('a[href^="http"]');
+      links.forEach((link) => {
+        if (link.hostname && link.hostname !== window.location.hostname) {
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+        }
+      });
+    };
+    if ('requestIdleCallback' in window) {
+      const id = (window as any).requestIdleCallback(patchLinks, { timeout: 2000 });
+      return () => (window as any).cancelIdleCallback?.(id);
+    } else {
+      const t = setTimeout(patchLinks, 1000);
+      return () => clearTimeout(t);
+    }
   }, []);
 
   return (

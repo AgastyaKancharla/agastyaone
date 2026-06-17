@@ -11,13 +11,15 @@ const inter = Inter({
   weight: ['400', '500', '600', '700', '800'],
   variable: '--font-body',
   display: 'swap',
+  preload: true,
 });
 
 const poppins = Poppins({
   subsets: ['latin'],
-  weight: ['500', '700', '800'],
+  weight: ['500', '600', '700', '800', '900'],
   variable: '--font-heading',
   display: 'swap',
+  preload: true,
 });
 
 const GA_ID = 'G-541227762';
