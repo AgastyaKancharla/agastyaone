@@ -118,6 +118,23 @@ export function Hero({
   const [panelIdx, setPanelIdx] = React.useState(0);
   const displaySubtitle = subtitle;
 
+  // Hero headline rendered with semantic line breaks for clean wrapping on all screen sizes
+  const HeroHeadline = () => (
+    <h1
+      className="font-heading font-black leading-tight tracking-tight text-[#1A1A2E]"
+      style={{ fontSize: 'clamp(1.75rem, 8vw, 4.5rem)' }}
+    >
+      We Help Bengaluru{' '}
+      <span className="bg-gradient-to-r from-[#E86C2F] to-[#f59e0b] bg-clip-text text-transparent">
+        Dental Clinics
+      </span>
+      <br />
+      Rank Higher, Get More Reviews
+      <br />
+      &amp; Book More Patients
+    </h1>
+  );
+
   return (
     <section className="full-bleed overflow-hidden bg-gradient-to-br from-[#F8F6F3] to-white">
       <div className="dot-grid absolute inset-0 opacity-70" aria-hidden="true" />
@@ -126,20 +143,7 @@ export function Hero({
           <p className="mb-4 inline-flex items-center rounded-full bg-orange-100 px-4 py-1 text-sm font-medium text-orange-700">
             ✨ Bengaluru growth systems
           </p>
-          <h1 className="font-heading text-[2rem] font-black leading-tight tracking-tight text-[#1A1A2E] sm:text-5xl md:text-7xl"
-              style={{ fontSize: 'clamp(1.75rem, 8vw, 4.5rem)' }}>
-            {highlightedTitle.length > 1 ? (
-              <>
-                {highlightedTitle[0]}
-                <span className="bg-gradient-to-r from-[#E86C2F] to-[#f59e0b] bg-clip-text text-transparent">
-                  Dental Clinics
-                </span>
-                {highlightedTitle[1]}
-              </>
-            ) : (
-              title
-            )}
-          </h1>
+          <HeroHeadline />
           <p className="mt-6 max-w-2xl text-base leading-7 text-gray-600 md:text-lg md:leading-8">
             {displaySubtitle}
           </p>
