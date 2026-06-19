@@ -114,8 +114,8 @@ export function Footer() {
                 <a href={NAP_PHONE_HREF} style={{ fontSize: '0.83rem', color: 'rgba(255,255,255,0.65)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 7 }}>
                   <span style={{ color: '#E86C2F' }}>📞</span>{NAP_PHONE}
                 </a>
-                <a href="mailto:hello@agastyaone.com" style={{ fontSize: '0.83rem', color: 'rgba(255,255,255,0.65)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 7 }}>
-                  <span style={{ color: '#E86C2F' }}>✉️</span>hello@agastyaone.com
+                <a href="mailto:kancharlaagastya@gmail.com" style={{ fontSize: '0.83rem', color: 'rgba(255,255,255,0.65)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 7 }}>
+                  <span style={{ color: '#E86C2F' }}>✉️</span>kancharlaagastya@gmail.com
                 </a>
                 <address style={{ fontStyle: 'normal', fontSize: '0.78rem', color: 'rgba(255,255,255,0.3)', lineHeight: 1.5, marginTop: 2 }}>
                   {NAP_ADDRESS}
