@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import type { CSSProperties } from 'react';
+import { PANEL_SUBTITLES } from './HeroCRMPanel';
 
 const HeroCRMPanelClient = dynamic(
   () => import('./HeroCRMPanel').then(m => m.HeroCRMPanel),
@@ -12,11 +13,6 @@ const HeroCRMPanelClient = dynamic(
 
 const HeroDentalWebsitePanelClient = dynamic(
   () => import('./HeroDentalWebsitePanel').then(m => m.HeroDentalWebsitePanelClient),
-  { ssr: false }
-);
-
-const HeroAboutPanelClient = dynamic(
-  () => import('./HeroAboutPanel').then(m => m.HeroAboutPanelClient),
   { ssr: false }
 );
 import {
@@ -46,6 +42,26 @@ const serviceIcons: Record<string, string> = {
   Loyalty: '⭐',
   Automation: '⚡'
 };
+
+function heroEyebrow(slug: string) {
+  const map: Record<string, string> = {
+    'dental-crm-software': '📋 Patient Management',
+    'dental-website-development': '🌐 Websites That Convert',
+    'dental-seo-services': '🔍 Get Found on Google',
+    'dentist-appointment-software': '📅 Smart Scheduling',
+    'dental-marketing-services': '📣 Patient Growth',
+    'dental-practice-automation': '⚡ Less Manual Work',
+    'dental-solutions': '🦷 Full Solutions Suite',
+    'dental-solutions-bangalore': '🦷 Bangalore Clinics',
+    'dental-crm-bangalore': '📋 CRM for Bangalore',
+    'dental-seo-bangalore': '🔍 SEO for Bangalore',
+    'dental-website-development-bangalore': '🌐 Websites for Bangalore',
+    'about': '👋 Our Story',
+    'blog': '📝 Insights',
+    'contact': '💬 Let\'s Talk',
+  };
+  return map[slug] || '✨ AgastyaOne';
+}
 
 function pillForTitle(title?: string, eyebrow?: string) {
   if (eyebrow) return eyebrow;
@@ -101,7 +117,6 @@ export function Hero({
   showCRM = false,
   lightPanel = false,
   showWebsitePanel = false,
-  showAboutPanel = false,
   slug = '',
 }: {
   title: string;
@@ -111,66 +126,56 @@ export function Hero({
   showCRM?: boolean;
   lightPanel?: boolean;
   showWebsitePanel?: boolean;
-  showAboutPanel?: boolean;
   slug?: string;
 }) {
   const highlightedTitle = title.split('Dental Clinics');
   const [panelIdx, setPanelIdx] = React.useState(0);
-  const displaySubtitle = subtitle;
-
-  // Hero headline rendered with semantic line breaks for clean wrapping on all screen sizes
-  const HeroHeadline = () => (
-    <h1
-      className="font-heading font-black leading-tight tracking-tight text-[#1A1A2E]"
-      style={{ fontSize: 'clamp(1.75rem, 8vw, 4.5rem)' }}
-    >
-      We Help Bengaluru{' '}
-      <span className="bg-gradient-to-r from-[#E86C2F] to-[#f59e0b] bg-clip-text text-transparent">
-        Dental Clinics
-      </span>
-      <br />
-      Rank Higher, Get More Reviews
-      <br />
-      &amp; Book More Patients
-    </h1>
-  );
+  const displaySubtitle = showCRM ? PANEL_SUBTITLES[panelIdx] : subtitle;
 
   return (
     <section className="full-bleed overflow-hidden bg-gradient-to-br from-[#F8F6F3] to-white">
       <div className="dot-grid absolute inset-0 opacity-70" aria-hidden="true" />
       <div className={"site-container relative grid items-center gap-8 py-10 md:py-16 lg:py-20 " + (showCRM || ['dental-website-development','dental-seo-services','dentist-appointment-software','dental-marketing-services','dental-practice-automation'].includes(slug) ? "lg:grid-cols-[1fr_.95fr]" : "lg:grid-cols-[1.05fr_.95fr]")}>
-        <div>
+        <Reveal>
           <p className="mb-4 inline-flex items-center rounded-full bg-orange-100 px-4 py-1 text-sm font-medium text-orange-700">
-            ✨ Bengaluru growth systems
+            {slug === '' ? '✨ Bengaluru growth systems' : heroEyebrow(slug)}
           </p>
-          <HeroHeadline />
-          <p className="mt-6 max-w-2xl text-base leading-7 text-gray-600 md:text-lg md:leading-8">
+          <h1 className="font-heading text-[2rem] font-black leading-tight tracking-tight text-[#1A1A2E] sm:text-5xl md:text-7xl"
+              style={{ fontSize: 'clamp(1.75rem, 8vw, 4.5rem)' }}>
+            {highlightedTitle.length > 1 ? (
+              <>
+                {highlightedTitle[0]}
+                <span className="bg-gradient-to-r from-[#E86C2F] to-[#f59e0b] bg-clip-text text-transparent">
+                  Dental Clinics
+                </span>
+                {highlightedTitle[1]}
+              </>
+            ) : (
+              title
+            )}
+          </h1>
+          <p key={panelIdx} className="mt-6 max-w-2xl text-base leading-7 text-gray-600 md:text-lg md:leading-8" style={{ animation: showCRM ? 'subtitleFade 0.4s ease' : undefined }}>
             {displaySubtitle}
           </p>
 
           {showCRM && (
-            <div className="my-8 lg:hidden" style={{ minHeight: 420 }}>
+            <div className="my-8 lg:hidden">
               <HeroCRMPanelClient onPanelChange={setPanelIdx} light={lightPanel} />
             </div>
           )}
           {!showCRM && slug === 'dental-seo-services' && (
-            <div className="my-8 lg:hidden" style={{ minHeight: 420 }}>
+            <div className="my-8 lg:hidden">
               <SEOHeroPanel />
             </div>
           )}
           {!showCRM && slug === 'dental-marketing-services' && (
-            <div className="my-8 lg:hidden" style={{ minHeight: 420 }}>
+            <div className="my-8 lg:hidden">
               <MarketingHeroPanel />
             </div>
           )}
           {showWebsitePanel && (
-            <div className="my-8 lg:hidden" style={{ minHeight: 420 }}>
+            <div className="my-8 lg:hidden">
               <HeroDentalWebsitePanelClient />
-            </div>
-          )}
-          {showAboutPanel && (
-            <div className="my-8 lg:hidden" style={{ minHeight: 420 }}>
-              <HeroAboutPanelClient />
             </div>
           )}
 
@@ -187,7 +192,7 @@ export function Hero({
               </a>
             )}
           </div>
-        </div>
+        </Reveal>
 
         {showCRM && (
           <Reveal delay={160} className="hidden lg:block">
@@ -212,11 +217,6 @@ export function Hero({
             <HeroDentalWebsitePanelClient />
           </Reveal>
         )}
-        {showAboutPanel && (
-          <Reveal delay={160} className="hidden lg:block">
-            <HeroAboutPanelClient />
-          </Reveal>
-        )}
 
         {!showCRM && !showWebsitePanel && slug === 'dentist-appointment-software' && (
           <Reveal delay={160}>
@@ -224,7 +224,7 @@ export function Hero({
           </Reveal>
         )}
 
-        {!showCRM && !showWebsitePanel && !showAboutPanel && slug !== 'dental-seo-services' && slug !== 'dentist-appointment-software' && slug !== 'dental-marketing-services' && (
+        {!showCRM && !showWebsitePanel && slug !== 'dental-seo-services' && slug !== 'dentist-appointment-software' && slug !== 'dental-marketing-services' && (
           <Reveal delay={160}>
             <DashboardHeroPanel alt={imageAlt} />
           </Reveal>
@@ -975,7 +975,7 @@ export function Steps({ steps }: { steps: string[] }) {
             Book My Free Call →
           </a>
           <a
-            href={`https://wa.me/918951553531?text=${encodeURIComponent('Hi Agastya, I want to book a free call to discuss growing my dental clinic.')}`}
+            href={`https://wa.me/918328443057?text=${encodeURIComponent('Hi Agastya, I want to book a free call to discuss growing my dental clinic.')}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-[#25D366] px-8 py-3 font-heading text-sm font-semibold text-[#25D366] transition hover:bg-[#25D366] hover:text-white"
@@ -991,106 +991,81 @@ export function Steps({ steps }: { steps: string[] }) {
   );
 }
 
-const FAQ_CATEGORIES: { label: string; emoji: string; keys: string[] }[] = [
-  { label: 'Timeline & Process',   emoji: '⏱', keys: ['How long', 'What if I', 'setup take', 'take to build', 'When will', 'how soon'] },
-  { label: 'Pricing & Inclusions', emoji: '💰', keys: ['Do you write', 'What about ongoing', 'cost', 'price', 'Rs ', 'cancel', 'payment', 'included', 'Investment'] },
-  { label: 'Technical',            emoji: '🔧', keys: ['Will it show', 'Can I update', 'What does mobile', 'Do you build', 'WordPress', 'patient data', 'download', 'single-dentist', 'receptionist', 'safe', 'suitable'] },
-];
-
-function getFaqCategory(q: string): string {
-  const lower = q.toLowerCase();
-  for (const cat of FAQ_CATEGORIES) {
-    if (cat.keys.some(k => lower.includes(k.toLowerCase()))) return cat.label;
-  }
-  return 'General';
-}
-
-function groupFaqs(items: { q: string; a: string }[]) {
-  const groups: Record<string, { q: string; a: string }[]> = {};
-  for (const item of items) {
-    const cat = getFaqCategory(item.q);
-    if (!groups[cat]) groups[cat] = [];
-    groups[cat].push(item);
-  }
-  return groups;
-}
-
 export function FAQ({ items }: { items: { q: string; a: string }[] }) {
-  const [openKey, setOpenKey] = React.useState<string | null>(null);
-  const groups = groupFaqs(items);
-  const catOrder = FAQ_CATEGORIES.map(c => c.label).filter(l => groups[l]);
-  if (groups['General']) catOrder.push('General');
-
   return (
     <div className="mx-auto max-w-3xl">
-      {catOrder.map((catLabel) => {
-        const cat = FAQ_CATEGORIES.find(c => c.label === catLabel);
-        const catItems = groups[catLabel] || [];
-        return (
-          <div key={catLabel} className="mb-8">
-            {/* Category header */}
-            <div className="mb-3 flex items-center gap-2">
-              <span className="text-base">{cat?.emoji ?? '💬'}</span>
-              <span className="font-heading text-xs font-bold uppercase tracking-widest text-gray-400">{catLabel}</span>
-              <div className="flex-1 border-t border-gray-100" />
-            </div>
-
-            <div className="grid gap-2">
-              {catItems.map((item, idx) => {
-                const key = catLabel + idx;
-                const isOpen = openKey === key;
-                const isPricing = catLabel === 'Pricing & Inclusions';
-                return (
-                  <Reveal key={item.q} delay={idx * 40}>
-                    <div className={`overflow-hidden rounded-2xl border transition-all duration-200 ${
-                      isOpen && isPricing ? 'border-[#E86C2F]/30 bg-orange-50 shadow-md' :
-                      isOpen ? 'border-gray-200 bg-white shadow-md' :
-                      'border-gray-100 bg-white shadow-card hover:border-gray-200 hover:shadow-md'
-                    }`}>
-                      <button
-                        onClick={() => setOpenKey(isOpen ? null : key)}
-                        className="flex w-full items-center justify-between gap-4 p-5 text-left"
-                      >
-                        <span className={`font-heading font-semibold leading-snug ${isOpen && isPricing ? 'text-[#E86C2F]' : 'text-[#1A1A2E]'}`}>
-                          {item.q}
-                        </span>
-                        <span
-                          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
-                            isOpen ? (isPricing ? 'bg-[#E86C2F] text-white' : 'bg-[#1A1A2E] text-white') : 'bg-gray-100 text-gray-400'
-                          }`}
-                          style={{ transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)' }}
-                        >
-                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                            <path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                          </svg>
-                        </span>
-                      </button>
-                      <div style={{
-                        maxHeight: isOpen ? '400px' : '0',
-                        opacity: isOpen ? 1 : 0,
-                        transition: 'max-height 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease',
-                        overflow: 'hidden',
-                      }}>
-                        <p className={`px-5 pb-5 leading-7 text-sm ${isPricing && isOpen ? 'text-orange-900/80' : 'text-gray-600'}`}>
-                          {item.a}
-                        </p>
-                      </div>
-                    </div>
-                  </Reveal>
-                );
-              })}
-            </div>
-          </div>
-        );
-      })}
+      {items.map((item, index) => (
+        <Reveal key={item.q} delay={index * 60}>
+          <details className="motion-card mb-4 rounded-2xl border border-gray-100 bg-white p-5 shadow-card">
+            <summary className="cursor-pointer font-heading font-semibold text-charcoal">{item.q}</summary>
+            <p className="mt-3 leading-7 text-gray-600">{item.a}</p>
+          </details>
+        </Reveal>
+      ))}
     </div>
   );
 }
 
+const TICKER_ITEMS = [
+  '🦷 Smile Studio · 31 new patients in 30 days',
+  '⭐ WhitePearl Dental · 4.9 Google rating',
+  '📅 Dr. Priya\'s Clinic · Booked out 3 weeks ahead',
+  '📈 BrightSmile Bengaluru · 2× website traffic in 60 days',
+  '💬 Nayak Dental · WhatsApp inquiries up 180%',
+  '🏆 ClearBite Clinic · #1 on Google Maps in their area',
+];
+
 export function ContactStrip() {
+  const repeated = [...TICKER_ITEMS, ...TICKER_ITEMS];
   return (
     <section className="full-bleed" id="contact-strip">
-            {/* Main CTA */}
+      {/* Ticker strip */}
+      <div
+        style={{
+          background: '#1a1a2e',
+          overflow: 'hidden',
+          padding: '10px 0',
+          borderBottom: '1px solid rgba(232,108,47,0.18)',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            gap: '3rem',
+            width: 'max-content',
+            animation: 'tickerScroll 28s linear infinite',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.animationPlayState = 'paused')}
+          onMouseLeave={(e) => (e.currentTarget.style.animationPlayState = 'running')}
+        >
+          {repeated.map((item, i) => (
+            <span
+              key={i}
+              style={{
+                whiteSpace: 'nowrap',
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                color: '#E86C2F',
+                letterSpacing: '0.01em',
+              }}
+            >
+              {item}
+              <span style={{ marginLeft: '3rem', color: 'rgba(232,108,47,0.3)' }}>·</span>
+            </span>
+          ))}
+        </div>
+        <style>{`
+          @keyframes tickerScroll {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            @keyframes tickerScroll { 0%,100% { transform: none; } }
+          }
+        `}</style>
+      </div>
+
+      {/* Main CTA */}
       <div className="gradient-pattern text-white">
         <div className="site-container py-20 md:py-28">
           <Reveal>
@@ -1205,7 +1180,7 @@ export function InfoPills() {
       title: 'Call Us',
       text: '+91 83284 43057',
       sub: 'Mon–Sat, 9 AM – 7 PM',
-      href: 'tel:+918951553531',
+      href: 'tel:+918328443057',
       color: '#1A1A2E',
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
@@ -1217,7 +1192,7 @@ export function InfoPills() {
       title: 'WhatsApp',
       text: 'Message us directly',
       sub: 'Usually replies in under 1 hour',
-      href: 'https://wa.me/918951553531?text=Hi%20Agastya%2C%20I%20run%20a%20dental%20clinic%20in%20Bangalore%20and%20would%20like%20to%20learn%20more.',
+      href: 'https://wa.me/918328443057?text=Hi%20Agastya%2C%20I%20run%20a%20dental%20clinic%20in%20Bangalore%20and%20would%20like%20to%20learn%20more.',
       color: '#25D366',
       icon: (
         <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
@@ -1227,9 +1202,9 @@ export function InfoPills() {
     },
     {
       title: 'Email',
-      text: 'kancharlaagastya@gmail.com',
+      text: 'hello@agastyaone.com',
       sub: 'We reply within 4 hours',
-      href: 'mailto:kancharlaagastya@gmail.com',
+      href: 'mailto:hello@agastyaone.com',
       color: '#E86C2F',
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
@@ -1367,8 +1342,6 @@ export function FounderCard() {
     </div>
   );
 }
-
-
 
 
 
