@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
@@ -116,6 +116,17 @@ const SERVICES: Service[] = [
 
 export function ServicesInteractive() {
   const [active, setActive] = useState<ProblemId | null>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  const handlePillClick = (id: ProblemId) => {
+    const isActive = active === id;
+    setActive(isActive ? null : id);
+    if (!isActive && gridRef.current) {
+      setTimeout(() => {
+        gridRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50); // small delay so state updates before scroll
+    }
+  };
 
   return (
     <section style={{ background: '#F8F6F3', padding: '72px 0', fontFamily: 'Inter, system-ui, sans-serif' }}>
@@ -160,7 +171,7 @@ export function ServicesInteractive() {
             return (
               <button
                 key={p.id}
-                onClick={() => setActive(isActive ? null : p.id)}
+                onClick={() => handlePillClick(p.id)}
                 style={{
                   border: isActive ? '2px solid #E86C2F' : '2px solid #E5E7EB',
                   background: isActive ? '#E86C2F' : '#fff',
@@ -183,11 +194,14 @@ export function ServicesInteractive() {
         </div>
 
         {/* Service cards — 2 cols on mobile, 3 on desktop */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: 12,
-        }}
+        <div
+          ref={gridRef}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: 12,
+            scrollMarginTop: 80,
+          }}
           className="services-grid"
         >
           {SERVICES.map((svc) => {
