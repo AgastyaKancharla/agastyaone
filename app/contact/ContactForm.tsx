@@ -78,9 +78,11 @@ export function ContactForm() {
   }
 
   const chipBase: React.CSSProperties = {
-    border: '1.5px solid #E5E7EB', borderRadius: 8, padding: '6px 10px',
-    fontSize: 11.5, fontWeight: 600, cursor: 'pointer', transition: 'all 0.15s',
+    border: '1.5px solid #E5E7EB', borderRadius: 8, padding: '6px 8px',
+    fontSize: 11, fontWeight: 600, cursor: 'pointer', transition: 'all 0.15s',
     background: '#fff', color: '#6B7280', textAlign: 'center',
+    minWidth: 0, width: '100%', overflow: 'hidden', whiteSpace: 'normal',
+    wordBreak: 'break-word', lineHeight: 1.3,
   };
   const chipActive: React.CSSProperties = {
     ...chipBase, borderColor: '#E86C2F', background: '#FFF7F3', color: '#E86C2F',
@@ -174,4 +176,5 @@ export function ContactForm() {
     </form>
   );
 }
+
 
