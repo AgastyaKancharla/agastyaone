@@ -87,7 +87,7 @@ export default function ContactPage() {
                   <div style={{ width: 36, height: 36, borderRadius: 10, background: 'rgba(232,108,47,0.1)', border: '1px solid rgba(232,108,47,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, flexShrink: 0 }}>
                     {step.icon}
                   </div>
-                  <div>
+                  <div style={{ minWidth: 0, flex: 1 }}>
                     <div style={{ color: '#fff', fontSize: 13, fontWeight: 700, marginBottom: 3 }}>{step.title}</div>
                     <div style={{ color: 'rgba(255,255,255,0.45)', fontSize: 12, lineHeight: 1.6 }}>{step.body}</div>
                   </div>
@@ -98,9 +98,9 @@ export default function ContactPage() {
             {/* Reassurances */}
             <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 24, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
               {REASSURANCES.map((r, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ fontSize: 14 }}>{r.icon}</span>
-                  <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: 11, fontWeight: 500 }}>{r.text}</span>
+                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, minWidth: 0 }}>
+                  <span style={{ fontSize: 14, flexShrink: 0 }}>{r.icon}</span>
+                  <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: 11, fontWeight: 500, minWidth: 0, lineHeight: 1.5 }}>{r.text}</span>
                 </div>
               ))}
             </div>
@@ -183,4 +183,5 @@ export default function ContactPage() {
     </div>
   );
 }
+
 
