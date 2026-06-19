@@ -442,7 +442,7 @@ export function localBusinessSchema() {
     name: 'AgastyaOne',
     description: 'Dental digital solutions in Bengaluru — websites, CRM, SEO and automation for dental clinics',
     url: 'https://agastyaone.com',
-    email: 'hello@agastyaone.com',
+    email: 'kancharlaagastya@gmail.com',
     telephone: '+91-8951553531',
     address: {
       '@type': 'PostalAddress',
