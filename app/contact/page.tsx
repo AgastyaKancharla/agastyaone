@@ -54,12 +54,13 @@ export default function ContactPage() {
         display: 'grid',
         gridTemplateColumns: '1fr',
         minHeight: '100vh',
+        overflowX: 'hidden',
       }} className="contact-grid">
 
         {/* LEFT — Why book */}
         <div style={{
           background: '#1A1A2E',
-          padding: 'clamp(2rem,6vw,4rem)',
+          padding: 'clamp(1.25rem,6vw,4rem)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -110,7 +111,7 @@ export default function ContactPage() {
               <div>
                 <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 11 }}>Prefer to message directly?</div>
                 <a href="https://wa.me/918951553531" target="_blank" rel="noopener noreferrer" style={{ color: '#25D366', fontSize: 13, fontWeight: 700, textDecoration: 'none' }}>
-                  WhatsApp +91 83284 43057 →
+                  WhatsApp +91 89515 53531 →
                 </a>
               </div>
             </div>
@@ -121,7 +122,7 @@ export default function ContactPage() {
         {/* RIGHT — Compact form */}
         <div style={{
           background: '#F8F6F3',
-          padding: 'clamp(2rem,6vw,4rem)',
+          padding: 'clamp(1.25rem,6vw,4rem)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -182,3 +183,4 @@ export default function ContactPage() {
     </div>
   );
 }
+
