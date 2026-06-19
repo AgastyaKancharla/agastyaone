@@ -110,7 +110,7 @@ export function ContactForm() {
       {/* Service interest */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
         <span style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>What are you most interested in?</span>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(120px,1fr))', gap: 6 }}>
+        <div className="grid grid-cols-2 sm:grid-cols-3" style={{ gap: 6 }}>
           {services.map(s => (
             <button type="button" key={s} onClick={() => setSelectedService(s)}
               style={selectedService === s ? chipActive : chipBase}>
@@ -136,7 +136,7 @@ export function ContactForm() {
       {/* Time slots — compact 4-col grid */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
         <span style={{ fontSize: 12, fontWeight: 600, color: '#374151' }}>Preferred Time</span>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 6 }}>
+        <div className="grid grid-cols-2 sm:grid-cols-4" style={{ gap: 6 }}>
           {timeSlots.map(slot => (
             <button type="button" key={slot} onClick={() => setSelectedSlot(slot)}
               style={selectedSlot === slot ? chipActive : chipBase}>
@@ -174,3 +174,4 @@ export function ContactForm() {
     </form>
   );
 }
+
