@@ -80,7 +80,7 @@ export function GlobalActions() {
 
           {/* Email */}
           <a
-            href="mailto:hello@agastyaone.com"
+            href="mailto:kancharlaagastya@gmail.com"
             aria-label="Email AgastyaOne"
             className="flex items-center gap-2 rounded-full bg-[#E86C2F] px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:bg-orange-600"
           >
