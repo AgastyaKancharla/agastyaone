@@ -1227,9 +1227,9 @@ export function InfoPills() {
     },
     {
       title: 'Email',
-      text: 'hello@agastyaone.com',
+      text: 'kancharlaagastya@gmail.com',
       sub: 'We reply within 4 hours',
-      href: 'mailto:hello@agastyaone.com',
+      href: 'mailto:kancharlaagastya@gmail.com',
       color: '#E86C2F',
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
