@@ -52,9 +52,11 @@ export default function ContactPage() {
       {/* ── Full page two-column layout ── */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: '1fr',
+        gridTemplateColumns: 'minmax(0,1fr)',
         minHeight: '100vh',
         overflowX: 'hidden',
+        width: '100%',
+        maxWidth: '100vw',
       }} className="contact-grid">
 
         {/* LEFT — Why book */}
@@ -64,6 +66,8 @@ export default function ContactPage() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
+          minWidth: 0,
+          width: '100%',
         }}>
           <div style={{ maxWidth: 480, margin: '0 auto', width: '100%' }}>
 
@@ -126,8 +130,10 @@ export default function ContactPage() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
+          minWidth: 0,
+          width: '100%',
         }}>
-          <div style={{ maxWidth: 520, margin: '0 auto', width: '100%' }}>
+          <div style={{ maxWidth: 520, margin: '0 auto', width: '100%', minWidth: 0 }}>
             <h2 style={{ fontFamily: 'Poppins,sans-serif', fontSize: 22, fontWeight: 700, color: '#1A1A2E', margin: '0 0 6px' }}>
               Pick a time that works for you
             </h2>
@@ -183,5 +189,6 @@ export default function ContactPage() {
     </div>
   );
 }
+
 
 
