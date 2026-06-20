@@ -77,6 +77,8 @@ export function ContactForm() {
     );
   }
 
+  // Base style for chips inside CSS GRID containers (service interest, time slots)
+  // width:100% fills the grid cell; minWidth:0 lets it shrink below content size
   const chipBase: React.CSSProperties = {
     border: '1.5px solid #E5E7EB', borderRadius: 8, padding: '6px 8px',
     fontSize: 11, fontWeight: 600, cursor: 'pointer', transition: 'all 0.15s',
@@ -86,6 +88,15 @@ export function ContactForm() {
   };
   const chipActive: React.CSSProperties = {
     ...chipBase, borderColor: '#E86C2F', background: '#FFF7F3', color: '#E86C2F',
+  };
+
+  // Date chips sit in a FLEX-WRAP row, not a grid — they must size to their own
+  // content (auto width), not stretch to 100%, or every pill stacks on its own line
+  const dateChipBase: React.CSSProperties = {
+    ...chipBase, width: 'auto', flex: '0 0 auto', padding: '8px 14px',
+  };
+  const dateChipActive: React.CSSProperties = {
+    ...dateChipBase, borderColor: '#E86C2F', background: '#FFF7F3', color: '#E86C2F',
   };
 
   return (
@@ -128,7 +139,7 @@ export function ContactForm() {
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
           {availableDates.map(d => (
             <button type="button" key={d.value} onClick={() => setSelectedDate(d.label)}
-              style={selectedDate === d.label ? chipActive : chipBase}>
+              style={selectedDate === d.label ? dateChipActive : dateChipBase}>
               {d.label}
             </button>
           ))}
@@ -176,5 +187,6 @@ export function ContactForm() {
     </form>
   );
 }
+
 
 
