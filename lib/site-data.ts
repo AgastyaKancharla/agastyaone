@@ -441,7 +441,7 @@ export function localBusinessSchema() {
     '@type': 'LocalBusiness',
     name: 'AgastyaOne',
     description: 'Dental digital solutions in Bengaluru — websites, CRM, SEO and automation for dental clinics',
-    url: 'https://agastyaone.com',
+    url: 'https://agastyaone.vercel.app',
     email: 'kancharlaagastya@gmail.com',
     telephone: '+91-8951553531',
     address: {
@@ -458,7 +458,7 @@ export function localBusinessSchema() {
       longitude: '77.5717'
     },
     areaServed: ['Koramangala', 'Indiranagar', 'Jayanagar', 'HSR Layout', 'Whitefield', 'J. P. Nagar', 'Bengaluru'],
-    sameAs: ['https://agastyaone.com']
+    sameAs: ['https://agastyaone.vercel.app']
   };
 }
 
