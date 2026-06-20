@@ -2,9 +2,6 @@ import type { MetadataRoute } from 'next';
 import { allPages } from '@/lib/site-data';
 import { getPosts } from '@/lib/blog';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = 'https://agastyaone.vercel.app';
 
@@ -30,3 +27,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [...pageUrls, ...staticUrls, ...blogUrls];
 }
+
