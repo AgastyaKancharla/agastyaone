@@ -159,8 +159,8 @@ export default function ContactPage() {
       <Section title="Find Us in Bengaluru">
         <div className="motion-card overflow-hidden rounded-brand bg-white shadow-card">
           <iframe
-            title="JP Nagar Bengaluru map"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5858945508!2d77.5691!3d12.9082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15055eb5b0ed%3A0x2e9b8a4f4c1c1234!2sKumaraswamy%20Layout%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1234567890"
+            title="AgastyaOne — Nayak Layout, 8th Phase, JP Nagar, Bengaluru"
+            src="https://maps.google.com/maps?q=Nayak+Layout+8th+Phase+JP+Nagar+Bengaluru+Karnataka+560076&output=embed&z=16"
             width="100%"
             height="360"
             style={{ border: 0, borderRadius: '12px' }}
