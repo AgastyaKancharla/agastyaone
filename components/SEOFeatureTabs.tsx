@@ -283,11 +283,30 @@ export function SEOFeatureTabs() {
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
   }, [paused]);
 
+  // Scroll the active tab button into view WITHIN the horizontal tab bar only.
+  // scrollIntoView() is intentionally avoided here — even with block:'nearest' it
+  // can trigger the nearest scrollable ANCESTOR, which on some layouts ends up
+  // being the page itself, causing the whole page to jump back to this section
+  // every time `active` changes (every 5s from the auto-rotate interval).
+  // container.scrollTo() only ever scrolls the tab bar's own scroll box, so the
+  // page's vertical scroll position is never touched.
   useEffect(() => {
     const container = tabsRef.current;
     if (!container) return;
     const activeBtn = container.children[active] as HTMLElement;
-    if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    if (!activeBtn) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const btnRect = activeBtn.getBoundingClientRect();
+
+    const offset =
+      btnRect.left - containerRect.left -
+      (containerRect.width / 2) + (btnRect.width / 2);
+
+    container.scrollTo({
+      left: container.scrollLeft + offset,
+      behavior: 'smooth',
+    });
   }, [active]);
 
   const handleTab = (i: number) => {
@@ -395,3 +414,4 @@ export function SEOFeatureTabs() {
     </div>
   );
 }
+
