@@ -79,14 +79,29 @@ export function AppointmentFeatureTabs() {
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
   }, [paused]);
 
-  // Scroll active tab into view
+  // Scroll the active tab into view WITHIN the horizontal tab bar only.
+  // scrollIntoView() avoided — it can target the nearest scrollable ANCESTOR
+  // instead of this tab bar, which on some layouts ends up being the page
+  // itself, snapping the whole page back to this section every time `active`
+  // changes (every 4s from the auto-rotate interval). container.scrollTo()
+  // only ever moves the tab bar's own scroll box.
   useEffect(() => {
     const container = tabsRef.current;
     if (!container) return;
     const activeBtn = container.children[active] as HTMLElement;
-    if (activeBtn) {
-      activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    }
+    if (!activeBtn) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const btnRect = activeBtn.getBoundingClientRect();
+
+    const offset =
+      btnRect.left - containerRect.left -
+      (containerRect.width / 2) + (btnRect.width / 2);
+
+    container.scrollTo({
+      left: container.scrollLeft + offset,
+      behavior: 'smooth',
+    });
   }, [active]);
 
   const handleTabClick = (i: number) => {
@@ -256,3 +271,4 @@ export function AppointmentFeatureTabs() {
     </div>
   );
 }
+
