@@ -27,11 +27,11 @@ const GA_ID = 'G-541227762';
 export const metadata: Metadata = {
   metadataBase: new URL('https://agastyaone.vercel.app'),
   title: {
-    default: 'AgastyaOne | Dental Digital Solutions in Bengaluru',
+    default: 'AgastyaOne | Practice Growth Systems for Dental Clinics in Bengaluru',
     template: '%s'
   },
   description:
-    'Websites, CRM, SEO and automation for dental clinics in Bengaluru. Built by someone who has built real dental systems. Book a free 30 min call.',
+    'AgastyaOne builds the booking system, Google visibility, and WhatsApp follow-up that fills a dental chair — built exclusively for dental clinics in Bengaluru (Bangalore). Proven on a real clinic.',
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '16x16', type: 'image/x-icon' },
@@ -43,24 +43,24 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: 'AgastyaOne',
-    title: 'AgastyaOne | Dental Digital Solutions in Bengaluru',
+    title: 'AgastyaOne | Practice Growth Systems for Dental Clinics in Bengaluru',
     description:
-      'Websites, CRM, SEO and automation for dental clinics in Bengaluru. Built by someone who has built real dental systems.',
+      'AgastyaOne builds the booking system, Google visibility, and WhatsApp follow-up that fills a dental chair — built exclusively for dental clinics in Bengaluru (Bangalore).',
     url: 'https://agastyaone.vercel.app',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'AgastyaOne — Dental Digital Solutions in Bengaluru'
+        alt: 'AgastyaOne — Practice Growth Systems for Dental Clinics in Bengaluru'
       }
     ]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AgastyaOne | Dental Digital Solutions in Bengaluru',
+    title: 'AgastyaOne | Practice Growth Systems for Dental Clinics in Bengaluru',
     description:
-      'Websites, CRM, SEO and automation for dental clinics in Bengaluru.',
+      'Practice growth systems built exclusively for dental clinics in Bengaluru. Get Found. Get Booked. Get Them Back.',
     images: ['/og-image.png']
   }
 };
@@ -79,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@context': 'https://schema.org',
               '@type': 'LocalBusiness',
               name: 'AgastyaOne',
-              description: 'Dental digital solutions in Bengaluru — websites, CRM, SEO and automation for dental clinics',
+              description: 'Practice growth systems for dental clinics in Bengaluru — booking systems, Google visibility, and WhatsApp follow-up built exclusively for dentists',
               url: 'https://agastyaone.vercel.app',
               email: 'kancharlaagastya@gmail.com',
               telephone: '+91-8951553531',
