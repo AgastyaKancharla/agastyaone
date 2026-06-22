@@ -138,22 +138,46 @@ export function Hero({
   const [panelIdx, setPanelIdx] = React.useState(0);
   const displaySubtitle = subtitle;
 
-  // Hero headline rendered with semantic line breaks for clean wrapping on all screen sizes
-  const HeroHeadline = () => (
-    <h1
-      className="font-heading font-black leading-tight tracking-tight text-[#1A1A2E]"
-      style={{ fontSize: 'clamp(1.75rem, 8vw, 4.5rem)' }}
-    >
-      We Help Bengaluru{' '}
-      <span className="bg-gradient-to-r from-[#E86C2F] to-[#f59e0b] bg-clip-text text-transparent">
-        Dental Clinics
-      </span>
-      <br />
-      Rank Higher, Get More Reviews
-      <br />
-      &amp; Book More Patients
-    </h1>
-  );
+  // Hero headline — home page gets explicit line breaks + orange highlight
+  // All other pages use their own page.h1, highlighting "Dental Clinics" if present
+  const HeroHeadline = () => {
+    if (slug === '') {
+      return (
+        <h1
+          className="font-heading font-black leading-tight tracking-tight text-[#1A1A2E]"
+          style={{ fontSize: 'clamp(1.75rem, 8vw, 4.5rem)' }}
+        >
+          We Help Bengaluru{' '}
+          <span className="bg-gradient-to-r from-[#E86C2F] to-[#f59e0b] bg-clip-text text-transparent">
+            Dental Clinics
+          </span>
+          <br />
+          Rank Higher, Get More Reviews
+          <br />
+          &amp; Book More Patients
+        </h1>
+      );
+    }
+    // Service pages — use their own h1, highlight "Dental Clinics" if present
+    return (
+      <h1
+        className="font-heading font-black leading-tight tracking-tight text-[#1A1A2E]"
+        style={{ fontSize: 'clamp(1.6rem, 6vw, 3.75rem)' }}
+      >
+        {highlightedTitle.length > 1 ? (
+          <>
+            {highlightedTitle[0]}
+            <span className="bg-gradient-to-r from-[#E86C2F] to-[#f59e0b] bg-clip-text text-transparent">
+              Dental Clinics
+            </span>
+            {highlightedTitle[1]}
+          </>
+        ) : (
+          title
+        )}
+      </h1>
+    );
+  };
 
   return (
     <section className="full-bleed overflow-hidden bg-gradient-to-br from-[#F8F6F3] to-white">
