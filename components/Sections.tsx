@@ -1256,7 +1256,7 @@ export function InfoPills() {
   const contacts = [
     {
       title: 'Call Us',
-      text: '+91 83284 43057',
+      text: '+91 89515 53531',
       sub: 'Mon–Sat, 9 AM – 7 PM',
       href: 'tel:+918951553531',
       color: '#1A1A2E',

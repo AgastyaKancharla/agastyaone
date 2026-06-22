@@ -253,7 +253,7 @@ export function Header() {
           <a href="tel:+918951553531"
             className="flex items-center gap-3 rounded-xl border border-gray-200 px-4 py-3.5 text-sm font-medium text-charcoal transition hover:border-saffron hover:text-saffron">
             <Phone size={17} className="shrink-0 text-saffron" />
-            +91 83284 43057
+            +91 89515 53531
           </a>
           <a href={`https://wa.me/${WA_NUMBER}?text=${WA_MESSAGE}`} target="_blank" rel="noopener noreferrer"
             className="flex items-center gap-3 rounded-xl border border-gray-200 px-4 py-3.5 text-sm font-medium text-charcoal transition hover:border-[#25D366] hover:text-[#25D366]">

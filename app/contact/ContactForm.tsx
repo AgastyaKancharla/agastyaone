@@ -181,7 +181,7 @@ export function ContactForm() {
 
       {status === 'error' && (
         <p style={{ background: '#FEF2F2', borderRadius: 8, padding: '12px', fontSize: 13, color: '#DC2626' }}>
-          Something went wrong. WhatsApp us at <a href="https://wa.me/918951553531" style={{ fontWeight: 700 }}>+91 83284 43057</a>
+          Something went wrong. WhatsApp us at <a href="https://wa.me/918951553531" style={{ fontWeight: 700 }}>+91 89515 53531</a>
         </p>
       )}
     </form>

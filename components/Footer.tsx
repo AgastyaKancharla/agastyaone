@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Reveal } from './Reveal';
 
 const NAP_ADDRESS = 'Nayak Layout, 8th Phase, J. P. Nagar, Bengaluru, Karnataka 560076';
-const NAP_PHONE = '+91 83284 43057';
+const NAP_PHONE = '+91 89515 53531';
 const NAP_PHONE_HREF = 'tel:+918951553531';
 const WA_HREF =
   'https://wa.me/918951553531?text=' +
