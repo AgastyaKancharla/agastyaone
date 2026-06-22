@@ -158,9 +158,14 @@ export function Hero({
         </h1>
       );
     }
-    // Service pages — highlight "Dental Clinics", "Dental Clinic's", or "Bengaluru" if present
-    const highlightTerms = ["Dental Clinics", "Dental Clinic's"];
-    let matchedTerm = highlightTerms.find(term => title.includes(term));
+    // Service pages — highlight the first matching key term in orange
+    const highlightTerms = [
+      "Dental Clinic's",
+      "Dental Clinics",
+      "Bengaluru",
+      "Bangalore",
+    ];
+    const matchedTerm = highlightTerms.find(term => title.includes(term));
     const parts = matchedTerm ? title.split(matchedTerm) : null;
 
     return (
