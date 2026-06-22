@@ -158,19 +158,23 @@ export function Hero({
         </h1>
       );
     }
-    // Service pages — use their own h1, highlight "Dental Clinics" if present
+    // Service pages — highlight "Dental Clinics", "Dental Clinic's", or "Bengaluru" if present
+    const highlightTerms = ["Dental Clinics", "Dental Clinic's"];
+    let matchedTerm = highlightTerms.find(term => title.includes(term));
+    const parts = matchedTerm ? title.split(matchedTerm) : null;
+
     return (
       <h1
         className="font-heading font-black leading-tight tracking-tight text-[#1A1A2E]"
         style={{ fontSize: 'clamp(1.6rem, 6vw, 3.75rem)' }}
       >
-        {highlightedTitle.length > 1 ? (
+        {parts ? (
           <>
-            {highlightedTitle[0]}
+            {parts[0]}
             <span className="bg-gradient-to-r from-[#E86C2F] to-[#f59e0b] bg-clip-text text-transparent">
-              Dental Clinics
+              {matchedTerm}
             </span>
-            {highlightedTitle[1]}
+            {parts[1]}
           </>
         ) : (
           title
