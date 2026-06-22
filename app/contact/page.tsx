@@ -36,16 +36,6 @@ export default function ContactPage() {
   return (
     <div style={{ background: '#F8F6F3' }}>
 
-      {/* What happens on the call */}
-      <Section title="What Happens On The Call" tint>
-        <Steps steps={[
-          'You Tell Us About Your Business — We understand where you are and what is blocking growth',
-          'We Review Your Online Presence — We look at your website, Google profile and visibility before the call',
-          'We Tell You Honestly What We See — Clear observations without jargon or pressure',
-          'We Discuss Next Steps — You leave with clarity whether you become a client or not',
-        ]} />
-      </Section>
-
       {/* Two-column booking form */}
       <div id="booking" style={{ scrollMarginTop: 80 }}>
 
