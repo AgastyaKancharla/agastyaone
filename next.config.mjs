@@ -7,6 +7,22 @@ const withMDX = createMDX({
 export default withMDX({
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   trailingSlash: false,
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'agastyaone.vercel.app' }],
+        destination: 'https://agastyaone.com/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.agastyaone.com' }],
+        destination: 'https://agastyaone.com/:path*',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
