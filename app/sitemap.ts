@@ -3,7 +3,7 @@ import { allPages } from '@/lib/site-data';
 import { getPosts } from '@/lib/blog';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = 'https://agastyaone.vercel.app';
+  const base = 'https://agastyaone.com';
 
   const pageUrls = allPages.map((page) => ({
     url: page.slug === '' ? base : `${base}/${page.slug}`,
