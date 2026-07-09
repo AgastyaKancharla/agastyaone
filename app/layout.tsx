@@ -25,7 +25,7 @@ const poppins = Poppins({
 const GA_ID = 'G-541227762';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://agastyaone.vercel.app'),
+  metadataBase: new URL('https://agastyaone.com'),
   title: {
     default: 'AgastyaOne | Practice Growth Systems for Dental Clinics in Bengaluru',
     template: '%s'
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: 'AgastyaOne | Practice Growth Systems for Dental Clinics in Bengaluru',
     description:
       'AgastyaOne builds the booking system, Google visibility, and WhatsApp follow-up that fills a dental chair — built exclusively for dental clinics in Bengaluru (Bangalore).',
-    url: 'https://agastyaone.vercel.app',
+    url: 'https://agastyaone.com',
     images: [
       {
         url: '/og-image.png',
@@ -80,7 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@type': 'LocalBusiness',
               name: 'AgastyaOne',
               description: 'Practice growth systems for dental clinics in Bengaluru — booking systems, Google visibility, and WhatsApp follow-up built exclusively for dentists',
-              url: 'https://agastyaone.vercel.app',
+              url: 'https://agastyaone.com',
               email: 'kancharlaagastya@gmail.com',
               telephone: '+91-8951553531',
               address: {
@@ -105,7 +105,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 'J. P. Nagar',
                 'Bengaluru'
               ],
-              sameAs: ['https://agastyaone.vercel.app']
+              sameAs: ['https://agastyaone.com']
             })
           }}
         />
